@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loe-Life – Loyalty Over Everything, Lifestyle, Apparel, Fitness & Mindest</title>
+
+  <!-- Core SEO -->
+  <meta name="description" content="Loyalty Over Everything, Lifestyle, Apparel, Fitness & Mindest." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://loe-life.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Loe-Life" />
+  <meta property="og:title" content="Loe-Life – Loyalty Over Everthing: Fitness & Mindest" />
+  <meta property="og:description" content="Fitness + Mindest + Apparel." />
+  <meta property="og:image" content="https://loe-life.com/images/bg4.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://loe-life.com/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://loe-life.com/images/bg4.png" />
+
+  <!-- Icons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Preload brand background -->
+  <link rel="preload" as="image" href="https://loe-life.com/images/bg1.png" />
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Loe-Life",
+    "url": "https://loe-life.com",
+    "logo": "https://loe-life.com/images/bg1.png",
+    "image": "https://loe-life.com/images/social-preview.png",
+    "sameAs": [
+      "https://loe-life.com",
+      "https://loe-life.com/shop"
+    ]
+  }
+  </script>
+
+  <!-- WebSite + SearchAction (helps assistants & voice search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Loe-Life",
+    "url": "https://loe-life.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://loe-life.com/shop/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- FAQ block tuned for voice-style questions -->
+ <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is LOE-Life?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LOE-Life is a fitness and mindset apparel brand built around resilience, discipline, and personal growth. Our designs reflect strength, grit, and the drive to push forward."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of products do you offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LOE-Life offers apparel and accessories designed for training, everyday wear, and mental performance. Styles and product lines may evolve as the brand grows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you release limited or seasonal drops?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. LOE-Life may offer limited releases, seasonal styles, or exclusive drops depending on demand and upcoming collections."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I stay updated on new releases?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can follow LOE-Life on social platforms or check the website for updates on new designs, drops, and brand announcements."
+      }
+    }
+  ]
+}
+</script>
+  <!-- Samsung QR NUL guard -->
+  <script>
+    (function() {
+      const path = window.location.pathname;
+      if (path.includes('%00') || path.includes('\\0')) {
+        window.location.replace("https://loe-life.com/");
+      }
+    })();
+  </script>
+</head>
+<style>
+  :root {
+    --bg-deep: #00000000;
+    --ink: #f7f7f7;
+    --muted: #b0b0b0;
+    --accent-orange: #f57c00;
+    --accent-orangesoft: #d46b08d5;
+    --accent-green: #66bb6a;
+    --accent-green-dark: #4a7c27;
+    --accent-red: #e53935;
+    --accent-redsoft: #c93330d5;
+    --accent-red-dark: #7c1513;
+    --accent-slate: #959595dc;
+    --accent-slate-dark: #6d6d6dd6;
+    --accent-vanta: #000000;
+    --accent-vantatrans: #ffffffa9;
+
+    --card: rgba(20,20,30,0.55);
+    --card-strong: rgba(15,15,25,0.78);
+    --card-border: rgba(255,255,255,0.14);
+    --row-alt: rgba(10,10,18,0.75);
+
+    --radius-sm: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 18px 45px rgba(0,0,0,0.65);
+    --accent-glow: 0 0 0 1px rgba(245,124,0,0.35), 0 18px 40px rgba(0,0,0,0.8);
+
+    --maxw: 1100px;
+    --header-h: 56px;
+    --banner: #00001b63;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-deep);
+    scroll-behavior: smooth;
+    color: var(--ink);
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* Background */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    filter: saturate(1.05) brightness(.9);
+    transform: translateZ(0) scale(1.02);
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(18px) saturate(150%);
+    background: linear-gradient(90deg, rgba(10,10,18,0.82), rgba(10,10,18,0.6));
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
+
+  .nav {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: var(--accent-glow);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .brand strong {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  }
+
+  nav ul {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  .link {
+    padding: 7px 11px;
+    border-radius: 12px;
+    color: var(--muted);
+    border: 1px solid transparent;
+    background: rgba(10,10,20,0.35);
+    backdrop-filter: blur(12px);
+    font-size: 0.9rem;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  }
+
+  .link:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.28);
+    background: rgba(20,20,40,0.7);
+    transform: translateY(-1px);
+  }
+
+  .header-cta {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+    color: #1b1308;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    backdrop-filter: blur(16px);
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .header-cta:hover {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-redsoft));
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  /* Scrolling banner */
+  .banner {
+    overflow: hidden;
+    background: var(--banner);
+    color: var(--ink);
+    padding: 8px 0;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .banner-inner {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 32s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* Hero */
+  main {
+    max-width: var(--maxw);
+    margin: 24px auto 32px;
+    padding: 0 16px 24px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 26px 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+
+  .kicker {
+    color: var(--accent-redsoft);
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: .8rem;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
+    line-height: 1.1;
+    margin: .4rem 0 .8rem;
+  }
+
+  .outlined {
+    color: #ffffffdc;
+    -webkit-text-stroke: 1px #ffffff10;
+    text-stroke: 1px #ffffff10;
+    text-shadow:
+      -1px -1px 0 #ffffff10,
+       1px -1px 0 #ffffff10,
+      -1px  1px 0 #ffffff10,
+       1px  1px 0 #ffffff10;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .badges {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: .8rem;
+    color: var(--accent-slate);
+    background: var(--accent-red-dark);
+    border: 1px solid #ffffff22;
+    box-shadow:0 6px 18px var(--accent-red);
+  }
+
+  .pill.alt {
+    color: #0a0f08;
+    background: var(--accent-slate);
+  }
+
+  .hero-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid #ffffff1f;
+    background: #ffffff0f;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    transition: transform .15s ease, background .2s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    background: #ffffff1a;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+    border-color: rgba(255,255,255,0.28);
+  }
+
+  .btn.primary {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+    color: #1b1308;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    backdrop-filter: blur(16px);
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn.primary:hover {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-redsoft));
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+      .btn.secondary {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+    color: #1b1308;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 14px 30px rgb(0, 0, 0);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    backdrop-filter: blur(16px);
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn.secondary:hover {
+    background: linear-gradient(185deg,  var(--accent-slate), var(--accent-redsoft));
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  /* Gallery */
+  .hero-gallery {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    background: rgba(15,15,25,0.7);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 360px;
+    height: 360px;
+  }
+
+  .rail {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 100%;
+  }
+
+  .rail::-webkit-scrollbar { display: none; }
+
+  .tile {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    border: 1px solid #ffffff1a;
+    background: #141414;
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .95;
+    transition: .25s;
+  }
+
+  .tile:hover img {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+
+  .tile .label {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #161616cc;
+    border: 1px solid #ffffff22;
+    color: #fff;
+    font-size: .8rem;
+  }
+
+  .gallery-controls {
+    position: absolute;
+    inset: auto 10px 10px auto;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  .ctrl {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #161616cc;
+    border: 1px solid #ffffff2a;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  }
+
+  .ctrl:hover {
+    background: #161616e0;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.6);
+  }
+
+  /* Section + Menu */
+  .section {
+    margin: 24px auto 0;
+    padding: 0 0 8px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px 18px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+    .card-flex {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px 18px;
+    box-shadow:0 8px 16px var(--shadow);
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+  
+
+  .section h2 {
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+  }
+
+/* Menu subtitle */
+.menu-sub {
+  color: var(--muted);
+  font-size: 0.98rem;
+  margin-bottom: 14px;
+}
+
+/* Glass menu grid for all products */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+
+/* Product image — uniform height for all 4 cards */
+.menu-img {
+  width: 100%;
+  height: 190px; /* unified height */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  margin-bottom: 10px;
+}
+
+/* PRODUCT CARD — frosted glass + fixed price alignment */
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* keeps price row at bottom */
+  height: 100%;
+
+  /* Frosted glass background */
+  background: rgba(20,20,30,0.45);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.7);
+
+  gap: 10px; /* cleaner spacing */
+}
+
+/* Header row */
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+
+  min-height: 42px; /* forces consistent header height */
+}
+
+.menu-item-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.menu-item-tag {
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--accent-slate-dark);
+  color: var(--accent-glow);
+  border: 1px solid var(--accent-slate);
+  white-space: nowrap;
+}
+
+/* Description — grows but does NOT push price row down */
+.menu-item-desc {
+  font-size: 0.9rem;
+  color: var(--ink);
+  flex-grow: 1; /* THIS is the key */
+}
+
+/* Price row — fixed at bottom */
+.menu-item-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.menu-item-price {
+  font-weight: 700;
+  color: #ffd180;
+}
+
+.menu-item-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .list {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  .list li {
+    margin: .4em 0;
+  }
+
+  .small {
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  .order-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .order-cta a {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+    color: #1b1308;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    backdrop-filter: blur(16px);
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  .order-cta a:hover {
+    background: linear-gradient(135deg, var(--accent-slate), var(--accent-redsoft));
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.9);
+    border-color: rgba(255,255,255,0.35);
+  }
+
+  /* Contact modal */
+  .contact-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+  }
+
+  .contact-hidden {
+    display: none;
+  }
+
+  .contact-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(2px);
+  }
+
+  .contact-card {
+    position: relative;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 520px;
+    width: calc(100% - 32px);
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    color: var(--ink);
+    padding: 20px 22px;
+    backdrop-filter: blur(20px) saturate(150%);
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px 0 8px;
+    flex-wrap: nowrap;
+  }
+
+  .contact-email {
+    flex: 1;
+    color: #fff;
+    font-weight: 700;
+    word-break: break-all;
+    border-bottom: 1px dashed #ffffff22;
+  }
+
+  .contact-copy {
+    margin-left: 12px;
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 10px;
+    border: 1px solid #ffffff1f;
+    background: #ffffff10;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease, transform .15s ease;
+  }
+
+  .contact-copy:hover {
+    background: #ffffff1a;
+    transform: translateY(-1px);
+  }
+
+  .contact-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .contact-toast {
+    margin-top: 10px;
+    background: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity .25s ease;
+    pointer-events: none;
+  }
+
+  .contact-toast.show {
+    opacity: 1;
+  }
+
+  .body-lock {
+    overflow: hidden;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 10px 0 20px;
+    padding: 10px 16px 0;
+  }
+
+  .links {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .links a {
+    color: var(--accent-slate);
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 4px 10px;
+    background: rgba(10,10,20,0.4);
+    border: 1px solid transparent;
+    backdrop-filter: blur(10px);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .links a:hover {
+    background: rgba(20,20,40,0.8);
+    border-color: rgba(255,255,255,0.25);
+    transform: translateY(-1px);
+  }
+
+  .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    .hero-gallery {
+      margin-top: 10px;
+    }
+    .gallery-wrap {
+      max-width: 100%;
+      height: 320px;
+      overflow: hidden;
+    }
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+    .brand {
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+    nav ul li {
+      width: auto;
+      flex: 0 0 auto;
+    }
+     /* make ONLY the CTA full width */
+  nav ul li:last-child {
+    width: 80%;
+    margin-top: 10px;    
+  }
+
+    .hero-card {
+      padding: 20px 16px;
+    }
+    .gallery-wrap {
+      height: 280px;
+    }
+    .contact-card {
+      padding: 18px;
+    }
+    .header-cta {
+    width: 100%;        /* now this actually works */
+    flex: 1 1 100%;
+    max-width: 100%;
+
+    padding: 14px 18px;
+    border-radius: 12px;
+    min-width: unset;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .pill.alt {
+      max-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+
+/* FAQ Section */
+.faq details {
+  background: rgba(31, 34, 29, 0.541);
+  border: 1px solid rgba(77, 82, 75, 0.562);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.faq details:hover {
+  background: rgba(43, 23, 23, 0.644);
+  border-color: rgba(43, 23, 23, 0.85);
+}
+
+/* Remove default arrow completely */
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary::marker {
+  content: "";
+}
+
+/* Summary text */
+.faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--muted);
+  outline: none;
+  list-style: none;
+  position: relative;
+  padding-right: 28px; /* space for + icon */
+}
+
+/* Custom + icon */
+.faq summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent-redsoft);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.9;
+}
+
+/* When open, switch to – */
+.faq details[open] summary::after {
+  content: "–";
+  transform: rotate(180deg);
+}
+
+/* FAQ body text */
+.faq details p {
+  margin: 10px 0 0;
+  color: var(--accent-slate);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* ===========================
+   REVIEW GALLERY (HORIZONTAL CARDS)
+   =========================== */
+
+/* Allow the section itself to scroll horizontally */
+.section.reviews {
+  overflow: visible;
+}
+  
+.reviews .card {
+  overflow: hidden; /* keeps scrollbar inside */
+  position: relative;
+}
+/* Horizontal review rail */
+.review-rail {
+  width: 100%;              /* instead of max-content */
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.review-rail::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Review card */
+.review-item {
+  flex: 0 0 260px; /* card width */
+  min-width: 260px;
+  scroll-snap-align: start;
+
+
+  background: rgba(45, 45, 46, 0.267);
+  border: 1px solid rgba(99, 99, 100, 0.267);
+  border-radius: 16px;
+  padding: 14px 16px;
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  /* smooth transitions */
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Wiggle animation */
+@keyframes review-wiggle {
+  0%   { transform: translateY(-4px) translateX(0); }
+  25%  { transform: translateY(-4px) translateX(-3px); }
+  50%  { transform: translateY(-4px) translateX(3px); }
+  75%  { transform: translateY(-4px) translateX(-2px); }
+  100% { transform: translateY(-4px) translateX(0); }
+}
+
+.review-item:hover {
+  animation: review-wiggle 0.35s ease;
+  box-shadow: 0 0 14px var(--accent-redsoft), 0 0 28px rgba(0,0,0,0.6);
+  border-color: var(--accent-red);
+  background: rgba(30,20,10,0.55); /* warm tint on hover */
+}
+
+/* Rating (first line) */
+.review-rating {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-slate);
+}
+
+/* Name (second line) */
+.review-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+}
+/* Review date (third line) */
+.review-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: -2px;
+  margin-bottom: 6px;
+}
+
+/* Review text (fourth line) */
+.review-text {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Leave a Review button — GALLERY VERSION */
+.reviews .review-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* ===========================
+   REVIEW MODAL
+   =========================== */
+
+.review-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.review-hidden {
+  display: none;
+}
+
+.review-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.review-card {
+  position: relative;
+  z-index: 2;
+  width: min(420px, 90%);
+  background: rgba(20,20,30,0.45);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.65);
+  backdrop-filter: blur(18px) saturate(160%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.review-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: var(--ink);
+  gap: 6px;
+}
+
+.review-input {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--ink);
+  font-size: 0.95rem;
+  backdrop-filter: blur(12px);
+}
+
+.review-input:focus {
+  outline: 2px solid var(--accent-slate);
+}
+
+/* Modal action buttons — MODAL VERSION ONLY */
+.review-card .review-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.review-close-x {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--ink);
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.review-close-x:hover {
+  opacity: 1;
+}
+
+.review-slider-wrapper {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.review-slider {
+  position: relative;
+  height: 48px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* the colored fill that grows under the handle */
+.review-slider .slider-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 48px; /* start same as handle width */
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-redsoft));
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(255,106,0,0.12);
+  transition: width 120ms ease, border-radius 160ms ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* label sits above the fill */
+.review-slider .slider-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--ink);
+  font-weight: 600;
+  pointer-events: none;
+  z-index: 3;
+  transition: color 160ms ease;
+}
+
+/* handle sits above the fill and label */
+.slider-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  background: var(--accent-red);
+  border-radius: 12px;
+  box-shadow: 0 0 12px var(--accent-redsoft);
+  transition: transform 120ms ease, width 160ms ease, left 160ms ease, border-radius 160ms ease;
+  z-index: 4;
+  touch-action: none;
+}
+
+/* when fully filled */
+.review-slider.filled .slider-fill {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.review-slider.filled .slider-label {
+  color: #fff;
+}
+
+.review-slider.filled .slider-handle {
+  left: 0;
+  transform: translateX(0);
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: none;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-redsoft));
+  z-index: 5;
+}
+
+.review-slider .slider-handle,
+.review-slider .slider-fill {
+  transition: transform 0.25s ease, width 0.25s ease;
+}
+
+.slider-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  filter: grayscale(0.6);
+}
+
+/* Toast container (glass style) */
+.review-toast {
+  position: absolute;
+  left: 50%;
+  bottom: calc(50% + 20px);
+  transform: translateX(-50%) translateY(8px) scale(0.98);
+  opacity: 0;
+
+  z-index: 10010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.review-toast-hidden { display: none; }
+
+/* Card */
+.review-toast-card {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: rgba(20,20,30,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 16px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px) saturate(140%);
+  color: var(--ink);
+  min-width: 240px;
+}
+
+.toast-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ICON WRAPPER — FIXES YOUR ISSUE */
+.toast-icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+/* Stack spinner + checkmark */
+.toast-icon .toast-spinner,
+.toast-icon .toast-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 120ms ease;
+}
+
+/* Spinner */
+.toast-spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.12);
+  border-top-color: var(--accent-red);
+  animation: toast-spin 900ms linear infinite;
+}
+
+@keyframes toast-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Checkmark */
+.toast-checkmark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  opacity: 0;
+}
+  .toast-checkmark.animate {
+  animation: toast-check-spin 0.6s ease forwards;
+}
+
+@keyframes toast-check-spin {
+  0%   { transform: rotate(0deg) scale(0.6); opacity: 0; }
+  50%  { transform: rotate(180deg) scale(1.05); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+/* Checkmark stroke */
+.toast-checkmark::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 10px;
+  height: 18px;
+  border-right: 3px solid #ffe9c2;
+  border-bottom: 3px solid #ffe9c2;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  animation: toast-check-draw 0.35s ease 0.45s forwards;
+}
+
+@keyframes toast-check-draw {
+  to { transform: rotate(45deg) scale(1); }
+}
+
+/* Toast visible state */
+.review-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* Success / error variants */
+.review-toast-card.success {
+  border-color: rgba(0,200,120,0.18);
+  background: rgba(10,30,10,0.55);
+  color: #eafff0;
+}
+
+.review-toast-card.error {
+  border-color: rgba(255,80,80,0.18);
+  background: rgba(40,10,10,0.55);
+  color: #ffecec;
+}
+
+/* small label color change while submitting */
+.review-slider.filling .slider-label { color: #fff; }
+
+/* ensure handle z-index while expanding */
+.review-slider .slider-handle { z-index: 6; }
+  
+/* ===========================
+   FIRE RATING WIDGET
+   =========================== */
+
+.fire-rating {
+  display: flex;
+  gap: 6px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fire-rating span {
+  opacity: 0.35;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease,
+    text-shadow 0.2s ease;
+}
+
+.fire-rating span:hover {
+  transform: translateY(-2px) rotate(-6deg) scale(1.18);
+  text-shadow: 0 0 8px var(--accent-red), 0 0 14px var(--accent-redsoft);
+  opacity: 1;
+}
+
+/* Filled state */
+.fire-rating span.filled {
+  opacity: 1;
+  text-shadow: 0 0 6px var(--accent-red);
+}
+
+/* ===========================
+  BACKGROUND SELECTOR
+   =========================== */
+.bg-picker {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.bg-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s ease, transform .2s ease;
+}
+
+.bg-thumb:hover {
+  border-color: var(--accent-red);
+  transform: translateY(-2px);
+}
+
+.bg-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <strong>Loe-Life</strong>
+      </div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a class="link" href="https://loe-life.com/ShippingPolicy">Shipping</a></li>
+          <li><a class="link" href="https://loe-life.com/PrivacyPolicy">Privacy</a></li>
+          <li><a class="link" href="https://loe-life.com/createAccount">Profile</a></li>
+          <li><a class="header-cta" href="https://loe-life.com/shop/">Build Your Fit</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SCROLLING BANNER *start of comment out
+  <div class="banner">
+    <div class="banner-inner">
+       Need help or want a custom order? Email us Direct: support@loe-life.com
+    </div>
+  </div>
+
+  * end of comment out-->
+
+  <main>
+
+    <!-- CONTACT MODAL -->
+    <div id="contactPopup" class="contact-popup contact-hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <div class="contact-overlay" data-close="true"></div>
+      <div class="contact-card" role="document">
+        <h2 id="contactTitle">Contact Support</h2>
+
+        <div class="contact-row">
+          <a id="supportEmail" class="contact-email" href="mailto:support@loe-life.com?subject=Order%20Support">
+            support@loe-life.com
+          </a>
+          <button class="contact-copy" id="copyEmailBtn" type="button">📋</button>
+        </div>
+
+        <div id="contactToast" class="contact-toast" role="status" aria-live="polite">
+          Email address copied to clipboard
+        </div>
+
+        <div class="contact-actions">
+          <button class="btn" id="closeContactBtn" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKGROUND SELECTOR -->
+      <div class="hero-gallery">
+      <h2><span style="color: var(--accent-trans);">Background Selector: </span> </h2>
+      <br><br>
+    <div id="bgPicker" class="bg-picker"></div>
+      </div>
+
+
+    <!-- LEAVE A REVIEW MODAL -->
+<div id="reviewPopup" class="review-popup review-hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+  <div class="review-overlay" data-close="true"></div>
+
+  <div class="review-card" role="document">
+    <button id="closeReviewX" class="review-close-x">✕</button>
+    <h2 id="reviewTitle">Leave a Review</h2>
+
+    <!-- Name -->
+    <label class="review-label">
+      Your Name (First + Last Initial)
+      <input id="reviewName" class="review-input" type="text" maxlength="40" placeholder="John D." autocomplete="off">
+    </label>
+
+    <!-- Rating -->
+ <label class="review-label">
+  Rating
+  <div id="fireRating" class="fire-rating">
+    <span data-value="1">🗲</span>
+    <span data-value="2">🗲</span>
+    <span data-value="3">🗲</span>
+    <span data-value="4">🗲</span>
+    <span data-value="5">🗲</span>
+  </div>
+</label>
+
+<!-- Hidden input to store the selected rating -->
+<input type="hidden" id="reviewRating" value="5">
+
+    <!-- Comment -->
+    <label class="review-label">
+      Your Review
+      <textarea id="reviewComment" class="review-input" rows="4" maxlength="250" placeholder="Tell us what you thought..."></textarea>
+      <div id="reviewCounter" class="small" style="text-align:right; opacity:0.7;">
+        0 / 250
+      </div>
+    </label>
+
+    <!-- Actions -->
+    <div class="review-actions">
+      <div class="review-slider-wrapper">
+  <div class="review-slider" id="reviewSlider" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <div class="slider-fill" aria-hidden="true"></div>
+  <span class="slider-label">Slide to Submit</span>
+  <div class="slider-handle" aria-hidden="true"></div>
+      
+   
+    </div>
+    </div>
+    </div>
+             <!-- Toast container (hidden by default) -->
+        <div id="reviewToast" class="review-toast review-toast-hidden" role="status" aria-live="polite">
+          <div class="review-toast-card">
+            <div class="toast-title">Submit Review</div>
+              <div class="toast-icon">
+                <div class="toast-spinner"></div>   <!-- stays for default + error -->
+                <div class="toast-checkmark"></div> <!-- NEW -->
+              </div>
+            <div class="toast-text">Submitting review…</div>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <h1 class="outlined">Hero Section, Your Brand Identity</h1>
+        <p class="sub">Fitness + Mindest + Apparel</p>
+
+        <div class="badges">
+          <span class="pill">Free shipping over $50</span>
+          <span class="pill alt">10% of all purchase go to {foundation}.</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="https://loe-life.com/shop/">Build Your Fit!</a>
+          <button class="btn" id="supportBtn" type="button">Contact Support</button>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="hero-gallery">
+        <div class="gallery-wrap" aria-labelledby="highlights-title">
+          <h2 id="highlights-title" class="sr-only">Highlights</h2>
+
+          <div class="gallery-controls">
+            <button class="ctrl" id="prev">◀</button>
+            <button class="ctrl" id="next">▶</button>
+          </div>
+
+          <div class="rail" id="rail"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- MENU SECTION -->
+    <section class="section" id="product-highlights">
+      <div class="card">
+        <h2>Product Highlight Section</h2>
+        <p class="menu-sub">Optional in Front Page, background options for demonstration</p>
+
+        <!-- MODERN GLASS MENU GRID WITH IMAGES -->
+        <div class="menu-grid">
+
+          <div class="menu-item">
+            <img class="menu-img" src="https://loe-life.com/images/bg1.png" alt="Background 1">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Aggressive</span>
+              <span class="menu-item-tag">Bold</span>
+            </div>
+            <p class="menu-item-desc">
+             A bold, high‑impact design style with sharp lines and strong visual presence.
+            </p>
+            <div class="menu-item-meta">
+              <span class="menu-item-price">FREE</span>
+              <span class="menu-item-note">free gift with order</span>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img class="menu-img" src="https://loe-life.com/images/bg2.png" alt="Background 2">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Aggresive Lowercase</span>
+              <span class="menu-item-tag">Sharp</span>
+            </div>
+            <p class="menu-item-desc">
+              A stylized, expressive design with fluid curves and a confident, modern edge.
+            </p>
+            <div class="menu-item-meta">
+              <span class="menu-item-price">FREE</span>
+              <span class="menu-item-note">free gift with order</span>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img class="menu-img" src="https://loe-life.com/images/bg3.png" alt="Background 3">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Classic</span>
+              <span class="menu-item-tag">Modern</span>
+            </div>
+            <p class="menu-item-desc">
+              A clean, balanced style built for versatility, offering timeless appeal across any brand application.
+            </p>
+            <div class="menu-item-meta">
+              <span class="menu-item-price">FREE</span>
+              <span class="menu-item-note">free gift with order</span>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <img class="menu-img" src="https://loe-life.com/images/bg4.png" alt="Background 4">
+            <div class="menu-item-header">
+              <span class="menu-item-name">Chunky Classic</span>
+              <span class="menu-item-tag">Stout</span>
+            </div>
+            <p class="menu-item-desc">
+              A thicker, more substantial variation that delivers strong readability and a powerful, grounded look.
+            </p>
+            <div class="menu-item-meta">
+              <span class="menu-item-price">FREE</span>
+              <span class="menu-item-note">free gift with order</span>
+            </div>
+          </div>
+
+        </div>
+    </section>
+
+<!-- REVIEW SECTION -->
+<section class="section reviews">
+  <div class="card">
+    <h2>Customer Reviews</h2>
+
+    <!-- Horizontal scroll gallery -->
+    <div class="review-rail" id="reviewRail">
+      <!-- JS will inject review cards here -->
+    </div>
+
+    <!-- Leave a Review Button -->
+    <div class="review-actions">
+      <button id="leaveReviewBtn" class="btn secondary">Leave a Review</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section faq">
+  <div class="card">
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is LOE-Life?</summary>
+      <p>
+        LOE-Life is a fitness and mindset apparel brand built around discipline, resilience, and personal growth. Our designs reflect strength and the drive to push forward.
+      </p>
+    </details>
+
+    <details>
+      <summary>What kind of apparel do you offer?</summary>
+      <p>
+        We create performance-focused apparel and lifestyle pieces designed for training, everyday wear, and mental toughness. Product lines may expand as the brand evolves.
+      </p>
+    </details>
+
+    <details>
+      <summary>Do you release limited drops?</summary>
+      <p>
+        Yes. LOE-Life may offer limited releases or exclusive collections depending on demand and upcoming designs.
+      </p>
+    </details>
+
+    <details>
+      <summary>How do I stay updated on new releases?</summary>
+      <p>
+        Follow LOE-Life on social platforms or check the website for updates on new drops, designs, and brand announcements.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I request a custom design?</summary>
+      <p>
+        Custom work may be available depending on the project. For inquiries, reach out to our team at
+        <a href="mailto:support@loe-life.com">support@loe-life.com</a>.
+      </p>
+    </details>
+
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    © <span id="y"></span> Loe-Life. All rights reserved.
+    <div class="links">
+      <a href="https://loe-life.com/ShippingPolicy">Shipping & Delivery Policy</a>
+      <a href="https://loe-life.com/PrivacyPolicy">Customer Communication & Privacy Policy</a>
+    </div>
+  </footer>
+<script>
+  /* ===========================
+     Year
+     =========================== */
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+
+  /* ===========================
+     Gallery Data
+     =========================== */
+  const photoLibrary = [
+  { src: "https://loe-life.com/images/bg1.png", label: "Background 1" },
+  { src: "https://loe-life.com/images/bg2.png", label: "Background 2" },
+  { src: "https://loe-life.com/images/bg3.png", label: "Background 3" },
+  { src: "https://loe-life.com/images/bg4.png", label: "Background 4" }
+];
+
+function setBackground(src) {
+  document.querySelector('.bg').style.backgroundImage = `url(${src})`;
+  document.querySelector('.logo').style.backgroundImage = `url(${src})`;
+}
+
+setBackground(photoLibrary[0].src); // default
+
+
+function renderBackgroundPicker() {
+  const picker = document.getElementById("bgPicker");
+  picker.innerHTML = "";
+
+  photoLibrary.forEach((img) => {
+    const div = document.createElement("div");
+    div.className = "bg-thumb";
+    div.innerHTML = `<img src="${img.src}" alt="${img.label}">`;
+
+    div.addEventListener("click", () => {
+      setBackground(img.src);
+    });
+
+    picker.appendChild(div);
+  });
+}
+
+renderBackgroundPicker();
+
+
+  const defaults = [];
+
+  async function loadGallery() {
+    try {
+      const r = await fetch('https://loe-life.com/images/gallery.json', { cache: 'no-store' });
+      if (!r.ok) throw new Error('no json');
+      const items = await r.json();
+      if (!Array.isArray(items) || !items.length) throw new Error('empty');
+      return items;
+    } catch {
+      return defaults;
+    }
+  }
+
+  const rail = document.getElementById('rail');
+
+  function renderGallery(items) {
+    rail.innerHTML = '';
+    const loop = [...items, ...items.slice(0, 4)];
+
+    loop.forEach((it) => {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.innerHTML = `
+        <img src="${it.src}" alt="${it.alt || it.label || 'Highlight'}" loading="lazy">
+        <span class="label">${it.label || ''}</span>
+      `;
+      rail.appendChild(tile);
+    });
+  }
+
+  let idx = 0;
+  let timer;
+  const allowMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function step(dir = 1) {
+    const tiles = rail.children;
+    if (!tiles.length) return;
+
+    idx = (idx + dir + tiles.length) % tiles.length;
+    const el = tiles[idx];
+
+    rail.scrollTo({
+      left: el.offsetLeft - rail.offsetLeft,
+      behavior: 'smooth'
+    });
+  }
+
+  function play() {
+    if (allowMotion) {
+      timer = setInterval(() => step(1), 3600);
+    }
+  }
+
+  function pause() {
+    clearInterval(timer);
+  }
+
+  loadGallery().then((items) => {
+    renderGallery(items);
+    play();
+  });
+
+  rail.addEventListener('mouseenter', pause);
+  rail.addEventListener('mouseleave', play);
+
+  document.getElementById('prev').addEventListener('click', () => {
+    pause();
+    step(-1);
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    pause();
+    step(1);
+  });
+  
+  /* ===========================
+   REVIEW SCROLLER
+   =========================== */
+  const reviewRail = document.getElementById('reviewRail');
+let reviewIndex = 0;
+
+function autoScrollReviews() {
+  const cards = reviewRail.children;
+  if (!cards.length) return;
+
+  reviewIndex = (reviewIndex + 1) % cards.length;
+  const card = cards[reviewIndex];
+
+  reviewRail.scrollTo({
+    left: card.offsetLeft - reviewRail.offsetLeft,
+    behavior: 'smooth'
+  });
+}
+
+setInterval(autoScrollReviews, 5000);
+
+  /* ===========================
+   REVIEW COMMENT COUNTER
+   =========================== */
+
+  (function() {
+  const comment = document.getElementById('reviewComment');
+  const counter = document.getElementById('reviewCounter');
+  if (!comment || !counter) return;
+
+  const max = comment.getAttribute('maxlength') || 250;
+
+  function updateCount() {
+    const len = comment.value.length;
+    counter.textContent = `${len} / ${max}`;
+  }
+
+  comment.addEventListener('input', updateCount);
+  updateCount();
+})();
+
+  /* ===========================
+     Contact Modal
+     =========================== */
+  (function () {
+    const supportBtn = document.getElementById('supportBtn');
+    const popup = document.getElementById('contactPopup');
+    if (!supportBtn || !popup) return;
+
+    const closeBtn = document.getElementById('closeContactBtn');
+    const overlay = popup.querySelector('.contact-overlay');
+    const emailLink = document.getElementById('supportEmail');
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const toast = document.getElementById('contactToast');
+
+    const EMAIL = 'support@loe-life.com';
+
+    function openPopup() {
+      popup.classList.remove('contact-hidden');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('body-lock');
+      emailLink.focus();
+      document.addEventListener('keydown', keyHandler);
+    }
+
+    function closePopup() {
+      popup.classList.add('contact-hidden');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('body-lock');
+      document.removeEventListener('keydown', keyHandler);
+      supportBtn.focus();
+    }
+
+    function keyHandler(e) {
+      if (e.key === 'Escape') closePopup();
+    }
+
+    function showToast() {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    async function copyEmail() {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(EMAIL);
+          showToast();
+        } else {
+          const tmp = document.createElement('input');
+          tmp.value = EMAIL;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand('copy');
+          document.body.removeChild(tmp);
+          showToast();
+        }
+      } catch {
+        /* fail silently */
+      }
+    }
+
+    supportBtn.addEventListener('click', openPopup);
+    closeBtn.addEventListener('click', closePopup);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target.dataset.close) closePopup();
+    });
+
+    copyBtn.addEventListener('click', copyEmail);
+  })();
+
+/* ===========================
+   Load Reviews from External Source
+   =========================== */
+
+async function loadReviews() {
+  try {
+    const res = await fetch('https://loe-life.com/reviews/reviews.json', {
+      cache: 'no-store'
+    });
+
+    if (!res.ok) throw new Error('Failed to load reviews');
+
+    const reviews = await res.json();
+    renderReviews(reviews);
+
+  } catch (err) {
+    console.error('Review load error:', err);
+  }
+}
+
+/* Render horizontal review cards */
+function renderReviews(list) {
+  const rail = document.getElementById('reviewRail');
+  rail.innerHTML = '';
+
+  list.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'review-item';
+
+    const rating = renderRating(r.rating);
+
+    // Format date if present
+    let dateStr = '';
+    if (r.created_at) {
+      const d = new Date(r.created_at);
+      dateStr = d.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    card.innerHTML = `
+      <div class="review-rating">${rating}</div>
+      <div class="review-name">${r.name}</div>
+      ${dateStr ? `<div class="review-date">${dateStr}</div>` : ''}
+      <p class="review-text">${r.comment}</p>
+    `;
+
+    rail.appendChild(card);
+  });
+}
+
+/* Convert numeric rating (1–5) into fire emojis */
+function renderRating(num) {
+  return '🗲'.repeat(num);
+}
+
+/* Load reviews on page load */
+loadReviews();
+
+/* ===========================
+   REVIEW MODAL LOGIC
+   =========================== */
+(function() {
+  const reviewBtn = document.getElementById('leaveReviewBtn');
+  const popup = document.getElementById('reviewPopup');
+  const closeBtn = document.getElementById('closeReviewX');
+  const overlay = popup.querySelector('.review-overlay');
+
+  const nameInput = document.getElementById('reviewName');
+  const ratingInput = document.getElementById('reviewRating');
+  const commentInput = document.getElementById('reviewComment');
+  const submitBtn = document.getElementById('submitReviewBtn');
+
+  function openReviewPopup() {
+    popup.classList.remove('review-hidden');
+    popup.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('body-lock');
+    nameInput.focus();
+    document.addEventListener('keydown', keyHandler);
+    // Do NOT reference slider/handle here. Slider IIFE will recalc bounds itself.
+  }
+
+  function closeReviewPopup() {
+    popup.classList.add('review-hidden');
+    popup.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('body-lock');
+    document.removeEventListener('keydown', keyHandler);
+    if (reviewBtn) reviewBtn.focus();
+  }
+
+  function keyHandler(e) {
+    if (e.key === 'Escape') closeReviewPopup();
+  }
+
+  if (reviewBtn) reviewBtn.addEventListener('click', openReviewPopup);
+  if (closeBtn) closeBtn.addEventListener('click', closeReviewPopup);
+  if (overlay) overlay.addEventListener('click', e => {
+    if (e.target.dataset.close) closeReviewPopup();
+  });
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      const payload = {
+        name: nameInput.value.trim(),
+        rating: Number(ratingInput.value),
+        comment: commentInput.value.trim()
+      };
+      console.log("Review payload ready for OmniTok:", payload);
+      closeReviewPopup();
+    });
+  }
+})();
+
+
+/* ===========================
+   OmniTok Helper (canonical)
+   =========================== */
+
+const API = {
+  issueOmniTok: 'insert endpoint'
+};
+
+async function getOmniTok(act) {
+  let sid = sessionStorage.getItem('sid');
+  if (!sid) {
+    sid = crypto.randomUUID();
+    sessionStorage.setItem('sid', sid);
+  }
+
+  let body;
+  if (typeof act === 'string') {
+    body = { act, sid };
+  } else if (act && typeof act === 'object') {
+    body = { sid, ...act };
+  } else {
+    throw new Error('Invalid getOmniTok argument');
+  }
+
+  const res = await fetch(API.issueOmniTok, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
+
+  const data = await res.json();
+  return { ...data, sid };
+}
+/* ===========================
+   SLIDER DISABLE LOGIC
+   =========================== */
+
+(function() {
+  const slider = document.getElementById('reviewSlider');
+  const nameInput = document.getElementById('reviewName');
+  const ratingInput = document.getElementById('reviewRating');
+  const commentInput = document.getElementById('reviewComment');
+
+  if (!slider) return;
+
+  function isValid() {
+    return (
+      nameInput.value.trim().length > 0 &&
+      commentInput.value.trim().length > 0 &&
+      Number(ratingInput.value) >= 1 &&
+      Number(ratingInput.value) <= 5
+    );
+  }
+
+  function updateSliderState() {
+    if (isValid()) {
+      slider.classList.remove('slider-disabled');
+    } else {
+      slider.classList.add('slider-disabled');
+    }
+  }
+
+  nameInput.addEventListener('input', updateSliderState);
+  commentInput.addEventListener('input', updateSliderState);
+  ratingInput.addEventListener('change', updateSliderState);
+
+  updateSliderState();
+})();
+
+/* ===========================
+   SLIDE TO SUBMIT (OmniTok integrated)
+   =========================== */
+(function() {
+  const slider = document.getElementById('reviewSlider');
+  if (!slider) return;
+
+  const handle = slider.querySelector('.slider-handle');
+  const fill = slider.querySelector('.slider-fill');
+  const label = slider.querySelector('.slider-label');
+
+  const nameInput = document.getElementById('reviewName');
+  const ratingInput = document.getElementById('reviewRating');
+  const commentInput = document.getElementById('reviewComment');
+
+  const toast = document.getElementById('reviewToast');
+  const toastCard = toast.querySelector('.review-toast-card');
+  const toastText = toast.querySelector('.toast-text');
+
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let maxX = 0;
+
+  function recalcSliderBounds() {
+    maxX = slider.offsetWidth - handle.offsetWidth;
+    fill.style.width = `${handle.offsetWidth}px`;
+  }
+
+  window.addEventListener('resize', recalcSliderBounds);
+  document.getElementById('leaveReviewBtn').addEventListener('click', recalcSliderBounds);
+
+  /* ---------------------------
+     Lock / Unlock Inputs
+     --------------------------- */
+  function lockInputs() {
+    nameInput.disabled = true;
+    commentInput.disabled = true;
+    ratingInput.disabled = true;
+    slider.classList.add('slider-disabled');
+  }
+
+  function unlockInputs() {
+    nameInput.disabled = false;
+    commentInput.disabled = false;
+    ratingInput.disabled = false;
+    slider.classList.remove('slider-disabled');
+  }
+
+  /* ---------------------------
+     Toast Helpers
+     --------------------------- */
+  function showToast({ text, variant }) {
+    toastText.textContent = text;
+    toastCard.classList.remove('success', 'error');
+
+    if (variant === 'success') toastCard.classList.add('success');
+    if (variant === 'error') toastCard.classList.add('error');
+
+    toast.classList.remove('review-toast-hidden');
+    requestAnimationFrame(() => toast.classList.add('show'));
+  }
+
+  function hideToast() {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.classList.add('review-toast-hidden');
+      toastCard.classList.remove('success', 'error');
+    }, 260);
+  }
+  window.showToast = showToast;
+  window.hideToast = hideToast;
+
+  function showCheckmark() {
+  const spinner = toastCard.querySelector('.toast-spinner');
+  const check = toastCard.querySelector('.toast-checkmark');
+  spinner.style.opacity = '0';
+      // reset animation so it can play fresh
+  check.classList.remove('animate');
+  void check.offsetWidth; // force reflow
+  check.classList.add('animate');
+
+  check.style.opacity = '1';
+}
+
+function showSpinner() {
+  const spinner = toastCard.querySelector('.toast-spinner');
+  const check = toastCard.querySelector('.toast-checkmark');
+  spinner.style.opacity = '1';
+  check.style.opacity = '0';
+}
+
+  /* ---------------------------
+     Slider Pointer Events
+     --------------------------- */
+  handle.addEventListener('pointerdown', e => {
+    if (slider.classList.contains('slider-disabled')) return;
+
+    isDragging = true;
+    startX = e.clientX;
+    currentX = 0;
+
+    slider.classList.add('filling');
+    handle.setPointerCapture(e.pointerId);
+    handle.style.transition = '0s';
+    fill.style.transition = '0s';
+  });
+
+  document.addEventListener('pointermove', e => {
+    if (!isDragging) return;
+
+    const dx = e.clientX - startX;
+    currentX = Math.max(0, Math.min(dx, maxX));
+
+    handle.style.transform = `translateX(${currentX}px)`;
+    fill.style.width = `${currentX + handle.offsetWidth}px`;
+
+    if (currentX >= maxX && !slider.classList.contains('filled')) {
+      completeSlide();
+    }
+  });
+
+  document.addEventListener('pointerup', e => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    handle.releasePointerCapture(e.pointerId);
+    handle.style.transition = '';
+    fill.style.transition = '';
+
+    if (currentX < maxX) {
+      resetSliderVisual();
+    }
+  });
+
+  /* ---------------------------
+     Main Submission Flow
+     --------------------------- */
+  async function completeSlide() {
+    slider.classList.add('filled');
+    slider.classList.remove('filling');
+    fill.style.width = '100%';
+    handle.style.transform = 'translateX(0)';
+    label.textContent = "Submitting Review…";
+
+    lockInputs();
+    showToast({ text: 'Submitting review…', variant: 'default' });
+
+    const reviewPayload = {
+      id: `r-${Date.now()}`,
+      name: nameInput.value.trim(),
+      rating: Number(ratingInput.value),
+      comment: commentInput.value.trim(),
+      created_at: new Date().toISOString()
+    };
+
+    try {
+      /* 1. Get OmniTok */
+      const { endpoint, authToken, OmniTok, sid } = await getOmniTok('createReview');
+
+      /* 2. Call actor endpoint */
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': authToken,
+          'X-OmniTok': OmniTok,
+          'X-SID': sid
+        },
+        body: JSON.stringify(reviewPayload)
+      });
+
+      if (!res.ok) throw new Error('Actor endpoint failed');
+
+      /* SUCCESS */
+      showToast({
+        text: 'Review submitted — thank you! Please allow a moment for it to appear.',
+        variant: 'success'
+      });
+
+      // Swap spinner → checkmark
+        const spinner = toastCard.querySelector('.toast-spinner');
+        const check = toastCard.querySelector('.toast-checkmark');
+
+      showCheckmark();
+
+      setTimeout(() => {
+        closeReviewModal();
+        document.body.style.overflow = '';
+        resetForm();
+        resetSliderVisual();
+        hideToast();
+
+          // restore spinner for next time
+          setTimeout(() => {
+          window.location.reload(true);
+          }, 300);
+      }, 3600);
+
+    } catch (err) {
+      console.error(err);
+
+      showToast({
+        text: 'Submission failed. Try again.',
+        variant: 'error'
+      });
+
+      resetSliderVisual();
+
+      setTimeout(() => {
+        unlockInputs();        
+        hideToast();
+      }, 1600);
+    }
+  }
+
+  /* ---------------------------
+     Reset Helpers
+     --------------------------- */
+  function resetSliderVisual() {
+    slider.classList.remove('filled', 'filling');
+
+      // Temporarily disable transitions
+    handle.style.transition = 'none';
+    fill.style.transition = 'none';
+
+    handle.style.transform = 'translateX(0)';
+    fill.style.width = `${handle.offsetWidth}px`;
+    label.textContent = "Slide to Submit";
+
+      // Force reflow so the browser applies the no-transition state
+    void handle.offsetWidth;
+
+     // Re-enable transitions
+    handle.style.transition = '';
+    fill.style.transition = '';
+
+  }
+
+  function resetForm() {
+    nameInput.value = '';
+    commentInput.value = '';
+    ratingInput.value = 5;
+  }
+
+  function closeReviewModal() {
+    document.getElementById('reviewPopup').classList.add('review-hidden');
+  }
+
+  recalcSliderBounds();
+})();
+
+/* ===========================
+   FIRE EMOJI RATING WIDGET
+   =========================== */
+(function() {
+  const fireContainer = document.getElementById('fireRating');
+  if (!fireContainer) return;
+  const fireSpans = Array.from(fireContainer.querySelectorAll('span'));
+  const ratingInput = document.getElementById('reviewRating');
+
+  // start from input value if present, otherwise default 5
+  let lockedRating = ratingInput && ratingInput.value ? Number(ratingInput.value) : 5;
+
+  function fillFires(count) {
+    fireSpans.forEach(span => {
+      const val = Number(span.dataset.value);
+      span.classList.toggle('filled', val <= count);
+    });
+  }
+
+  fireSpans.forEach(span => {
+    // pointerenter/pointerleave do not bubble between siblings
+    span.addEventListener('pointerenter', () => {
+      const val = Number(span.dataset.value);
+      fillFires(val);
+    });
+
+    span.addEventListener('pointerleave', () => {
+      fillFires(lockedRating);
+    });
+
+    span.addEventListener('click', () => {
+      lockedRating = Number(span.dataset.value);
+      if (ratingInput) ratingInput.value = lockedRating;
+      fillFires(lockedRating);
+    });
+
+    // keyboard accessibility
+    span.setAttribute('tabindex', '0');
+    span.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        lockedRating = Number(span.dataset.value);
+        if (ratingInput) ratingInput.value = lockedRating;
+        fillFires(lockedRating);
+      }
+    });
+  });
+
+  // initialize
+  fillFires(lockedRating);
+})();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
