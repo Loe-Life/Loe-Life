@@ -1,0 +1,22 @@
+[
+  {
+    "src": "https://loe-life.com/images/bg1.png",
+    "label": "Aggresive",
+    "alt": "Aggressive"
+  },
+  {
+    "src": "https://loe-life.com/images/bg2.png",
+    "label": "Aggressive Lowercase",
+    "alt": "Aggressive Lowercase"
+  },
+  {
+    "src": "https://loe-life.com/images/bg3.png",
+    "label": "Classic",
+    "alt": "Classic"
+  },
+  {
+    "src": "https://loe-life.com/images/bg4.png",
+    "label": "Chunky Classic",
+    "alt": "Chunky Classic"
+  }
+]
