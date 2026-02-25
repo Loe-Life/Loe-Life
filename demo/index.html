@@ -566,8 +566,6 @@
     border: 1px solid var(--bg-deep);
     border-radius: var(--radius-lg);
     padding: 20px 18px 18px;
-    box-shadow:0 8px 16px var(--shadow);
-    backdrop-filter: blur(20px) saturate(150%);
   }
   
 
@@ -1553,7 +1551,7 @@
     <!-- BACKGROUND SELECTOR -->
       <div class="card-flex">
       <h2><span style="color: var(--accent-trans);">Background Selector: </span> </h2>
-      <br><br>
+      <br>
     <div id="bgPicker" class="bg-picker"></div>
       </div>
 
@@ -1576,11 +1574,11 @@
  <label class="review-label">
   Rating
   <div id="fireRating" class="fire-rating">
-    <span data-value="1">💀</span>
-    <span data-value="2">💀</span>
-    <span data-value="3">💀</span>
-    <span data-value="4">💀</span>
-    <span data-value="5">💀</span>
+    <span data-value="1">☠️</span>
+    <span data-value="2">☠️</span>
+    <span data-value="3">☠️</span>
+    <span data-value="4">☠️</span>
+    <span data-value="5">☠️</span>
   </div>
 </label>
 
@@ -2084,7 +2082,7 @@ function renderReviews(list) {
 
 /* Convert numeric rating (1–5) into fire emojis */
 function renderRating(num) {
-  return '💀'.repeat(num);
+  return '☠️'.repeat(num);
 }
 
 /* Load reviews on page load */
@@ -2522,12 +2520,3 @@ function showSpinner() {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
