@@ -897,7 +897,47 @@
       white-space: nowrap;
       border: 0;
     }
+    /* ✅ Mobile-safe modal scrolling */
+.contact-card{
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+    @media (max-width: 640px){
+  .contact-actions{
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
 
+  .contact-actions .btn{
+    width: 100%;
+  }
+}
+
+    @media (max-width: 640px){
+  .contact-card{
+    top: 12px;
+    transform: none;
+    margin-bottom: 12px;
+  }
+}
+    @media (max-width: 640px){
+  .review-label{
+    margin-top: 12px;
+  }
+
+  .review-input{
+    font-size: 16px; /* ✅ prevents iOS zoom */
+  }
+}
+    /* ✅ Force stacked address fields on mobile */
+@media (max-width: 640px){
+  .contact-card form > div[style*="grid-template-columns"]{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+}
     /* Responsive */
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
