@@ -480,6 +480,25 @@
     max-width: 360px;
     height: 360px;
   }
+  
+  .hero-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  object-fit: cover;              /* fills container cleanly */
+  border-radius: 16px;            /* matches tiles */
+  border: 1px solid #ffffff1a;
+
+  background: #0b0b10;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Optional: soften native controls on glass */
+.hero-video::-webkit-media-controls-panel {
+  background: rgba(10,10,18,0.55);
+  backdrop-filter: blur(10px);
+}
 
   .rail {
     display: flex;
@@ -1039,7 +1058,7 @@
   overflow-y: hidden;
 
   scroll-snap-type: x mandatory;
-  padding: 10px 4px
+  padding: 10px 4px;
 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -1519,7 +1538,7 @@
           <li><a class="link" href="https://loe-life.com/ShippingPolicy">Shipping</a></li>
           <li><a class="link" href="https://loe-life.com/PrivacyPolicy">Privacy</a></li>
           <li><a class="link" href="https://loe-life.com/createAccount">Profile</a></li>
-          <li><a class="header-cta" href="https://loe-life.com/shop/">Build Your Fit</a></li>
+          <li><a class="header-cta" href="https://loe-life.com/shop/">Shop</a></li>
         </ul>
       </nav>
     </div>
@@ -1650,17 +1669,30 @@
 
       <!-- GALLERY -->
       
-      <div class="hero-gallery">
-        <div class="gallery-wrap" aria-labelledby="highlights-title">
-          <h2 id="highlights-title" class="gallery-title-overlay">Scrolling Media Container</h2>
-          <div class="gallery-controls">
-            <button class="ctrl" id="prev">◀</button>
-            <button class="ctrl" id="next">▶</button>
-          </div>
+     <div class="hero-gallery">
+  <div class="gallery-wrap" aria-labelledby="highlights-title">
+    <h2 id="highlights-title" class="gallery-title-overlay">
+      Brand Film
+    </h2>
 
-          <div class="rail" id="rail"></div>
-        </div>
-      </div>
+    <video
+      id="heroVideo"
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      controls
+      poster="https://loe-life.com/images/bg4.png"
+    >
+      <!-- ✅ Replace with your actual repo path -->
+      <source src="https://loe-life.com/videos/Welcome.mp4" type="video/mp4" />
+
+      Sorry — your browser doesn’t support embedded video.
+    </video>
+  </div>
+</div>
 
     </section>
 
@@ -1947,6 +1979,22 @@ function autoScrollReviews() {
 }
 
 setInterval(autoScrollReviews, 5000);
+
+    /* ===========================
+   VIDEO
+   =========================== */
+
+  (function () {
+  const video = document.getElementById('heroVideo');
+  if (!video) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.pause();
+    video.removeAttribute('autoplay');
+    video.controls = true;
+  }
+})();
+  
 
   /* ===========================
    REVIEW COMMENT COUNTER
