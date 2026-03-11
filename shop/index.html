@@ -658,6 +658,33 @@
     }
     .filters-drawer .drawer.open{ transform: translateX(0); }
 
+    /* Builder modal overlay was above the sheet (blur + click-through) */
+.modal { 
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+}
+
+/* Override overlay behavior ONLY when used inside modal */
+.modal .overlay{
+  z-index: 0;            /* behind */
+  display: block;        /* since you use .open on it */
+}
+
+/* Ensure the sheet sits above the modal overlay */
+.modal .sheet{
+  position: relative;
+  z-index: 1;            /* above overlay */
+}
+    
+.modal .overlay{
+  z-index: 0;
+  display: block;
+  backdrop-filter: none;
+  background: rgba(0,0,0,0.68);
+}
+    
+
     /* Responsive breakpoints */
     @media (max-width: 1040px){
       .wrap{ grid-template-columns: 1fr; }
@@ -1526,7 +1553,10 @@
     };
     builderCancel.onclick = closeBuilderModal;
     closeBuilder.onclick = closeBuilderModal;
-    builderOverlay.onclick = (e)=>{ if (e.target.dataset.close) closeBuilderModal(); };
+    builderOverlay.onclick = (e) => {
+      // close only if user actually clicked the overlay surface
+      if (e.target === builderOverlay) closeBuilderModal();
+    };
 
     /* ===========================
        Cart logic
