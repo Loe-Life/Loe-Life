@@ -2225,12 +2225,6 @@ function setRevealHandlers(){
 }
 setRevealHandlers();
 
-const caEmailErr = document.getElementById('caEmailErr');
-const caStrengthBar = document.getElementById('caStrengthBar');
-const caStrengthText = document.getElementById('caStrengthText');
-const caMatchMsg = document.getElementById('caMatchMsg');
-const doCreate = document.getElementById('doCreate');
-
 function readAddr(prefix){
   return {
     line1: document.getElementById(prefix+'Line1')?.value.trim() || '',
