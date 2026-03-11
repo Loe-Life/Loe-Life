@@ -978,6 +978,43 @@
   }
 }
 
+
+    /* =========================================================
+   MOBILE: FIX CROPPED CLOSE BUTTON (safe areas + dynamic vh)
+   ========================================================= */
+
+@supports (height: 100dvh) {
+  /* Prefer dynamic viewport when available */
+  .contact-card{ max-height: calc(100dvh - 24px); }
+}
+@supports not (height: 100dvh) {
+  /* Fallback to small viewport height (better than 100vh on iOS) */
+  .contact-card{ max-height: calc(100svh - 24px); }
+}
+
+@media (max-width: 640px){
+
+  /* Give the modal container safe-area breathing room */
+  .contact-popup[aria-hidden="false"]{
+    padding-top: calc(12px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Ensure the card never extends under the iOS home indicator */
+  .contact-card{
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Sticky action bar: pad into safe area so buttons are never clipped */
+  .contact-actions{
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* IMPORTANT: prevent the sticky action bar from covering the last fields */
+  #contactForm{
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
+}
 /* =========================================================
    EXISTING RESPONSIVE RULES (UNCHANGED)
    ========================================================= */
