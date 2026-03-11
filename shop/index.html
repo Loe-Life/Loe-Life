@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Loe‑Life Shop — Build Your Fit</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="Build your LOE‑Life fit — choose style, size, color, and graphics. Secure checkout via Stripe (no card data stored on this site)."/>
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="color-scheme" content="dark light"/>
+  <meta name="theme-color" content="#0b0b10"/>
+  <link rel="canonical" href="https://loe-life.com/shop/"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Loe‑Life"/>
+  <meta property="og:title" content="Loe‑Life Shop — Build Your Fit"/>
+  <meta property="og:description" content="Choose fit, style, size, color, and graphics. Secure checkout via Stripe."/>
+  <meta property="og:image" content="https://loe-life.com/images/bg1.png"/>
+  <meta property="og:url" content="https://loe-life.com/shop/"/>
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://loe-life.com/images/bg1.png"/>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" sizes="48x48"/>
+  <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192"/>
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <link rel="preload" as="image" href="https://loe-life.com/images/bg1.png"/>
+
+  <style>
+    :root{
+      --maxw: 1400px;
+
+      --bg-deep:#00000000;
+      --ink:#f7f7f7;
+      --muted:#b0b0b0;
+
+      --accent-red:#e53935;
+      --accent-redsoft:#c93330d5;
+      --accent-red-dark:#7c1513;
+
+      --accent-slate:#959595dc;
+      --accent-slate-dark:#6d6d6dd6;
+
+      --card: rgba(20,20,30,0.55);
+      --card-strong: rgba(15,15,25,0.82);
+      --card-border: rgba(255,255,255,0.14);
+      --shadow: 0 18px 45px rgba(0,0,0,0.65);
+
+      --radius-sm: 12px;
+      --radius-lg: 20px;
+
+      --header-h: 58px;
+      --drawer-w: 420px;
+
+      --glass: rgba(20,20,30,0.45);
+      --glass-2: rgba(15,15,25,0.75);
+
+      --focus: rgba(149,149,149,0.95);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin:0; padding:0; min-height:100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-deep);
+      color: var(--ink);
+    }
+    a{ color:inherit; text-decoration:none; }
+    button, input, select, textarea { font: inherit; }
+
+    .bg{
+      position:fixed; inset:0; z-index:-1;
+      background: url("https://loe-life.com/images/bg1.png") center/cover no-repeat;
+      filter: saturate(1.05) brightness(.88);
+      transform: translateZ(0) scale(1.02);
+    }
+
+    header{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: blur(18px) saturate(150%);
+      background: linear-gradient(90deg, rgba(10,10,18,0.86), rgba(10,10,18,0.62));
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+    .nav{
+      max-width: var(--maxw);
+      margin:0 auto;
+      height: var(--header-h);
+      padding: 10px 16px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width: 180px;
+    }
+    .logo{
+      width: 36px; height: 36px; border-radius: 12px;
+      background: url("https://loe-life.com/images/bg1.png") center/cover no-repeat;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 0 0 1px rgba(245,124,0,0.25), 0 18px 40px rgba(0,0,0,0.75);
+    }
+    .brand strong{
+      font-weight: 800; letter-spacing: .03em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+      white-space: nowrap;
+    }
+
+    .searchbar{
+      flex: 1 1 auto;
+      display:flex; align-items:center; gap: 10px;
+      max-width: 760px;
+    }
+    .searchbar input{
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(10,10,20,0.45);
+      color: var(--ink);
+      padding: 10px 12px;
+      outline: none;
+      backdrop-filter: blur(12px);
+    }
+    .searchbar input:focus{
+      outline: 2px solid rgba(149,149,149,0.55);
+      border-color: rgba(255,255,255,0.28);
+    }
+
+    .nav-actions{
+      display:flex; align-items:center; gap: 8px;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+    .chip{
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(10,10,20,0.35);
+      color: var(--muted);
+      cursor: pointer;
+      display:inline-flex; align-items:center; gap: 8px;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(20,20,40,0.72);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+    .chip.primary{
+      background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+      color: #1b1308;
+      font-weight: 800;
+      border-color: rgba(255,255,255,0.25);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    .chip.primary:hover{
+      background: linear-gradient(135deg, var(--accent-slate), var(--accent-redsoft));
+    }
+
+    .badge-dot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent-red);
+      box-shadow: 0 0 10px rgba(229,57,53,0.55);
+      display:none;
+    }
+    .badge-dot.on{ display:inline-block; }
+
+    /* Layout */
+    .wrap{
+      max-width: var(--maxw);
+      margin: 18px auto 34px;
+      padding: 0 16px 24px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* Filters */
+    .filters{
+      position: sticky;
+      top: calc(var(--header-h) + 12px);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px) saturate(150%);
+      padding: 14px 14px 12px;
+      max-height: calc(100vh - (var(--header-h) + 30px));
+      overflow: auto;
+    }
+
+    .filters h2{
+      font-size: 1.05rem;
+      margin: 2px 0 10px;
+      display:flex; align-items:center; justify-content: space-between;
+    }
+    .filters .sub{
+      color: var(--muted);
+      font-size: .92rem;
+      margin: 0 0 12px;
+    }
+    .fieldset{
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 10px 10px 8px;
+      margin: 10px 0;
+      background: rgba(10,10,18,0.35);
+    }
+    .fieldset legend{
+      padding: 0 8px;
+      color: rgba(255,255,255,0.82);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+    .pillrow{
+      display:flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 8px;
+    }
+    .pill{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(20,20,30,0.25);
+      color: var(--muted);
+      cursor:pointer;
+      font-weight: 700;
+      font-size: .85rem;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+      user-select:none;
+    }
+    .pill:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,0.25); }
+    .pill.on{
+      background: rgba(229,57,53,0.18);
+      border-color: rgba(229,57,53,0.55);
+      color: #fff;
+      box-shadow: 0 0 0 1px rgba(229,57,53,0.18);
+    }
+
+    .filters .actions{
+      display:flex; gap:10px; margin-top: 12px;
+    }
+    .btn{
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      cursor:pointer;
+      font-weight: 700;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+      flex: 1 1 auto;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.28);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent-slate), var(--accent-slate));
+      color: #1b1308;
+      border-color: rgba(255,255,255,0.25);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.65);
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, var(--accent-slate), var(--accent-redsoft));
+    }
+
+    /* Product grid */
+    .main{
+      min-width: 0;
+    }
+    .headline{
+      display:flex; align-items:flex-end; justify-content: space-between; gap: 12px;
+      margin-bottom: 10px;
+    }
+    .headline h1{
+      margin:0;
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+      line-height: 1.1;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+    }
+    .headline .count{
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .95rem;
+      white-space: nowrap;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.70);
+      backdrop-filter: blur(18px) saturate(160%);
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 420px;
+    }
+
+    .thumb{
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(10,10,18,0.55);
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.01);
+      transition: transform .25s ease, opacity .25s ease;
+      opacity: .96;
+    }
+    .card:hover .thumb img{ transform: scale(1.04); opacity: 1; }
+
+    .tagline{
+      position:absolute;
+      left: 10px; bottom: 10px;
+      background: rgba(10,10,18,0.65);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .82rem;
+      color: rgba(255,255,255,0.92);
+      max-width: calc(100% - 20px);
+      overflow:hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 44px;
+    }
+    .name{
+      font-weight: 900;
+      letter-spacing: .01em;
+      font-size: 1.02rem;
+      margin:0;
+      line-height: 1.15;
+    }
+    .price{
+      font-weight: 900;
+      color: #ffd180;
+      white-space: nowrap;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.35;
+      flex: 1 1 auto;
+      margin-top: -2px;
+    }
+    .card-actions{
+      display:flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    /* Drawer base (cart, auth, filters on mobile) */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      display:none;
+      z-index: 999;
+    }
+    .overlay.open{ display:block; }
+
+    .drawer{
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(var(--drawer-w), 92vw);
+      height: 100vh;
+      background: rgba(10,10,18,0.92);
+      border-left: 1px solid rgba(255,255,255,0.14);
+      transform: translateX(102%);
+      transition: transform .25s ease;
+      z-index: 1000;
+      display:flex;
+      flex-direction: column;
+      padding-top: calc(env(safe-area-inset-top, 0px) + 6px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .drawer.open{ transform: translateX(0); }
+
+    .drawer-head{
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .drawer-head h2{
+      margin:0;
+      font-size: 1.05rem;
+      letter-spacing: .02em;
+    }
+    .x{
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.86);
+      font-size: 1.5rem;
+      cursor:pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+    .x:hover{ background: rgba(255,255,255,0.08); }
+
+    .drawer-body{
+      padding: 12px 14px;
+      overflow:auto;
+      flex: 1 1 auto;
+    }
+    .drawer-foot{
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(10,10,18,0.78);
+    }
+
+    /* Cart list */
+    .cart-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction: column; gap: 10px; }
+    .cart-item{
+      display:flex; gap:10px; align-items:center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 10px;
+    }
+    .cart-item img{ width: 52px; height: 52px; border-radius: 12px; object-fit: cover; border: 1px solid rgba(255,255,255,0.10); }
+    .cart-item .ci{
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .cart-item .ci strong{
+      display:block;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .cart-item .ci small{ color: var(--muted); display:block; margin-top: 2px; }
+
+    .qty{
+      display:flex; align-items:center; gap: 6px;
+    }
+    .qbtn{
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      cursor:pointer;
+      font-weight: 900;
+    }
+    .qbtn:hover{ background: rgba(255,255,255,0.12); }
+    .qval{
+      width: 44px;
+      text-align: center;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(10,10,18,0.5);
+      color: #fff;
+      padding: 6px 6px;
+      outline: none;
+    }
+
+    .totals{
+      display:flex; flex-direction: column; gap: 8px;
+      margin-top: 10px;
+    }
+    .totals .line{
+      display:flex; align-items:center; justify-content: space-between;
+      color: rgba(255,255,255,0.90);
+    }
+    .totals .line span{ color: var(--muted); }
+    .totals .grand strong{ color: #ffd180; }
+
+    /* Hold-to-confirm */
+    .hold{
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      padding: 0;
+      overflow:hidden;
+      cursor:pointer;
+      position: relative;
+      user-select:none;
+      height: 52px;
+    }
+    .hold .fill{
+      position:absolute; left:0; top:0; bottom:0;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(229,57,53,0.95), rgba(201,51,48,0.75));
+      transition: width .06s linear;
+    }
+    .hold .label{
+      position:relative;
+      z-index: 2;
+      height: 52px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+    .hold.disabled{ opacity: .55; pointer-events:none; filter: grayscale(.6); }
+
+    /* Builder modal */
+    .modal{
+      position: fixed;
+      inset: 0;
+      display:none;
+      z-index: 2000;
+    }
+    .modal.open{ display:block; }
+    .modal .sheet{
+      position: relative;
+      margin: 0 auto;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(920px, 94vw);
+      max-height: 88vh;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(10,10,18,0.88);
+      backdrop-filter: blur(18px) saturate(160%);
+      box-shadow: var(--shadow);
+      display:grid;
+      grid-template-columns: 1fr 1.1fr;
+    }
+    .modal .mhead{
+      grid-column: 1 / -1;
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .modal .mhead h2{ margin:0; font-size: 1.05rem; }
+    .modal .mbody{
+      padding: 14px;
+      overflow:auto;
+    }
+    .preview{
+      padding: 14px;
+      border-left: 1px solid rgba(255,255,255,0.10);
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .preview .box{
+      flex: 1 1 auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      overflow:hidden;
+      position: relative;
+      min-height: 320px;
+    }
+    .preview .box img{
+      width:100%; height:100%;
+      object-fit: cover;
+      opacity: .95;
+      transform: scale(1.02);
+    }
+    .preview .stamp{
+      position:absolute;
+      left: 12px; bottom: 12px;
+      background: rgba(10,10,18,0.68);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 8px 10px;
+      border-radius: 14px;
+      max-width: calc(100% - 24px);
+    }
+    .stamp strong{ display:block; }
+    .stamp small{ color: var(--muted); display:block; margin-top:2px; }
+
+    .field{
+      margin-top: 10px;
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field label{
+      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      font-size: .92rem;
+    }
+    .field select{
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 10px 10px;
+      outline: none;
+    }
+    .field select:focus{ outline: 2px solid rgba(149,149,149,0.55); }
+
+    .color-row{
+      display:flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 6px;
+    }
+    .sw{
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      cursor:pointer;
+      position: relative;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+    }
+    .sw.on{ outline: 2px solid rgba(229,57,53,0.65); }
+    .sw::after{
+      content:"";
+      position:absolute;
+      inset: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .mfoot{
+      grid-column: 1 / -1;
+      display:flex; gap: 10px; justify-content: flex-end;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      background: rgba(10,10,18,0.78);
+    }
+
+    /* Mobile filters drawer */
+    .filters-drawer .drawer{
+      right: auto;
+      left: 0;
+      transform: translateX(-102%);
+      border-left: none;
+      border-right: 1px solid rgba(255,255,255,0.14);
+    }
+    .filters-drawer .drawer.open{ transform: translateX(0); }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1040px){
+      .wrap{ grid-template-columns: 1fr; }
+      .filters{ display:none; }
+    }
+    @media (min-width: 1600px){
+      :root{ --maxw: 1560px; }
+    }
+    @media (max-width: 640px){
+      .brand strong{ display:none; }
+      .nav-actions{ min-width: auto; }
+      .drawer{ width: 92vw; }
+      .modal .sheet{ grid-template-columns: 1fr; }
+      .preview{ border-left: none; border-top: 1px solid rgba(255,255,255,0.10); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{ animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="https://loe-life.com/" aria-label="Back to Loe-Life home">
+        <div class="logo" aria-hidden="true"></div>
+        <strong>Loe‑Life</strong>
+      </a>
+
+      <div class="searchbar" role="search">
+        <input id="q" type="search" placeholder="Search styles, graphics, tags…" autocomplete="off" aria-label="Search products"/>
+      </div>
+
+      <div class="nav-actions">
+        <button id="openFiltersMobile" class="chip" type="button">🔎 Filters</button>
+        <button id="authBtn" class="chip" type="button">👤 Account</button>
+        <button id="cartBtn" class="chip primary" type="button">
+          🛒 Cart <span id="cartDot" class="badge-dot"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <!-- Desktop filters -->
+    <aside class="filters" aria-label="Filters">
+      <h2>Filters <button id="clearFilters" class="pill" type="button">Clear</button></h2>
+      <p class="sub">Build your fit: style, size, color, and graphics.</p>
+
+      <fieldset class="fieldset">
+        <legend>Style</legend>
+        <div id="fStyle" class="pillrow"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Fit</legend>
+        <div id="fFit" class="pillrow"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Size</legend>
+        <div id="fSize" class="pillrow"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Color</legend>
+        <div id="fColor" class="pillrow"></div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Graphics</legend>
+        <div id="fGraphic" class="pillrow"></div>
+      </fieldset>
+
+      <div class="actions">
+        <button id="applyFilters" class="btn primary" type="button">Apply</button>
+        <button id="resetFilters" class="btn" type="button">Reset</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <section class="main" aria-label="Product results">
+      <div class="headline">
+        <h1>Build Your Fit</h1>
+        <div class="count"><span id="count">0</span> items</div>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div id="cartOverlay" class="overlay" aria-hidden="true"></div>
+  <aside id="cartDrawer" class="drawer" aria-label="Cart drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Your Cart</h2>
+      <button class="x" id="closeCart" aria-label="Close cart" type="button">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <ul id="cartList" class="cart-list"></ul>
+
+      <div class="totals">
+        <div class="line"><span>Subtotal</span><strong>$<span id="subTotal">0.00</span></strong></div>
+        <div class="line"><span>Est. Shipping</span><strong>$<span id="ship">0.00</span></strong></div>
+        <div class="line"><span>Est. Tax</span><strong>$<span id="tax">0.00</span></strong></div>
+        <div class="line grand"><span>Total</span><strong>$<span id="grand">0.00</span></strong></div>
+        <p class="small" style="margin:6px 0 0;">
+          Payment is handled securely by Stripe. No card data is stored on this site.
+        </p>
+      </div>
+    </div>
+
+    <div class="drawer-foot">
+      <!-- Hold-to-confirm pattern inspired by your existing store UI language -->
+      <button id="holdCheckout" class="hold disabled" type="button" aria-label="Hold to confirm checkout">
+        <div class="fill" id="holdFill"></div>
+        <div class="label" id="holdLabel">Hold to Confirm</div>
+      </button>
+      <button id="checkoutFallback" class="btn" type="button" style="margin-top:10px;">
+        Continue (tap)
+      </button>
+      <p class="small" style="margin:10px 0 0; opacity:.85;">
+        If you’re not signed in, you’ll be prompted. (Account / login flow can be wired later.)
+      </p>
+    </div>
+  </aside>
+
+  <!-- AUTH DRAWER (stub) -->
+  <div id="authOverlay" class="overlay" aria-hidden="true"></div>
+  <aside id="authDrawer" class="drawer" aria-label="Account drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Account</h2>
+      <button class="x" id="closeAuth" aria-label="Close account" type="button">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <p class="small" style="margin-top:0;">
+        This is a front-end build stub. Your real login / create / reset flows will plug into OmniTok.
+      </p>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="pill on" id="tabSignIn" type="button">Sign In</button>
+        <button class="pill" id="tabCreate" type="button">Create Account</button>
+        <button class="pill" id="tabReset" type="button">Reset Password</button>
+      </div>
+
+      <form id="signInForm" style="margin-top:10px;">
+        <div class="field">
+          <label>Email</label>
+          <input id="siEmail" class="review-input" type="email" autocomplete="username" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input id="siPass" class="review-input" type="password" autocomplete="current-password" placeholder="••••••••" required>
+        </div>
+        <button class="btn primary" id="doSignIn" type="submit">Sign In</button>
+      </form>
+
+      <form id="createForm" style="margin-top:10px; display:none;">
+        <div class="field">
+          <label>Full Name</label>
+          <input id="caName" class="review-input" type="text" autocomplete="name" placeholder="First Last" required>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="caEmail" class="review-input" type="email" autocomplete="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label>Phone (optional)</label>
+          <input id="caPhone" class="review-input" type="tel" autocomplete="tel" placeholder="+1 (555) 555‑5555">
+        </div>
+
+        <label style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
+          <input id="caSms" type="checkbox" style="margin-top:4px;">
+          <span class="small" style="color:var(--ink); line-height:1.35;">
+            <strong>Optional SMS updates:</strong> I agree to receive <strong>transactional</strong> texts about orders/account activity.
+            Msg &amp; data rates may apply. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Consent not required to purchase.
+          </span>
+        </label>
+
+        <button class="btn primary" id="doCreate" type="submit" style="margin-top:10px;">Create Account</button>
+      </form>
+
+      <form id="resetForm" style="margin-top:10px; display:none;">
+        <div class="field">
+          <label>Email</label>
+          <input id="rpEmail" class="review-input" type="email" autocomplete="username" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label>Phone (optional)</label>
+          <input id="rpPhone" class="review-input" type="tel" autocomplete="tel" placeholder="+1 (555) 555‑5555">
+        </div>
+        <button class="btn primary" id="doReset" type="submit">Request Reset</button>
+      </form>
+
+      <p class="small" style="margin-top:12px;">
+        When you wire backend: this drawer can persist “signed in” state the same way your other app does (session/local storage).
+      </p>
+    </div>
+
+    <div class="drawer-foot">
+      <button id="fakeSignToggle" class="btn" type="button">Toggle Signed‑In (dev)</button>
+    </div>
+  </aside>
+
+  <!-- MOBILE FILTERS DRAWER -->
+  <div id="filtersOverlay" class="overlay filters-drawer" aria-hidden="true"></div>
+  <aside id="filtersDrawer" class="drawer filters-drawer" aria-label="Filters drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Filters</h2>
+      <button class="x" id="closeFilters" aria-label="Close filters" type="button">✕</button>
+    </div>
+    <div class="drawer-body">
+      <!-- Same filter controls as desktop (cloned by JS) -->
+      <div id="filtersMobileMount"></div>
+    </div>
+    <div class="drawer-foot">
+      <button id="applyFiltersMobile" class="btn primary" type="button">Apply</button>
+      <button id="resetFiltersMobile" class="btn" type="button" style="margin-top:10px;">Reset</button>
+    </div>
+  </aside>
+
+  <!-- BUILDER MODAL -->
+  <div id="builderModal" class="modal" aria-hidden="true">
+    <div class="overlay open" id="builderOverlay" data-close="true"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Product builder">
+      <div class="mhead">
+        <h2 id="bmTitle">Customize</h2>
+        <button class="x" id="closeBuilder" type="button">✕</button>
+      </div>
+
+      <div class="mbody">
+        <p class="small" style="margin-top:0;">
+          Choose style, fit, size, color, and graphics. Variants and pricing are computed client-side for UX only.
+        </p>
+
+        <div class="field">
+          <label>Style</label>
+          <select id="bStyle"></select>
+        </div>
+
+        <div class="field">
+          <label>Fit</label>
+          <select id="bFit"></select>
+        </div>
+
+        <div class="field">
+          <label>Size</label>
+          <select id="bSize"></select>
+        </div>
+
+        <div class="field">
+          <label>Graphic</label>
+          <select id="bGraphic"></select>
+        </div>
+
+        <div class="field">
+          <label>Garment Color</label>
+          <div id="bColors" class="color-row"></div>
+        </div>
+
+        <div class="field">
+          <label>Graphic Color</label>
+          <div id="bGColors" class="color-row"></div>
+        </div>
+
+        <div class="field">
+          <label>Quantity</label>
+          <select id="bQty">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="preview">
+        <div class="box">
+          <img id="bImg" alt="Product preview" src="https://loe-life.com/images/bg1.png"/>
+          <div class="stamp">
+            <strong id="bLine1">—</strong>
+            <small id="bLine2">—</small>
+            <small id="bLine3" style="margin-top:6px;">$<span id="bPrice">0.00</span></small>
+          </div>
+        </div>
+
+        <div class="small">
+          <strong>Note:</strong> Inventory and final totals are validated server-side at checkout.
+        </div>
+      </div>
+
+      <div class="mfoot">
+        <button class="btn" id="builderCancel" type="button">Cancel</button>
+        <button class="btn primary" id="builderAdd" type="button">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ===========================
+       OmniTok helper (stub)
+       Pattern based on your existing store: issue token -> call actor endpoint. [1](https://fortiviewholdings-my.sharepoint.com/personal/cameron_bridges_fortiviewholdings_com/Documents/Documents/Clients/PPSC/ordernowarchive.html)
+       =========================== */
+    const API = {
+      issueOmniTok: 'INSERT_OMNITOK_ISSUER_ENDPOINT'
+    };
+
+    async function getOmniTok(act) {
+      let sid = sessionStorage.getItem('sid');
+      if (!sid) {
+        sid = crypto.randomUUID();
+        sessionStorage.setItem('sid', sid);
+      }
+
+      const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
+
+      if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
+        return {
+          sid,
+          endpoint: 'INSERT_ACTOR_ENDPOINT',
+          authToken: 'INSERT_AUTH_TOKEN',
+          OmniTok: 'INSERT_OMNITOK'
+        };
+      }
+
+      const res = await fetch(API.issueOmniTok, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
+      const data = await res.json();
+      return { ...data, sid };
+    }
+
+    /* ===========================
+       Auth state (stub)
+       =========================== */
+    const LOE_AUTH_KEY = 'loe_auth_v1';
+    function getAuth(){ try { return JSON.parse(localStorage.getItem(LOE_AUTH_KEY) || 'null'); } catch { return null; } }
+    function isSignedIn(){
+      const a = getAuth();
+      if (!a) return false;
+      if (a.exp && Date.now() > a.exp) return false;
+      return !!a.signedIn;
+    }
+    function setSignedIn(v){
+      if (!v) { localStorage.removeItem(LOE_AUTH_KEY); return; }
+      localStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
+        signedIn: true,
+        userId: v.userId || 'dev-user',
+        exp: v.exp || (Date.now() + 14*24*60*60*1000)
+      }));
+    }
+
+    /* ===========================
+       Catalog stub (replace later)
+       Each product defines allowed options.
+       =========================== */
+    const CATALOG = [
+      {
+        id: "loe-tee-core",
+        name: "LOE Core Tee",
+        basePrice: 32,
+        currency: "USD",
+        desc: "Everyday training tee with LOE identity.",
+        tags: ["tee","core","training","unisex"],
+        styles: [
+          { id:"tee", label:"T‑Shirt", priceDelta: 0 },
+          { id:"ls", label:"Long Sleeve", priceDelta: 6 }
+        ],
+        fits: ["Unisex","Men","Women"],
+        sizes: ["XS","S","M","L","XL","2XL","3XL"],
+        colors: [
+          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg1.png" },
+          { id:"slate", label:"Slate", hex:"#2b2f39", img:"https://loe-life.com/images/bg2.png" },
+          { id:"bone",  label:"Bone",  hex:"#d8d3c9", img:"https://loe-life.com/images/bg3.png" }
+        ],
+        graphics: [
+          { id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","red","gold"] },
+          { id:"loyalty-over-everything", label:"Loyalty Over Everything", priceDelta: 2, allowedGraphicColors:["white","red"] },
+          { id:"discipline", label:"Discipline", priceDelta: 2, allowedGraphicColors:["white","gold"] }
+        ]
+      },
+      {
+        id: "loe-hoodie-legacy",
+        name: "Legacy Hoodie",
+        basePrice: 68,
+        currency: "USD",
+        desc: "Heavyweight hoodie built for cold sessions and late reps.",
+        tags: ["hoodie","legacy","warm"],
+        styles: [
+          { id:"hoodie", label:"Hoodie", priceDelta: 0 },
+          { id:"crew", label:"Crewneck", priceDelta: -6 }
+        ],
+        fits: ["Unisex"],
+        sizes: ["S","M","L","XL","2XL","3XL"],
+        colors: [
+          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg4.png" },
+          { id:"ash", label:"Ash", hex:"#bdbfc5", img:"https://loe-life.com/images/bg3.png" }
+        ],
+        graphics: [
+          { id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","red","gold"] },
+          { id:"spine-graphic", label:"Spine Graphic", priceDelta: 6, allowedGraphicColors:["white","red"] }
+        ]
+      },
+      {
+        id: "loe-cap",
+        name: "LOE Cap",
+        basePrice: 28,
+        currency: "USD",
+        desc: "Structured cap — clean, hard, and simple.",
+        tags: ["cap","hat","accessory"],
+        styles: [
+          { id:"cap", label:"Cap", priceDelta: 0 }
+        ],
+        fits: ["One Size"],
+        sizes: ["OS"],
+        colors: [
+          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg1.png" },
+          { id:"red", label:"Red", hex:"#8d1d1b", img:"https://loe-life.com/images/bg2.png" }
+        ],
+        graphics: [
+          { id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","gold"] }
+        ]
+      }
+    ];
+
+    const GRAPHIC_COLORS = [
+      { id:"white", label:"White", hex:"#f5f5f5" },
+      { id:"red",   label:"Red",   hex:"#d63b35" },
+      { id:"gold",  label:"Gold",  hex:"#d6b15a" },
+      { id:"black", label:"Black", hex:"#101010" }
+    ];
+
+    /* ===========================
+       Filters state
+       =========================== */
+    const state = {
+      q: "",
+      filters: { style:null, fit:null, size:null, color:null, graphic:null },
+      builder: { product:null, style:null, fit:null, size:null, color:null, graphic:null, gcolor:null, qty:1 },
+      cart: []
+    };
+
+    /* ===========================
+       DOM refs
+       =========================== */
+    const grid = document.getElementById('grid');
+    const countEl = document.getElementById('count');
+    const q = document.getElementById('q');
+
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartBtn = document.getElementById('cartBtn');
+    const closeCart = document.getElementById('closeCart');
+    const cartList = document.getElementById('cartList');
+    const cartDot = document.getElementById('cartDot');
+
+    const subTotal = document.getElementById('subTotal');
+    const ship = document.getElementById('ship');
+    const tax = document.getElementById('tax');
+    const grand = document.getElementById('grand');
+    const holdCheckout = document.getElementById('holdCheckout');
+    const holdFill = document.getElementById('holdFill');
+    const holdLabel = document.getElementById('holdLabel');
+    const checkoutFallback = document.getElementById('checkoutFallback');
+
+    const authOverlay = document.getElementById('authOverlay');
+    const authDrawer = document.getElementById('authDrawer');
+    const authBtn = document.getElementById('authBtn');
+    const closeAuth = document.getElementById('closeAuth');
+    const fakeSignToggle = document.getElementById('fakeSignToggle');
+
+    const openFiltersMobile = document.getElementById('openFiltersMobile');
+    const filtersOverlay = document.getElementById('filtersOverlay');
+    const filtersDrawer = document.getElementById('filtersDrawer');
+    const closeFilters = document.getElementById('closeFilters');
+    const filtersMobileMount = document.getElementById('filtersMobileMount');
+
+    const builderModal = document.getElementById('builderModal');
+    const builderOverlay = document.getElementById('builderOverlay');
+    const closeBuilder = document.getElementById('closeBuilder');
+    const builderCancel = document.getElementById('builderCancel');
+    const builderAdd = document.getElementById('builderAdd');
+
+    const bmTitle = document.getElementById('bmTitle');
+    const bStyle = document.getElementById('bStyle');
+    const bFit = document.getElementById('bFit');
+    const bSize = document.getElementById('bSize');
+    const bGraphic = document.getElementById('bGraphic');
+    const bColors = document.getElementById('bColors');
+    const bGColors = document.getElementById('bGColors');
+    const bQty = document.getElementById('bQty');
+
+    const bImg = document.getElementById('bImg');
+    const bLine1 = document.getElementById('bLine1');
+    const bLine2 = document.getElementById('bLine2');
+    const bLine3 = document.getElementById('bLine3');
+    const bPrice = document.getElementById('bPrice');
+
+    /* ===========================
+       Helpers
+       =========================== */
+    const money = (n) => (Number(n || 0)).toFixed(2);
+
+    function openDrawer(overlay, drawer){
+      overlay.classList.add('open');
+      drawer.classList.add('open');
+      overlay.setAttribute('aria-hidden','false');
+      drawer.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer(overlay, drawer){
+      overlay.classList.remove('open');
+      drawer.classList.remove('open');
+      overlay.setAttribute('aria-hidden','true');
+      drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    function openBuilder(){
+      builderModal.classList.add('open');
+      builderModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBuilderModal(){
+      builderModal.classList.remove('open');
+      builderModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    function setPillRow(containerId, items, key){
+      const el = document.getElementById(containerId);
+      el.innerHTML = '';
+      items.forEach(v=>{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pill' + (state.filters[key] === v ? ' on' : '');
+        b.textContent = v;
+        b.onclick = ()=>{
+          state.filters[key] = (state.filters[key] === v) ? null : v;
+          render();
+          syncFilterPills();
+        };
+        el.appendChild(b);
+      });
+    }
+
+    function syncFilterPills(){
+      // rebuild all pill rows (simple + reliable)
+      buildFilters();
+      buildMobileFilters();
+    }
+
+    function uniq(arr){ return Array.from(new Set(arr)); }
+
+    function buildFilters(){
+      const styles = uniq(CATALOG.flatMap(p=>p.styles.map(s=>s.label)));
+      const fits = uniq(CATALOG.flatMap(p=>p.fits));
+      const sizes = uniq(CATALOG.flatMap(p=>p.sizes));
+      const colors = uniq(CATALOG.flatMap(p=>p.colors.map(c=>c.label)));
+      const graphics = uniq(CATALOG.flatMap(p=>p.graphics.map(g=>g.label)));
+
+      setPillRow('fStyle', styles, 'style');
+      setPillRow('fFit', fits, 'fit');
+      setPillRow('fSize', sizes, 'size');
+      setPillRow('fColor', colors, 'color');
+      setPillRow('fGraphic', graphics, 'graphic');
+    }
+
+    function buildMobileFilters(){
+      // Clone desktop filters markup into the mobile drawer mount (no duplicate logic)
+      const desktop = document.querySelector('.filters');
+      if (!desktop) return;
+      const clone = desktop.cloneNode(true);
+      clone.style.display = 'block';
+      clone.style.position = 'static';
+      clone.style.top = 'auto';
+      clone.style.maxHeight = 'none';
+      clone.style.overflow = 'visible';
+      // Remove desktop action buttons (we have dedicated mobile footer buttons)
+      const actions = clone.querySelector('.actions');
+      if (actions) actions.remove();
+      filtersMobileMount.innerHTML = '';
+      filtersMobileMount.appendChild(clone);
+
+      // Re-wire the pills inside cloned filter UI
+      // We simply rebuild again; ids inside clone would duplicate, so we target the clone's containers by querying for #fStyle etc within clone
+      const map = [
+        ['#fStyle','style', uniq(CATALOG.flatMap(p=>p.styles.map(s=>s.label)))],
+        ['#fFit','fit', uniq(CATALOG.flatMap(p=>p.fits))],
+        ['#fSize','size', uniq(CATALOG.flatMap(p=>p.sizes))],
+        ['#fColor','color', uniq(CATALOG.flatMap(p=>p.colors.map(c=>c.label)))],
+        ['#fGraphic','graphic', uniq(CATALOG.flatMap(p=>p.graphics.map(g=>g.label)))]
+      ];
+      map.forEach(([sel,key,items])=>{
+        const row = filtersMobileMount.querySelector(sel);
+        if (!row) return;
+        row.innerHTML = '';
+        items.forEach(v=>{
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'pill' + (state.filters[key] === v ? ' on' : '');
+          b.textContent = v;
+          b.onclick = ()=>{
+            state.filters[key] = (state.filters[key] === v) ? null : v;
+            render();
+            // Update both desktop and mobile visuals
+            syncFilterPills();
+          };
+          row.appendChild(b);
+        });
+      });
+
+      // Wire clear button inside clone
+      const clear = filtersMobileMount.querySelector('#clearFilters');
+      clear?.addEventListener('click', ()=>{
+        state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+        render();
+        syncFilterPills();
+      });
+    }
+
+    function matchesFilters(p){
+      const f = state.filters;
+      if (f.style){
+        const ok = p.styles.some(s=>s.label === f.style);
+        if (!ok) return false;
+      }
+      if (f.fit && !p.fits.includes(f.fit)) return false;
+      if (f.size && !p.sizes.includes(f.size)) return false;
+      if (f.color && !p.colors.some(c=>c.label === f.color)) return false;
+      if (f.graphic && !p.graphics.some(g=>g.label === f.graphic)) return false;
+
+      if (state.q){
+        const hay = [
+          p.name, p.desc,
+          ...(p.tags||[]),
+          ...p.styles.map(s=>s.label),
+          ...p.fits,
+          ...p.sizes,
+          ...p.colors.map(c=>c.label),
+          ...p.graphics.map(g=>g.label)
+        ].join(' ').toLowerCase();
+        if (!hay.includes(state.q.toLowerCase())) return false;
+      }
+      return true;
+    }
+
+    function render(){
+      const items = CATALOG.filter(matchesFilters);
+      countEl.textContent = String(items.length);
+
+      grid.innerHTML = '';
+      items.forEach(p=>{
+        const img = p.colors?.[0]?.img || "https://loe-life.com/images/bg1.png";
+        const tagline = p.tags?.slice(0,3).join(" • ") || "LOE‑Life";
+
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb">
+            <img src="${img}" alt="${p.name}">
+            <div class="tagline">${tagline}</div>
+          </div>
+          <div class="row">
+            <h3 class="name">${p.name}</h3>
+            <div class="price">$${money(p.basePrice)}</div>
+          </div>
+          <div class="meta">${p.desc}</div>
+          <div class="card-actions">
+            <button class="btn primary" type="button">Customize</button>
+            <button class="btn" type="button">Quick Add</button>
+          </div>
+        `;
+
+        const [btnCustomize, btnQuick] = card.querySelectorAll('button');
+
+        btnCustomize.onclick = ()=> openProductBuilder(p);
+        btnQuick.onclick = ()=> {
+          // quick add uses default first options
+          const variant = makeDefaultVariant(p);
+          addToCart(variant);
+          openDrawer(cartOverlay, cartDrawer);
+        };
+
+        grid.appendChild(card);
+      });
+
+      // cart dot
+      cartDot.classList.toggle('on', state.cart.length > 0);
+      updateCartUI();
+    }
+
+    /* ===========================
+       Variant + pricing
+       =========================== */
+    function makeDefaultVariant(p){
+      const style = p.styles[0];
+      const fit = p.fits[0];
+      const size = p.sizes[0];
+      const color = p.colors[0];
+      const graphic = p.graphics[0];
+      const gcolor = GRAPHIC_COLORS.find(gc => graphic.allowedGraphicColors.includes(gc.id)) || GRAPHIC_COLORS[0];
+
+      return buildVariant(p, style, fit, size, color, graphic, gcolor, 1);
+    }
+
+    function computePrice(p, style, graphic){
+      const base = p.basePrice;
+      const styleDelta = style?.priceDelta || 0;
+      const graphicDelta = graphic?.priceDelta || 0;
+      return base + styleDelta + graphicDelta;
+    }
+
+    function buildVariant(p, style, fit, size, color, graphic, gcolor, qty){
+      const unit = computePrice(p, style, graphic);
+      return {
+        key: `${p.id}|${style.id}|${fit}|${size}|${color.id}|${graphic.id}|${gcolor.id}`,
+        productId: p.id,
+        name: p.name,
+        unitPrice: unit,
+        currency: p.currency,
+        qty: Number(qty || 1),
+        opts: {
+          style: style.label,
+          fit,
+          size,
+          color: color.label,
+          graphic: graphic.label,
+          graphicColor: gcolor.label
+        },
+        thumb: color.img || p.colors[0].img || "https://loe-life.com/images/bg1.png"
+      };
+    }
+
+    /* ===========================
+       Builder modal logic
+       =========================== */
+    function openProductBuilder(p){
+      state.builder.product = p;
+
+      // Defaults
+      const def = makeDefaultVariant(p);
+      const style = p.styles.find(s=>s.label === def.opts.style) || p.styles[0];
+      const graphic = p.graphics.find(g=>g.label === def.opts.graphic) || p.graphics[0];
+      const color = p.colors.find(c=>c.label === def.opts.color) || p.colors[0];
+      const gcolor = GRAPHIC_COLORS.find(gc=>gc.label === def.opts.graphicColor) || GRAPHIC_COLORS[0];
+
+      state.builder.style = style;
+      state.builder.fit = def.opts.fit;
+      state.builder.size = def.opts.size;
+      state.builder.color = color;
+      state.builder.graphic = graphic;
+      state.builder.gcolor = gcolor;
+      state.builder.qty = 1;
+
+      // Title
+      bmTitle.textContent = `Customize — ${p.name}`;
+
+      // Populate selects
+      bStyle.innerHTML = p.styles.map(s=>`<option value="${s.id}">${s.label}${s.priceDelta ? ` (${s.priceDelta>0?'+':''}${s.priceDelta})` : ''}</option>`).join('');
+      bFit.innerHTML = p.fits.map(f=>`<option value="${f}">${f}</option>`).join('');
+      bSize.innerHTML = p.sizes.map(s=>`<option value="${s}">${s}</option>`).join('');
+      bGraphic.innerHTML = p.graphics.map(g=>`<option value="${g.id}">${g.label}${g.priceDelta ? ` (+${g.priceDelta})` : ''}</option>`).join('');
+
+      // Select defaults
+      bStyle.value = style.id;
+      bFit.value = state.builder.fit;
+      bSize.value = state.builder.size;
+      bGraphic.value = graphic.id;
+      bQty.value = "1";
+
+      // Render colors
+      renderColorSwatches(p);
+
+      // Render preview
+      refreshBuilderPreview();
+
+      // Wire handlers (idempotent by replacing)
+      bStyle.onchange = ()=>{
+        state.builder.style = p.styles.find(s=>s.id===bStyle.value) || p.styles[0];
+        refreshBuilderPreview();
+      };
+      bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshBuilderPreview(); };
+      bSize.onchange = ()=>{ state.builder.size = bSize.value; refreshBuilderPreview(); };
+      bGraphic.onchange = ()=>{
+        state.builder.graphic = p.graphics.find(g=>g.id===bGraphic.value) || p.graphics[0];
+        // When graphic changes, clamp graphic color to allowed set
+        const allowed = state.builder.graphic.allowedGraphicColors;
+        if (!allowed.includes(state.builder.gcolor.id)){
+          state.builder.gcolor = GRAPHIC_COLORS.find(gc=>allowed.includes(gc.id)) || GRAPHIC_COLORS[0];
+        }
+        renderGraphicColorSwatches();
+        refreshBuilderPreview();
+      };
+      bQty.onchange = ()=>{ state.builder.qty = Number(bQty.value); refreshBuilderPreview(); };
+
+      openBuilder();
+    }
+
+    function renderColorSwatches(p){
+      bColors.innerHTML = '';
+      p.colors.forEach(c=>{
+        const sw = document.createElement('button');
+        sw.type = 'button';
+        sw.className = 'sw' + (state.builder.color?.id === c.id ? ' on' : '');
+        sw.style.background = c.hex;
+        sw.title = c.label;
+        sw.onclick = ()=>{
+          state.builder.color = c;
+          renderColorSwatches(p);
+          refreshBuilderPreview();
+        };
+        bColors.appendChild(sw);
+      });
+
+      renderGraphicColorSwatches();
+    }
+
+    function renderGraphicColorSwatches(){
+      const allowed = state.builder.graphic.allowedGraphicColors;
+      bGColors.innerHTML = '';
+      GRAPHIC_COLORS.filter(gc=>allowed.includes(gc.id)).forEach(gc=>{
+        const sw = document.createElement('button');
+        sw.type = 'button';
+        sw.className = 'sw' + (state.builder.gcolor?.id === gc.id ? ' on' : '');
+        sw.style.background = gc.hex;
+        sw.title = gc.label;
+        sw.onclick = ()=>{
+          state.builder.gcolor = gc;
+          renderGraphicColorSwatches();
+          refreshBuilderPreview();
+        };
+        bGColors.appendChild(sw);
+      });
+    }
+
+    function refreshBuilderPreview(){
+      const p = state.builder.product;
+      const style = state.builder.style;
+      const fit = state.builder.fit;
+      const size = state.builder.size;
+      const color = state.builder.color;
+      const graphic = state.builder.graphic;
+      const gcolor = state.builder.gcolor;
+      const qty = state.builder.qty;
+
+      const unit = computePrice(p, style, graphic);
+      const total = unit * qty;
+
+      bImg.src = color.img || p.colors[0].img || "https://loe-life.com/images/bg1.png";
+
+      bLine1.textContent = `${p.name} — ${style.label}`;
+      bLine2.textContent = `${fit} • ${size} • ${color.label} • ${graphic.label} (${gcolor.label})`;
+      bPrice.textContent = money(total);
+    }
+
+    builderAdd.onclick = ()=>{
+      const p = state.builder.product;
+      const v = buildVariant(
+        p,
+        state.builder.style,
+        state.builder.fit,
+        state.builder.size,
+        state.builder.color,
+        state.builder.graphic,
+        state.builder.gcolor,
+        state.builder.qty
+      );
+      addToCart(v);
+      closeBuilderModal();
+      openDrawer(cartOverlay, cartDrawer);
+    };
+    builderCancel.onclick = closeBuilderModal;
+    closeBuilder.onclick = closeBuilderModal;
+    builderOverlay.onclick = (e)=>{ if (e.target.dataset.close) closeBuilderModal(); };
+
+    /* ===========================
+       Cart logic
+       =========================== */
+    function addToCart(v){
+      const idx = state.cart.findIndex(x=>x.key===v.key);
+      if (idx>=0) state.cart[idx].qty += v.qty;
+      else state.cart.push(v);
+      persistCart();
+      render();
+    }
+
+    function removeFromCart(key){
+      state.cart = state.cart.filter(x=>x.key!==key);
+      persistCart();
+      render();
+    }
+
+    function updateQty(key, qty){
+      const it = state.cart.find(x=>x.key===key);
+      if (!it) return;
+      const q = Math.max(0, Math.min(99, Number(qty || 0)));
+      if (q===0) removeFromCart(key);
+      else it.qty = q;
+      persistCart();
+      updateCartUI();
+      cartDot.classList.toggle('on', state.cart.length > 0);
+    }
+
+    function computeTotals(){
+      const subtotal = state.cart.reduce((s,i)=> s + (i.unitPrice*i.qty), 0);
+      // Est shipping/tax are placeholders until your backend returns authoritative numbers.
+      const estShip = subtotal>0 ? Math.min(12, Math.max(0, subtotal*0.06)) : 0;
+      const estTax = subtotal>0 ? Math.max(0, subtotal*0.0825) : 0;
+      const total = subtotal + estShip + estTax;
+      return { subtotal, estShip, estTax, total };
+    }
+
+    function updateCartUI(){
+      cartList.innerHTML = '';
+
+      if (state.cart.length === 0){
+        const empty = document.createElement('div');
+        empty.className = 'small';
+        empty.style.padding = '6px 2px';
+        empty.textContent = "Your cart is empty — build a fit and add it here.";
+        cartList.appendChild(empty);
+      } else {
+        state.cart.forEach(i=>{
+          const li = document.createElement('li');
+          li.className = 'cart-item';
+          li.innerHTML = `
+            <img src="${i.thumb}" alt="${i.name}">
+            <div class="ci">
+              <strong>${i.name}</strong>
+              <small>${i.opts.style} • ${i.opts.fit} • ${i.opts.size} • ${i.opts.color}</small>
+              <small>${i.opts.graphic} • ${i.opts.graphicColor}</small>
+              <small>$${money(i.unitPrice)} ea</small>
+            </div>
+            <div class="qty">
+              <button class="qbtn" aria-label="Decrease quantity" type="button">−</button>
+              <input class="qval" type="number" min="0" max="99" value="${i.qty}">
+              <button class="qbtn" aria-label="Increase quantity" type="button">+</button>
+            </div>
+          `;
+          const [minus, input, plus] = li.querySelectorAll('.qbtn, .qval');
+          minus.onclick = ()=> updateQty(i.key, i.qty-1);
+          plus.onclick = ()=> updateQty(i.key, i.qty+1);
+          input.oninput = ()=> updateQty(i.key, input.value);
+
+          li.ondblclick = ()=> removeFromCart(i.key);
+
+          cartList.appendChild(li);
+        });
+      }
+
+      const t = computeTotals();
+      subTotal.textContent = money(t.subtotal);
+      ship.textContent = money(t.estShip);
+      tax.textContent = money(t.estTax);
+      grand.textContent = money(t.total);
+
+      // Enable hold-to-confirm if cart has items
+      const enabled = state.cart.length > 0;
+      holdCheckout.classList.toggle('disabled', !enabled);
+      checkoutFallback.disabled = !enabled;
+      if (!enabled){
+        holdFill.style.width = '0%';
+        holdLabel.textContent = 'Hold to Confirm';
+      }
+    }
+
+    function persistCart(){
+      sessionStorage.setItem('loe_cart_v1', JSON.stringify(state.cart));
+    }
+    function loadCart(){
+      try{
+        const saved = sessionStorage.getItem('loe_cart_v1');
+        if (saved) state.cart = JSON.parse(saved) || [];
+      }catch{}
+    }
+
+    /* ===========================
+       Checkout (Hold-to-confirm + OmniTok stub)
+       Inspired by your existing “Hold to Confirm” UX. [2](https://fortiviewholdings-my.sharepoint.com/personal/cameron_bridges_fortiviewholdings_com/Documents/Microsoft%20Copilot%20Chat%20Files/ecommerce.txt)[1](https://fortiviewholdings-my.sharepoint.com/personal/cameron_bridges_fortiviewholdings_com/Documents/Documents/Clients/PPSC/ordernowarchive.html)
+       =========================== */
+    let holdTimer = null;
+    let holdStart = 0;
+    const HOLD_MS = 900;
+
+    function beginHold(){
+      if (holdCheckout.classList.contains('disabled')) return;
+      holdStart = performance.now();
+      holdLabel.textContent = 'Holding…';
+      holdFill.style.width = '0%';
+
+      const tick = ()=>{
+        const elapsed = performance.now() - holdStart;
+        const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
+        holdFill.style.width = pct + '%';
+        if (elapsed >= HOLD_MS){
+          endHold(true);
+          return;
+        }
+        holdTimer = requestAnimationFrame(tick);
+      };
+      holdTimer = requestAnimationFrame(tick);
+    }
+
+    function endHold(success){
+      if (holdTimer) cancelAnimationFrame(holdTimer);
+      holdTimer = null;
+
+      if (!success){
+        holdLabel.textContent = 'Hold to Confirm';
+        holdFill.style.width = '0%';
+        return;
+      }
+
+      holdLabel.textContent = 'Submitting…';
+      // Kick checkout
+      checkout().finally(()=>{
+        // Reset UI after
+        setTimeout(()=>{
+          holdLabel.textContent = 'Hold to Confirm';
+          holdFill.style.width = '0%';
+        }, 900);
+      });
+    }
+
+    async function checkout(){
+      const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
+      sessionStorage.setItem('sid', sid);
+
+      const totals = computeTotals();
+      const payload = {
+        id: `co-${Date.now()}`,
+        sid,
+        ts: new Date().toISOString(),
+        act: 'createCheckout',
+        source: 'loe-life-shop',
+        auth: isSignedIn() ? { signedIn:true, userId: getAuth()?.userId || null } : { signedIn:false },
+        cart: state.cart.map(i=>({
+          key: i.key,
+          productId: i.productId,
+          name: i.name,
+          qty: i.qty,
+          unitPrice: i.unitPrice,
+          currency: i.currency,
+          opts: i.opts
+        })),
+        totals: {
+          subtotal: totals.subtotal,
+          estShip: totals.estShip,
+          estTax: totals.estTax,
+          total: totals.total
+        }
+      };
+
+      try{
+        // If not signed in, open auth drawer (still allow guest later if you want)
+        if (!isSignedIn()){
+          openDrawer(authOverlay, authDrawer);
+          console.log("Checkout blocked (not signed in). Payload would be:", payload);
+          return;
+        }
+
+        const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('checkout');
+
+        if (!endpoint || endpoint.includes('INSERT_')){
+          console.log("Checkout payload ready for OmniTok:", payload);
+          alert("Checkout queued (endpoint not set). See console for payload.");
+          return;
+        }
+
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': authToken,
+            'X-OmniTok': omniTok,
+            'X-SID': sid2
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('checkout actor endpoint failed');
+
+        const data = await res.json().catch(()=>null);
+        alert("Checkout created. Next step: Stripe Elements (to be wired).");
+        console.log("Checkout response:", data);
+
+      }catch(err){
+        console.error(err);
+        alert("Checkout failed (stub).");
+      }
+    }
+
+    holdCheckout.addEventListener('pointerdown', (e)=>{ e.preventDefault(); beginHold(); });
+    holdCheckout.addEventListener('pointerup', ()=> endHold(true));
+    holdCheckout.addEventListener('pointercancel', ()=> endHold(false));
+    holdCheckout.addEventListener('pointerleave', ()=> endHold(false));
+
+    checkoutFallback.onclick = checkout;
+
+    /* ===========================
+       Auth drawer tabs (stub wiring)
+       =========================== */
+    const tabSignIn = document.getElementById('tabSignIn');
+    const tabCreate = document.getElementById('tabCreate');
+    const tabReset  = document.getElementById('tabReset');
+
+    const signInForm = document.getElementById('signInForm');
+    const createForm = document.getElementById('createForm');
+    const resetForm  = document.getElementById('resetForm');
+
+    function setTab(which){
+      [tabSignIn,tabCreate,tabReset].forEach(t=>t.classList.remove('on'));
+      tabSignIn.classList.toggle('on', which==='signIn');
+      tabCreate.classList.toggle('on', which==='create');
+      tabReset.classList.toggle('on', which==='reset');
+
+      signInForm.style.display = (which==='signIn') ? 'block' : 'none';
+      createForm.style.display = (which==='create') ? 'block' : 'none';
+      resetForm.style.display  = (which==='reset')  ? 'block' : 'none';
+    }
+    tabSignIn.onclick = ()=> setTab('signIn');
+    tabCreate.onclick = ()=> setTab('create');
+    tabReset.onclick  = ()=> setTab('reset');
+
+    // Minimal OmniTok-stub submissions (log if endpoints unset)
+    signInForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const payload = { act:'login', email: siEmail.value.trim(), password: siPass.value, ts:new Date().toISOString() };
+      try{
+        const cfg = await getOmniTok('login');
+        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+          console.log("Login payload ready:", payload);
+          setSignedIn({ userId:'dev-user' });
+          alert("Signed in (dev stub).");
+          closeDrawer(authOverlay, authDrawer);
+          return;
+        }
+        // else: post to actor
+      }catch(err){ console.error(err); }
+    });
+
+    createForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const payload = {
+        act:'createAccount',
+        fullName: caName.value.trim(),
+        email: caEmail.value.trim(),
+        phone: caPhone.value.trim() || null,
+        smsConsent: caSms.checked,
+        ts: new Date().toISOString()
+      };
+      try{
+        const cfg = await getOmniTok('signup');
+        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+          console.log("CreateAccount payload ready:", payload);
+          alert("Create account queued (endpoint not set).");
+          return;
+        }
+      }catch(err){ console.error(err); }
+    });
+
+    resetForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const payload = { act:'reset', email: rpEmail.value.trim(), phone: rpPhone.value.trim() || null, ts:new Date().toISOString() };
+      try{
+        const cfg = await getOmniTok('reset');
+        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+          console.log("Reset payload ready:", payload);
+          alert("Reset queued (endpoint not set).");
+          return;
+        }
+      }catch(err){ console.error(err); }
+    });
+
+    fakeSignToggle.onclick = ()=>{
+      if (isSignedIn()){
+        setSignedIn(null);
+        alert("Signed out (dev).");
+      } else {
+        setSignedIn({ userId:'dev-user' });
+        alert("Signed in (dev).");
+      }
+    };
+
+    /* ===========================
+       Drawer events
+       =========================== */
+    cartBtn.onclick = ()=> openDrawer(cartOverlay, cartDrawer);
+    closeCart.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
+    cartOverlay.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
+
+    authBtn.onclick = ()=> openDrawer(authOverlay, authDrawer);
+    closeAuth.onclick = ()=> closeDrawer(authOverlay, authDrawer);
+    authOverlay.onclick = ()=> closeDrawer(authOverlay, authDrawer);
+
+    openFiltersMobile.onclick = ()=> openDrawer(filtersOverlay, filtersDrawer);
+    closeFilters.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
+    filtersOverlay.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
+
+    // Desktop filter buttons
+    document.getElementById('clearFilters').onclick = ()=>{
+      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+      render();
+      syncFilterPills();
+    };
+    document.getElementById('applyFilters').onclick = ()=> render();
+    document.getElementById('resetFilters').onclick = ()=>{
+      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+      state.q = "";
+      q.value = "";
+      render();
+      syncFilterPills();
+    };
+
+    // Mobile filter footer buttons
+    document.getElementById('applyFiltersMobile').onclick = ()=>{
+      render();
+      closeDrawer(filtersOverlay, filtersDrawer);
+    };
+    document.getElementById('resetFiltersMobile').onclick = ()=>{
+      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+      state.q = "";
+      q.value = "";
+      render();
+      syncFilterPills();
+    };
+
+    // Search
+    q.addEventListener('input', ()=>{
+      state.q = q.value || "";
+      render();
+    });
+
+    // Init
+    loadCart();
+    buildFilters();
+    buildMobileFilters();
+    render();
+
+    // Keep cart button enabled state
+    function setCheckoutEnabled(){
+      const enabled = state.cart.length > 0;
+      holdCheckout.classList.toggle('disabled', !enabled);
+      checkoutFallback.disabled = !enabled;
+    }
+    setCheckoutEnabled();
+  </script>
+</body>
+</html>
