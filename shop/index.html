@@ -538,32 +538,56 @@
     }
     .modal.open{ display:block; }
     .modal .sheet{
-      position: relative;
-      margin: 0 auto;
-      top: 50%;
-      transform: translateY(-50%);
-      width: min(920px, 94vw);
-      max-height: 88vh;
-      overflow: hidden;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(10,10,18,0.88);
-      backdrop-filter: blur(18px) saturate(160%);
-      box-shadow: var(--shadow);
-      display:grid;
-      grid-template-columns: 1fr 1.1fr;
-    }
-    .modal .mhead{
-      grid-column: 1 / -1;
-      display:flex; align-items:center; justify-content: space-between;
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-    }
-    .modal .mhead h2{ margin:0; font-size: 1.05rem; }
-    .modal .mbody{
-      padding: 14px;
-      overflow:auto;
-    }
+  position: relative;
+  z-index: 1;
+
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: min(920px, 94vw);
+  max-height: min(88vh, 760px);
+
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10,10,18,0.92);
+  backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: var(--shadow);
+
+  display: grid;
+
+  /* ✅ 3-row layout: header / content / footer */
+  grid-template-rows: auto 1fr auto;
+
+  /* ✅ 2 columns for desktop */
+  grid-template-columns: 1fr 1.1fr;
+
+  /* ✅ IMPORTANT: don't hide content, let inner panes scroll */
+  overflow: clip; /* or overflow: hidden; both fine now */
+}
+   .modal .mhead{
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.modal .mbody{
+  grid-column: 1;
+  grid-row: 2;
+  overflow: auto;                 /* ✅ scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal .preview{
+  grid-column: 2;
+  grid-row: 2;
+  overflow: auto;                 /* ✅ scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal .mfoot{
+  grid-column: 1 / -1;
+  grid-row: 3;                    /* ✅ always visible */
+}
     .preview{
       padding: 14px;
       border-left: 1px solid rgba(255,255,255,0.10);
@@ -704,6 +728,42 @@
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{ animation: none !important; transition: none !important; }
     }
+
+    @media (max-width: 640px){
+  .modal .sheet{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  .modal .mbody{ grid-column: 1; grid-row: 2; }
+  .modal .preview{
+    grid-column: 1;
+    grid-row: 2;      /* share the scroll area */
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    margin-top: 12px;
+  }
+}
+
+    /* ✅ Force dark native selects everywhere */
+select, option {
+  color-scheme: dark;
+}
+
+/* Your builder selects (and any others) */
+.field select{
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(10,10,18,0.92);
+  color: #fff;
+  padding: 10px 10px;
+  outline: none;
+}
+
+/* ✅ Critical: option colors */
+.field select option{
+  background: #0b0b10; /* dark dropdown list */
+  color: #fff;
+}
   </style>
 </head>
 
