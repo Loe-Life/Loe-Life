@@ -631,7 +631,7 @@
 
     /* Shared modal base */
     .contact-popup { position: fixed; inset: 0; z-index: 1000; }
-    .contact-hidden { display: none; }
+    .contact-hidden { display: none !important; }
     .contact-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); }
 
     .contact-card {
@@ -914,7 +914,7 @@
 @media (max-width: 640px){
 
   /* Modal positioning: top-aligned, never centered */
-  .contact-popup{
+  .contact-popup[aria-hidden="false"]{
     display: flex;
     align-items: flex-start;
     justify-content: center;
