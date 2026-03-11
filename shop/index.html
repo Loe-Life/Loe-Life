@@ -734,14 +734,6 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
   }
-  .modal .mbody{ grid-column: 1; grid-row: 2; }
-  .modal .preview{
-    grid-column: 1;
-    grid-row: 2;      /* share the scroll area */
-    border-left: none;
-    border-top: 1px solid rgba(255,255,255,0.10);
-    margin-top: 12px;
-  }
 }
 
     /* ✅ Force dark native selects everywhere */
@@ -763,6 +755,128 @@ select, option {
 .field select option{
   background: #0b0b10; /* dark dropdown list */
   color: #fff;
+}
+    /* ===========================
+   MOBILE HEADER FIX (search row)
+   =========================== */
+@media (max-width: 640px){
+
+  /* Let header content grow (your .nav currently has a fixed height) */
+  .nav{
+    height: auto !important;
+    padding: 12px 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand actions"
+      "search search";
+    gap: 10px;
+    align-items: center;
+  }
+
+  .brand{ grid-area: brand; min-width: 0; }
+  .nav-actions{ grid-area: actions; min-width: 0; justify-content: flex-end; }
+  .searchbar{ grid-area: search; width: 100%; max-width: none; }
+
+  .searchbar input{
+    width: 100%;
+  }
+
+  /* Optional: keep brand text from crowding */
+  .brand strong{
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+    /* ===========================
+   MOBILE CUSTOMIZE MODAL FIX
+   - removes overlap by using flex stack on mobile
+   =========================== */
+@media (max-width: 640px){
+
+  /* Make the modal usable with safe areas */
+  #builderModal.modal.open{
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Override desktop centering and grid — stack cleanly */
+  #builderModal .sheet{
+    top: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: calc(100dvh - 20px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: none !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    border-radius: 16px;
+  }
+
+  /* Header stays visible */
+  #builderModal .mhead{
+    flex: 0 0 auto;
+    padding: 12px 12px 10px;
+  }
+
+  /* Body scrolls */
+  #builderModal .mbody{
+    flex: 1 1 auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px;
+  }
+
+  /* Preview lives under fields, but doesn’t crush footer */
+  #builderModal .preview{
+    flex: 0 0 auto;
+    padding: 12px;
+    border-left: none !important;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    max-height: 32vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Footer always visible + thumb friendly */
+  #builderModal .mfoot{
+    flex: 0 0 auto;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    background: rgba(10,10,18,0.92);
+  }
+
+  #builderModal .mfoot .btn{
+    width: 100%;
+  }
+
+  /* Prevent iOS zoom + improve tap usability */
+  #builderModal select,
+  #builderModal input{
+    font-size: 16px;
+  }
+
+  /* Slightly larger swatches for touch */
+  #builderModal .sw{
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+  }
+
+  /* Preview image shouldn’t collapse */
+  #builderModal .preview .box{
+    min-height: 220px;
+  }
 }
   </style>
 </head>
