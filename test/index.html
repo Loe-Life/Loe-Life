@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Loe-Life – Loyalty Over Everything, Lifestyle, Apparel, Fitness &amp; Mindest</title>
 
   <!-- Core SEO -->
@@ -52,7 +53,7 @@
   }
   </script>
 
-  <!-- WebSite + SearchAction (assistants & voice search) -->
+  <!-- WebSite + SearchAction (helps assistants & voice search) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -67,7 +68,7 @@
   }
   </script>
 
-  <!-- FAQ schema (voice-style Q&A) -->
+  <!-- FAQ block tuned for voice-style questions -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -415,18 +416,6 @@
       height: 360px;
     }
 
-    .gallery-title-overlay {
-      position: absolute;
-      top: 10px;
-      left: 14px;
-      z-index: 10;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      pointer-events: none;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.65);
-    }
-
     .hero-video {
       width: 100%;
       height: 100%;
@@ -504,7 +493,7 @@
       padding: 3px 8px;
       border-radius: 999px;
       background: var(--accent-slate-dark);
-      color: #0b0b10; /* fixed: use actual color */
+      color: #0b0b10;
       border: 1px solid var(--accent-slate);
       white-space: nowrap;
     }
@@ -640,7 +629,7 @@
 
     .reviews .review-actions { margin-top: 20px; text-align: center; }
 
-    /* Shared modal base (reuse your contact styles) */
+    /* Shared modal base */
     .contact-popup { position: fixed; inset: 0; z-index: 1000; }
     .contact-hidden { display: none; }
     .contact-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); }
@@ -661,6 +650,8 @@
       backdrop-filter: blur(20px) saturate(150%);
     }
 
+    .contact-actions { margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px; }
+
     .contact-toast {
       margin-top: 10px;
       background: #333;
@@ -673,10 +664,31 @@
     }
     .contact-toast.show { opacity: 1; }
 
-    .contact-actions { margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px; }
-
     .body-lock { overflow: hidden; }
 
+    /* Inputs reused */
+    .review-label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      color: var(--ink);
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .review-input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--ink);
+      font-size: 0.95rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .review-input:focus { outline: 2px solid var(--accent-slate); }
+
+    /* Review modal */
     .review-popup { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; }
     .review-hidden { display: none; }
     .review-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); }
@@ -694,26 +706,6 @@
       flex-direction: column;
       gap: 14px;
     }
-
-    .review-label {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.9rem;
-      color: var(--ink);
-      gap: 6px;
-    }
-
-    .review-input {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: var(--ink);
-      font-size: 0.95rem;
-      backdrop-filter: blur(12px);
-    }
-
-    .review-input:focus { outline: 2px solid var(--accent-slate); }
 
     .review-close-x {
       position: absolute;
@@ -893,6 +885,19 @@
       transform: translateY(-1px);
     }
 
+    /* A11y helper */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* Responsive */
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; }
@@ -905,6 +910,7 @@
       .brand { justify-content: center; margin-bottom: 4px; }
       nav ul { flex-wrap: wrap; justify-content: center; gap: 6px; }
       nav ul li:last-child { width: 80%; margin-top: 10px; }
+
       .hero-card { padding: 20px 16px; }
       .gallery-wrap { height: 280px; }
 
@@ -952,25 +958,25 @@
 
   <main>
 
-    <!-- CONTACT / PROFILE FORM MODAL -->
+    <!-- CREATE PROFILE MODAL (OmniTok stubbed) -->
     <div id="contactPopup" class="contact-popup contact-hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
       <div class="contact-overlay" data-close="true"></div>
 
       <div class="contact-card" role="document">
-        <h2 id="contactTitle">Contact / Profile</h2>
+        <h2 id="contactTitle">Create Profile</h2>
         <p class="small" style="margin-top:-6px;">
-          Send us your details so we can help with orders, support, or account setup.
+          Create a profile for faster checkout and verified reviews. (No card info collected here.)
         </p>
 
         <form id="contactForm" autocomplete="on">
           <label class="review-label">
             Full Name
-            <input id="cFullName" class="review-input" type="text" maxlength="80" placeholder="First Last" required>
+            <input id="cFullName" class="review-input" type="text" maxlength="80" placeholder="First Last" required autocomplete="name">
           </label>
 
           <label class="review-label">
             Email
-            <input id="cEmail" class="review-input" type="email" maxlength="120" placeholder="you@email.com" required>
+            <input id="cEmail" class="review-input" type="email" maxlength="120" placeholder="you@email.com" required autocomplete="email">
           </label>
 
           <label class="review-label">
@@ -978,33 +984,99 @@
             <input id="cPhone" class="review-input" type="tel" maxlength="24" placeholder="+1 (555) 555-5555" inputmode="tel" autocomplete="tel">
           </label>
 
+          <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:10px 0;">
+
+          <h3 style="margin:0; font-size:1.05rem;">Shipping Address</h3>
+
           <label class="review-label">
-            Reason
-            <select id="cReason" class="review-input" required>
-              <option value="support" selected>Support / Question</option>
-              <option value="order">Order Issue</option>
-              <option value="profile">Create / Update Profile</option>
-              <option value="other">Other</option>
-            </select>
+            Address Line 1
+            <input id="sLine1" class="review-input" type="text" maxlength="120" placeholder="Street address" required autocomplete="shipping address-line1">
           </label>
 
           <label class="review-label">
-            Order Number (optional)
-            <input id="cOrder" class="review-input" type="text" maxlength="40" placeholder="e.g., LOE-12345">
+            Address Line 2 (optional)
+            <input id="sLine2" class="review-input" type="text" maxlength="120" placeholder="Apt, suite, unit" autocomplete="shipping address-line2">
           </label>
 
-          <label class="review-label">
-            Message
-            <textarea id="cMessage" class="review-input" rows="4" maxlength="900" placeholder="Tell us what you need..." required></textarea>
-            <div id="cCounter" class="small" style="text-align:right; opacity:0.7;">0 / 900</div>
-          </label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label class="review-label">
+              City
+              <input id="sCity" class="review-input" type="text" maxlength="60" required autocomplete="shipping address-level2">
+            </label>
 
-          <!-- Optional SMS consent (Twilio-friendly language) -->
+            <label class="review-label">
+              State
+              <input id="sState" class="review-input" type="text" maxlength="30" required autocomplete="shipping address-level1">
+            </label>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label class="review-label">
+              ZIP / Postal
+              <input id="sZip" class="review-input" type="text" maxlength="16" required autocomplete="shipping postal-code">
+            </label>
+
+            <label class="review-label">
+              Country
+              <input id="sCountry" class="review-input" type="text" maxlength="56" value="US" required autocomplete="shipping country">
+            </label>
+          </div>
+
+          <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:10px 0;">
+
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <input id="billSame" type="checkbox" checked style="margin-top:4px;">
+            <div class="small" style="color:var(--ink); line-height:1.35;">
+              <strong>Billing address same as shipping</strong>
+            </div>
+          </div>
+
+          <div id="billingBlock" style="margin-top:10px; display:none;">
+            <h3 style="margin:0 0 8px; font-size:1.05rem;">Billing Address</h3>
+
+            <label class="review-label">
+              Address Line 1
+              <input id="bLine1" class="review-input" type="text" maxlength="120" placeholder="Street address" autocomplete="billing address-line1">
+            </label>
+
+            <label class="review-label">
+              Address Line 2 (optional)
+              <input id="bLine2" class="review-input" type="text" maxlength="120" placeholder="Apt, suite, unit" autocomplete="billing address-line2">
+            </label>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <label class="review-label">
+                City
+                <input id="bCity" class="review-input" type="text" maxlength="60" autocomplete="billing address-level2">
+              </label>
+
+              <label class="review-label">
+                State
+                <input id="bState" class="review-input" type="text" maxlength="30" autocomplete="billing address-level1">
+              </label>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <label class="review-label">
+                ZIP / Postal
+                <input id="bZip" class="review-input" type="text" maxlength="16" autocomplete="billing postal-code">
+              </label>
+
+              <label class="review-label">
+                Country
+                <input id="bCountry" class="review-input" type="text" maxlength="56" value="US" autocomplete="billing country">
+              </label>
+            </div>
+          </div>
+
+          <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:10px 0;">
+
+          <!-- Optional SMS consent (transactional + compliant language) -->
           <label class="review-label" style="gap:10px;">
             <span style="display:flex; gap:10px; align-items:flex-start;">
               <input id="smsConsent" type="checkbox" style="margin-top:4px;">
               <span class="small" style="color:var(--ink); line-height:1.35;">
-                <strong>Optional SMS updates:</strong> I agree to receive <strong>transactional</strong> text messages from LOE‑Life about my orders and support requests at the number provided.
+                <strong>Optional SMS updates:</strong> I agree to receive <strong>transactional</strong> text messages from LOE‑Life about my orders and account activity at the number provided.
                 Message frequency varies. Msg &amp; data rates may apply. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Consent is not a condition of purchase.
               </span>
             </span>
@@ -1012,7 +1084,7 @@
 
           <div class="contact-actions">
             <button class="btn" id="contactCancelBtn" type="button">Close</button>
-            <button class="btn primary" id="contactSubmitBtn" type="submit">Submit</button>
+            <button class="btn primary" id="contactSubmitBtn" type="submit">Create Profile</button>
           </div>
 
           <div id="contactToast" class="contact-toast" role="status" aria-live="polite">
@@ -1026,7 +1098,7 @@
     <div id="authPopup" class="contact-popup contact-hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="contact-overlay" data-close="true"></div>
       <div class="contact-card" role="document">
-        <h2 id="authTitle">Account Required</h2>
+        <h2 id="authTitle">Profile Required</h2>
         <p class="sub" style="margin-top:6px;">
           To keep reviews authentic and tied to real customers, you’ll need a profile to leave a review.
         </p>
@@ -1037,7 +1109,7 @@
         </div>
 
         <p class="small" style="margin-top:10px;">
-          We never ask for your password by email or SMS. Profile setup is handled securely.
+          We never ask for your password by email or SMS. Login and reset will live in the shop experience.
         </p>
       </div>
     </div>
@@ -1048,13 +1120,13 @@
       <div class="contact-card" role="document">
         <h2 id="shipTitle">Shipping &amp; Delivery</h2>
         <p class="sub">
-          We use the information you provide only to fulfill your order, ship your items, and send delivery updates.
+          We use your information only to fulfill orders, ship items, and send delivery updates.
         </p>
         <ul class="list">
           <li><strong>Processing:</strong> Orders are processed in the order received.</li>
-          <li><strong>Tracking:</strong> Tracking details are sent by email (and optional SMS if you opt in).</li>
-          <li><strong>Address accuracy:</strong> Please verify your shipping address—delivery failures may cause delays.</li>
-          <li><strong>Support:</strong> If something looks off, contact us immediately so we can help.</li>
+          <li><strong>Tracking:</strong> Tracking is sent by email (and optional SMS if you opt in).</li>
+          <li><strong>Address accuracy:</strong> Please verify your address to avoid delays.</li>
+          <li><strong>Support:</strong> If something looks off, contact us immediately.</li>
         </ul>
         <div class="contact-actions">
           <button class="btn" id="shipCloseBtn" type="button">Close</button>
@@ -1068,13 +1140,13 @@
       <div class="contact-card" role="document">
         <h2 id="termsTitle">Terms of Use</h2>
         <p class="sub">
-          By using this site, you agree to use it respectfully and lawfully. We provide this site to showcase products, provide support, and process customer requests.
+          This site is provided to showcase products, support customers, and process requests securely.
         </p>
         <ul class="list">
-          <li><strong>No abuse:</strong> Do not attempt to disrupt, scrape, or compromise the site or services.</li>
-          <li><strong>Accuracy:</strong> Provide accurate contact and order details so we can assist you.</li>
-          <li><strong>Operational updates:</strong> We may update these terms to reflect improvements, security, or compliance needs.</li>
-          <li><strong>Liability:</strong> We work to keep information current, but availability and content may change.</li>
+          <li><strong>No abuse:</strong> Do not attempt to disrupt, scrape, or compromise the site.</li>
+          <li><strong>Accuracy:</strong> Provide accurate contact and address details.</li>
+          <li><strong>Updates:</strong> Terms may update for security and compliance.</li>
+          <li><strong>Payments:</strong> Card data is handled by payment providers (e.g., Stripe), not stored here.</li>
         </ul>
         <div class="contact-actions">
           <button class="btn" id="termsCloseBtn" type="button">Close</button>
@@ -1092,10 +1164,10 @@
         </p>
         <ul class="list">
           <li><strong>We do not sell your data.</strong></li>
-          <li><strong>We do not store passwords</strong> in this front page experience.</li>
-          <li><strong>Email &amp; phone</strong> are used for order confirmations, shipping updates, and support responses.</li>
+          <li><strong>We do not store passwords</strong> in this landing page.</li>
+          <li><strong>Email &amp; phone</strong> are used for receipts, shipping updates, and support responses.</li>
           <li><strong>SMS is optional</strong> and requires explicit opt‑in. Reply STOP to opt out.</li>
-          <li><strong>Data minimization:</strong> We collect only what we need to process orders and support requests.</li>
+          <li><strong>Data minimization:</strong> We collect only what we need to fulfill orders and support you.</li>
         </ul>
         <div class="contact-actions">
           <button class="btn" id="privacyCloseBtn" type="button">Close</button>
@@ -1111,7 +1183,7 @@
         <button id="closeReviewX" class="review-close-x" type="button">✕</button>
         <h2 id="reviewTitle">Leave a Review</h2>
 
-        <label class="review-label">
+        <label class="review-label" style="margin-top:0;">
           Your Name (First + Last Initial)
           <input id="reviewName" class="review-input" type="text" maxlength="40" placeholder="John D." autocomplete="off">
         </label>
@@ -1145,7 +1217,6 @@
           </div>
         </div>
 
-        <!-- Toast container -->
         <div id="reviewToast" class="review-toast review-toast-hidden" role="status" aria-live="polite">
           <div class="review-toast-card">
             <div class="toast-title">Submit Review</div>
@@ -1162,7 +1233,7 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-card">
-        <h1 class="outlined">Hero Section, Your Brand Identity</h1>
+        <h1 class="outlined">Loyalty Over Everything.</h1>
         <p class="sub">Fitness + Mindest + Apparel</p>
 
         <div class="badges">
@@ -1172,14 +1243,14 @@
 
         <div class="hero-actions">
           <a class="btn primary" href="https://loe-life.com/shop/">Shop</a>
-          <button class="btn" id="supportBtn" type="button">Contact Support</button>
+          <button class="btn" id="supportBtn" type="button">Create Profile</button>
         </div>
       </div>
 
-      <!-- HERO VIDEO -->
+      <!-- HERO VIDEO (title intentionally blank visually; keep sr-only for a11y) -->
       <div class="hero-gallery">
         <div class="gallery-wrap" aria-labelledby="highlights-title">
-          <h2 id="highlights-title" class="gallery-title-overlay">Brand Film</h2>
+          <h2 id="highlights-title" class="sr-only">Featured video</h2>
           <video
             id="heroVideo"
             class="hero-video"
@@ -1201,17 +1272,17 @@
     <!-- PRODUCT HIGHLIGHTS -->
     <section class="section" id="product-highlights">
       <div class="card">
-        <h2>Product Highlight Section</h2>
-        <p class="menu-sub">Optional in Front Page, background options for demonstration</p>
+        <h2>Product Highlights</h2>
+        <p class="menu-sub">Preview styles — full selection and customization live in the Shop.</p>
 
         <div class="menu-grid">
           <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg1.png" alt="Background 1">
+            <img class="menu-img" src="https://loe-life.com/images/bg1.png" alt="Aggressive style preview">
             <div class="menu-item-header">
               <span class="menu-item-name">Aggressive</span>
               <span class="menu-item-tag">Bold</span>
             </div>
-            <p class="menu-item-desc">A bold, high‑impact design style with sharp lines and strong visual presence.</p>
+            <p class="menu-item-desc">A high-impact look with sharp presence — built for people who move with purpose.</p>
             <div class="menu-item-meta">
               <span class="menu-item-price">FREE</span>
               <span class="menu-item-note">free gift with order</span>
@@ -1219,12 +1290,12 @@
           </div>
 
           <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg2.png" alt="Background 2">
+            <img class="menu-img" src="https://loe-life.com/images/bg2.png" alt="Sharp style preview">
             <div class="menu-item-header">
-              <span class="menu-item-name">Aggresive Lowercase</span>
+              <span class="menu-item-name">Aggressive Lowercase</span>
               <span class="menu-item-tag">Sharp</span>
             </div>
-            <p class="menu-item-desc">A stylized, expressive design with fluid curves and a confident, modern edge.</p>
+            <p class="menu-item-desc">Expressive, modern, and confident — designed to stand out without screaming.</p>
             <div class="menu-item-meta">
               <span class="menu-item-price">FREE</span>
               <span class="menu-item-note">free gift with order</span>
@@ -1232,12 +1303,12 @@
           </div>
 
           <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg3.png" alt="Background 3">
+            <img class="menu-img" src="https://loe-life.com/images/bg3.png" alt="Modern style preview">
             <div class="menu-item-header">
               <span class="menu-item-name">Classic</span>
               <span class="menu-item-tag">Modern</span>
             </div>
-            <p class="menu-item-desc">A clean, balanced style built for versatility, offering timeless appeal across any brand application.</p>
+            <p class="menu-item-desc">Clean and versatile — fits any rotation, any season, any day.</p>
             <div class="menu-item-meta">
               <span class="menu-item-price">FREE</span>
               <span class="menu-item-note">free gift with order</span>
@@ -1245,12 +1316,12 @@
           </div>
 
           <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg4.png" alt="Background 4">
+            <img class="menu-img" src="https://loe-life.com/images/bg4.png" alt="Stout style preview">
             <div class="menu-item-header">
               <span class="menu-item-name">Chunky Classic</span>
               <span class="menu-item-tag">Stout</span>
             </div>
-            <p class="menu-item-desc">A thicker, more substantial variation that delivers strong readability and a powerful, grounded look.</p>
+            <p class="menu-item-desc">Thicker lines, stronger readability — built for impact and durability.</p>
             <div class="menu-item-meta">
               <span class="menu-item-price">FREE</span>
               <span class="menu-item-note">free gift with order</span>
@@ -1285,22 +1356,17 @@
 
         <details>
           <summary>What kind of apparel do you offer?</summary>
-          <p>We create performance-focused apparel and lifestyle pieces designed for training, everyday wear, and mental toughness. Product lines may expand as the brand evolves.</p>
-        </details>
-
-        <details>
-          <summary>Do you release limited drops?</summary>
-          <p>Yes. LOE-Life may offer limited releases or exclusive collections depending on demand and upcoming designs.</p>
+          <p>Performance-focused apparel and lifestyle pieces designed for training, everyday wear, and mental toughness.</p>
         </details>
 
         <details>
           <summary>How do I stay updated on new releases?</summary>
-          <p>Follow LOE-Life on social platforms or check the website for updates on new drops, designs, and brand announcements.</p>
+          <p>Follow LOE-Life on social platforms or check the Shop for new drops and updates.</p>
         </details>
 
         <details>
-          <summary>Can I request a custom design?</summary>
-          <p>Custom work may be available depending on the project. For inquiries, use the Profile/Contact form or email <a href="mailto:support@loe-life.com">support@loe-life.com</a>.</p>
+          <summary>How do I create a profile?</summary>
+          <p>Use the Profile button at the top — we’ll collect shipping and billing addresses so checkout is faster.</p>
         </details>
       </div>
     </section>
@@ -1347,7 +1413,9 @@
     })();
 
     /* ===========================
-       Auth state (persist across refresh)
+       Minimal "Auth" State (persist across refresh)
+       - This page is create-profile, not login.
+       - Login can occur here or shop later; keep the stub.
        =========================== */
     const LOE_AUTH_KEY = 'loe_auth_v1';
 
@@ -1363,7 +1431,7 @@
       return !!a.signedIn;
     }
 
-    // Later: call setSignedIn(...) after your real login flow completes
+    // When you wire login later, call this.
     function setSignedIn(authObj) {
       localStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
         signedIn: true,
@@ -1373,7 +1441,46 @@
     }
 
     /* ===========================
-       Modal helpers (with basic focus trap)
+       OmniTok Helper (canonical stub)
+       - issueOmniTok returns: { endpoint, authToken, OmniTok }
+       - We include sid always
+       =========================== */
+    const API = {
+      issueOmniTok: 'INSERT_OMNITOK_ISSUER_ENDPOINT'
+    };
+
+    async function getOmniTok(act) {
+      let sid = sessionStorage.getItem('sid');
+      if (!sid) {
+        sid = crypto.randomUUID();
+        sessionStorage.setItem('sid', sid);
+      }
+
+      const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
+
+      // If placeholder, return a safe stub config
+      if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
+        return {
+          sid,
+          endpoint: 'INSERT_ACTOR_ENDPOINT',
+          authToken: 'INSERT_AUTH_TOKEN',
+          OmniTok: 'INSERT_OMNITOK'
+        };
+      }
+
+      const res = await fetch(API.issueOmniTok, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
+      const data = await res.json();
+      return { ...data, sid };
+    }
+
+    /* ===========================
+       Modal helpers (focus trap + Escape)
        =========================== */
     function openModal(id, focusSelector) {
       const el = document.getElementById(id);
@@ -1387,13 +1494,13 @@
         'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
       )).filter(x => x.offsetParent !== null);
 
-      const firstFocus = () => {
+      const setInitialFocus = () => {
         const target = focusSelector ? el.querySelector(focusSelector) : null;
         const list = focusable();
         (target || list[0])?.focus?.();
       };
 
-      function trap(e) {
+      function trapTab(e) {
         if (e.key !== 'Tab') return;
         const list = focusable();
         if (!list.length) return;
@@ -1411,10 +1518,11 @@
 
       function onKey(e) {
         if (e.key === 'Escape') close();
-        trap(e);
+        trapTab(e);
       }
 
       function close() {
+        // Both modal types share this API
         el.classList.add('contact-hidden');
         if (el.classList.contains('review-popup')) el.classList.add('review-hidden');
         el.setAttribute('aria-hidden', 'true');
@@ -1428,140 +1536,166 @@
       document.addEventListener('keydown', onKey);
       el._close = close;
 
-      requestAnimationFrame(firstFocus);
+      requestAnimationFrame(setInitialFocus);
       return close;
     }
 
     function closeModal(id) {
       const el = document.getElementById(id);
       if (el && typeof el._close === 'function') el._close();
+      else if (el) {
+        el.classList.add('contact-hidden');
+        el.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('body-lock');
+      }
     }
 
     /* ===========================
-       Policy button wiring (header + footer)
+       Policy buttons (header + footer)
        =========================== */
     (function bindPolicyButtons() {
-      const shipBtns = [shippingBtn, shippingFooterBtn].filter(Boolean);
-      const termsBtns = [termsBtn, termsFooterBtn].filter(Boolean);
-      const privBtns = [privacyBtn, privacyFooterBtn].filter(Boolean);
+      const shipBtns = [document.getElementById('shippingBtn'), document.getElementById('shippingFooterBtn')].filter(Boolean);
+      const termsBtns = [document.getElementById('termsBtn'), document.getElementById('termsFooterBtn')].filter(Boolean);
+      const privBtns = [document.getElementById('privacyBtn'), document.getElementById('privacyFooterBtn')].filter(Boolean);
 
       shipBtns.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); openModal('shippingPopup'); }));
       termsBtns.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); openModal('termsPopup'); }));
       privBtns.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); openModal('privacyPopup'); }));
 
-      shipCloseBtn?.addEventListener('click', () => closeModal('shippingPopup'));
-      termsCloseBtn?.addEventListener('click', () => closeModal('termsPopup'));
-      privacyCloseBtn?.addEventListener('click', () => closeModal('privacyPopup'));
+      document.getElementById('shipCloseBtn')?.addEventListener('click', () => closeModal('shippingPopup'));
+      document.getElementById('termsCloseBtn')?.addEventListener('click', () => closeModal('termsPopup'));
+      document.getElementById('privacyCloseBtn')?.addEventListener('click', () => closeModal('privacyPopup'));
     })();
 
     /* ===========================
-       Contact/Profile modal wiring
+       Create Profile modal wiring (Profile + "Create Profile" button)
        =========================== */
-    (function contactFormModal() {
-      const profileBtnEl = document.getElementById('profileBtn');
+    (function createProfileModal() {
+      const profileBtn = document.getElementById('profileBtn');
       const supportBtn = document.getElementById('supportBtn');
-
       const form = document.getElementById('contactForm');
-      if (!form) return;
-
+      const cancelBtn = document.getElementById('contactCancelBtn');
       const toast = document.getElementById('contactToast');
 
-      const cReason = document.getElementById('cReason');
-      const cPhone = document.getElementById('cPhone');
-      const smsConsent = document.getElementById('smsConsent');
-      const cMessage = document.getElementById('cMessage');
-      const cCounter = document.getElementById('cCounter');
-
-      function openContact(mode) {
-        if (mode === 'profile') {
-          cReason.value = 'profile';
-          cMessage.placeholder = "Tell us what you’d like your profile to include (name, email, phone, preferences)…";
-        } else {
-          cReason.value = 'support';
-          cMessage.placeholder = "Tell us what you need help with…";
-        }
-        openModal('contactPopup', '#cFullName');
-      }
-
-      profileBtnEl?.addEventListener('click', (e) => { e.preventDefault(); openContact('profile'); });
-      supportBtn?.addEventListener('click', () => openContact('support'));
-
-      contactCancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
-
-      // Counter
-      (function() {
-        const max = Number(cMessage.getAttribute('maxlength') || 900);
-        function update() { cCounter.textContent = `${cMessage.value.length} / ${max}`; }
-        cMessage.addEventListener('input', update);
-        update();
-      })();
+      const billSame = document.getElementById('billSame');
+      const billingBlock = document.getElementById('billingBlock');
 
       function showToast(msg) {
         toast.textContent = msg;
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        setTimeout(() => toast.classList.remove('show'), 2200);
       }
+
+      function openCreateProfile() {
+        openModal('contactPopup', '#cFullName');
+      }
+
+      profileBtn?.addEventListener('click', (e) => { e.preventDefault(); openCreateProfile(); });
+      supportBtn?.addEventListener('click', () => openCreateProfile());
+      cancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
+
+      function syncBillingVisibility() {
+        const same = billSame.checked;
+        billingBlock.style.display = same ? 'none' : 'block';
+      }
+      billSame?.addEventListener('change', syncBillingVisibility);
+      syncBillingVisibility();
 
       function validateSms() {
-        if (!smsConsent.checked) return true;
-        return cPhone.value.trim().length >= 7;
+        const sms = document.getElementById('smsConsent');
+        const phone = document.getElementById('cPhone');
+        if (!sms?.checked) return true;
+        return (phone.value.trim().length >= 7);
       }
 
-      const API = {
-        submitContact: 'INSERT_CONTACT_ENDPOINT'
-      };
-
-      form.addEventListener('submit', async (e) => {
+      form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (!validateSms()) {
           showToast("Please add a phone number for SMS updates (or uncheck SMS).");
-          cPhone.focus();
+          document.getElementById('cPhone')?.focus();
           return;
         }
 
         const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
         sessionStorage.setItem('sid', sid);
 
+        const shipping = {
+          line1: document.getElementById('sLine1').value.trim(),
+          line2: document.getElementById('sLine2').value.trim() || null,
+          city: document.getElementById('sCity').value.trim(),
+          state: document.getElementById('sState').value.trim(),
+          zip: document.getElementById('sZip').value.trim(),
+          country: document.getElementById('sCountry').value.trim()
+        };
+
+        const sameAsShipping = document.getElementById('billSame').checked;
+
+        const billing = sameAsShipping ? { ...shipping } : {
+          line1: document.getElementById('bLine1').value.trim(),
+          line2: document.getElementById('bLine2').value.trim() || null,
+          city: document.getElementById('bCity').value.trim(),
+          state: document.getElementById('bState').value.trim(),
+          zip: document.getElementById('bZip').value.trim(),
+          country: document.getElementById('bCountry').value.trim()
+        };
+
         const payload = {
+          id: `p-${Date.now()}`,
           sid,
           ts: new Date().toISOString(),
-          source: 'loe-life-frontpage',
-          auth: isSignedIn() ? { signedIn: true, userId: getAuth()?.userId || null } : { signedIn: false },
-          contact: {
-            fullName: cFullName.value.trim(),
-            email: cEmail.value.trim(),
-            phone: cPhone.value.trim() || null,
-            reason: cReason.value,
-            order: cOrder.value.trim() || null,
-            message: cMessage.value.trim(),
-            smsConsent: smsConsent.checked ? {
+          act: 'createProfile',
+          source: 'loe-life-landing',
+          profile: {
+            fullName: document.getElementById('cFullName').value.trim(),
+            email: document.getElementById('cEmail').value.trim(),
+            phone: document.getElementById('cPhone').value.trim() || null,
+            shipping,
+            billing,
+            smsConsent: document.getElementById('smsConsent').checked ? {
               consent: true,
               consentedAt: new Date().toISOString(),
-              consentText: "Optional SMS updates: transactional order/support messages. Msg&data rates may apply. Reply STOP to cancel, HELP for help. Consent not required to purchase."
+              consentText: "Optional SMS updates: transactional order/account messages. Msg&data rates may apply. Reply STOP to cancel, HELP for help. Consent is not required to purchase."
             } : { consent: false }
           }
         };
 
         try {
-          if (!API.submitContact || API.submitContact.includes('INSERT_')) {
-            console.log('Contact payload ready:', payload);
-            showToast("Saved locally (endpoint not set).");
+          // 1) get OmniTok config (stubbed if placeholder)
+          const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('createProfile');
+
+          // 2) if endpoint is placeholder, just log
+          if (!endpoint || endpoint.includes('INSERT_')) {
+            console.log("CreateProfile payload ready for OmniTok:", payload);
+            showToast("Profile queued (endpoint not set).");
             closeModal('contactPopup');
             form.reset();
+            // keep billing hidden by default
+            document.getElementById('billSame').checked = true;
+            syncBillingVisibility();
             return;
           }
 
-          const res = await fetch(API.submitContact, {
+          // 3) call actor endpoint
+          const res = await fetch(endpoint, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': authToken,
+              'X-OmniTok': omniTok,
+              'X-SID': sid2
+            },
             body: JSON.stringify(payload)
           });
 
-          if (!res.ok) throw new Error('Contact submit failed');
-          showToast("Submitted — thank you!");
+          if (!res.ok) throw new Error('createProfile actor endpoint failed');
+
+          showToast("Profile submitted — thank you!");
           closeModal('contactPopup');
           form.reset();
+          document.getElementById('billSame').checked = true;
+          syncBillingVisibility();
+
         } catch (err) {
           console.error(err);
           showToast("Submission failed — try again.");
@@ -1570,7 +1704,7 @@
     })();
 
     /* ===========================
-       Reviews: Load + render (safe)
+       Reviews: load + render (safe)
        =========================== */
     async function loadReviews() {
       try {
@@ -1631,7 +1765,11 @@
        Review gating (signed-in only)
        =========================== */
     (function gateReviews() {
-      leaveReviewBtn?.addEventListener('click', (e) => {
+      const leaveBtn = document.getElementById('leaveReviewBtn');
+      const authClose = document.getElementById('authCloseBtn');
+      const authCreate = document.getElementById('authCreateProfileBtn');
+
+      leaveBtn?.addEventListener('click', (e) => {
         e.preventDefault();
         if (isSignedIn()) {
           // open review modal
@@ -1639,16 +1777,16 @@
           popup.classList.remove('review-hidden');
           popup.setAttribute('aria-hidden', 'false');
           document.body.classList.add('body-lock');
-          reviewName?.focus();
+          document.getElementById('reviewName')?.focus();
         } else {
           openModal('authPopup', '#authCreateProfileBtn');
         }
       });
 
-      authCloseBtn?.addEventListener('click', () => closeModal('authPopup'));
-      authCreateProfileBtn?.addEventListener('click', () => {
+      authClose?.addEventListener('click', () => closeModal('authPopup'));
+      authCreate?.addEventListener('click', () => {
         closeModal('authPopup');
-        profileBtn?.click();
+        document.getElementById('profileBtn')?.click();
       });
     })();
 
@@ -1663,10 +1801,10 @@
         popup.classList.add('review-hidden');
         popup.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('body-lock');
-        leaveReviewBtn?.focus?.();
+        document.getElementById('leaveReviewBtn')?.focus?.();
       }
 
-      closeReviewX?.addEventListener('click', closeReview);
+      document.getElementById('closeReviewX')?.addEventListener('click', closeReview);
       popup.querySelector('.review-overlay')?.addEventListener('click', (e) => {
         if (e.target.dataset.close) closeReview();
       });
@@ -1687,7 +1825,7 @@
     })();
 
     /* ===========================
-       Fire rating widget (kept)
+       Fire rating widget
        =========================== */
     (function() {
       const fireContainer = document.getElementById('fireRating');
@@ -1712,7 +1850,6 @@
           lockedRating = Number(span.dataset.value);
           if (ratingInput) ratingInput.value = lockedRating;
           fillFires(lockedRating);
-          // trigger slider validation
           ratingInput?.dispatchEvent?.(new Event('change'));
         });
 
@@ -1730,31 +1867,6 @@
 
       fillFires(lockedRating);
     })();
-
-    /* ===========================
-       OmniTok Helper (kept placeholder)
-       =========================== */
-    const API = { issueOmniTok: 'insert endpoint' };
-
-    async function getOmniTok(act) {
-      let sid = sessionStorage.getItem('sid');
-      if (!sid) {
-        sid = crypto.randomUUID();
-        sessionStorage.setItem('sid', sid);
-      }
-
-      const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
-
-      const res = await fetch(API.issueOmniTok, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-
-      if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
-      const data = await res.json();
-      return { ...data, sid };
-    }
 
     /* ===========================
        Slider enable/disable (requires inputs valid)
@@ -1788,7 +1900,7 @@
     })();
 
     /* ===========================
-       Slide to submit (OmniTok integrated placeholder)
+       Slide to submit (OmniTok stubbed)
        =========================== */
     (function() {
       const slider = document.getElementById('reviewSlider');
@@ -1829,7 +1941,6 @@
         nameInput.disabled = false;
         commentInput.disabled = false;
         ratingInput.disabled = false;
-        // keep disabled until valid again
       }
 
       function showToast({ text, variant }) {
@@ -1898,40 +2009,40 @@
         };
 
         try {
-          // If you haven't wired OmniTok, fail gracefully
-          if (!API.issueOmniTok || API.issueOmniTok.includes('insert')) {
-            console.log("Review payload ready:", reviewPayload);
+          const { endpoint, authToken, OmniTok: omniTok, sid } = await getOmniTok('createReview');
+
+          if (!endpoint || endpoint.includes('INSERT_')) {
+            console.log("Review payload ready for OmniTok:", reviewPayload);
             showToast({ text: 'Review queued (endpoint not set).', variant: 'success' });
             showCheckmark();
-            setTimeout(() => { hideToast(); resetSliderVisual(); unlockInputs(); }, 1500);
+            setTimeout(() => { hideToast(); resetSliderVisual(); unlockInputs(); }, 1600);
             return;
           }
-
-          const { endpoint, authToken, OmniTok, sid } = await getOmniTok('createReview');
 
           const res = await fetch(endpoint, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'x-auth-token': authToken,
-              'X-OmniTok': OmniTok,
+              'X-OmniTok': omniTok,
               'X-SID': sid
             },
             body: JSON.stringify(reviewPayload)
           });
 
-          if (!res.ok) throw new Error('Actor endpoint failed');
+          if (!res.ok) throw new Error('createReview actor endpoint failed');
 
-          showToast({ text: 'Review submitted — thank you! Please allow a moment for it to appear.', variant: 'success' });
+          showToast({ text: 'Review submitted — thank you!', variant: 'success' });
           showCheckmark();
 
           setTimeout(() => {
             hideToast();
+            // close modal and refresh reviews list
             document.getElementById('reviewPopup').classList.add('review-hidden');
             document.getElementById('reviewPopup').setAttribute('aria-hidden', 'true');
             document.body.classList.remove('body-lock');
             window.location.reload(true);
-          }, 2400);
+          }, 2200);
 
         } catch (err) {
           console.error(err);
