@@ -781,9 +781,6 @@
       <button id="checkoutFallback" class="btn" type="button" style="margin-top:10px;">
         Continue (tap)
       </button>
-      <p class="small" style="margin:10px 0 0; opacity:.85;">
-        If you’re not signed in, you’ll be prompted. (Account / login flow can be wired later.)
-      </p>
     </div>
   </aside>
 
@@ -796,10 +793,6 @@
     </div>
 
     <div class="drawer-body">
-      <p class="small" style="margin-top:0;">
-        This is a front-end build stub. Your real login / create / reset flows will plug into OmniTok.
-      </p>
-
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button class="pill on" id="tabSignIn" type="button">Sign In</button>
         <button class="pill" id="tabCreate" type="button">Create Account</button>
@@ -851,13 +844,10 @@
         <div class="field">
           <label>Phone (optional)</label>
           <input id="rpPhone" class="review-input" type="tel" autocomplete="tel" placeholder="+1 (555) 555‑5555">
+          <br>
         </div>
         <button class="btn primary" id="doReset" type="submit">Request Reset</button>
       </form>
-
-      <p class="small" style="margin-top:12px;">
-        When you wire backend: this drawer can persist “signed in” state the same way your other app does (session/local storage).
-      </p>
     </div>
 
     <div class="drawer-foot">
