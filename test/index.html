@@ -1254,6 +1254,8 @@
           <video
             id="heroVideo"
             class="hero-video"
+            autoplay
+            muted
             loop
             playsinline
             preload="metadata"
@@ -1409,6 +1411,23 @@
         video.controls = true;
       }
     })();
+
+    <script>
+  const video = document.getElementById('heroVideo');
+
+  // After the first user interaction, unmute and set volume
+  const enableSound = () => {
+    video.muted = false;
+    video.volume = 0.5;
+    document.removeEventListener('click', enableSound);
+    document.removeEventListener('touchstart', enableSound);
+    document.removeEventListener('keydown', enableSound);
+  };
+
+  document.addEventListener('click', enableSound);
+  document.addEventListener('touchstart', enableSound);
+  document.addEventListener('keydown', enableSound);
+</script>
 
     /* ===========================
        Minimal "Auth" State (persist across refresh)
