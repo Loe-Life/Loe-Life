@@ -1221,78 +1221,121 @@
     /* ===========================
        Catalog stub
        =========================== */
-    const CATALOG = [
-      {
-        id: "loe-tee-core",
-        name: "LOE Core Tee",
-        basePrice: 32,
-        currency: "USD",
-        desc: "Everyday training tee with LOE identity.",
-        tags: ["tee","core","training","unisex"],
-        styles: [
-          { id:"tee", label:"T‑Shirt", priceDelta: 0 },
-          { id:"ls", label:"Long Sleeve", priceDelta: 6 }
-        ],
-        fits: ["Unisex","Men","Women"],
-        sizes: ["XS","S","M","L","XL","2XL","3XL"],
-        colors: [
-          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg1.png" },
-          { id:"slate", label:"Slate", hex:"#2b2f39", img:"https://loe-life.com/images/bg2.png" },
-          { id:"bone",  label:"Bone",  hex:"#d8d3c9", img:"https://loe-life.com/images/bg3.png" }
-        ],
-        graphics: [
-          { id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","red","gold"] },
-          { id:"loyalty-over-everything", label:"Loyalty Over Everything", priceDelta: 2, allowedGraphicColors:["white","red"] },
-          { id:"discipline", label:"Discipline", priceDelta: 2, allowedGraphicColors:["white","gold"] }
-        ]
-      },
-      {
-        id: "loe-hoodie-legacy",
-        name: "Legacy Hoodie",
-        basePrice: 68,
-        currency: "USD",
-        desc: "Heavyweight hoodie built for cold sessions and late reps.",
-        tags: ["hoodie","legacy","warm"],
-        styles: [
-          { id:"hoodie", label:"Hoodie", priceDelta: 0 },
-          { id:"crew", label:"Crewneck", priceDelta: -6 }
-        ],
-        fits: ["Unisex"],
-        sizes: ["S","M","L","XL","2XL","3XL"],
-        colors: [
-          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg4.png" },
-          { id:"ash", label:"Ash", hex:"#bdbfc5", img:"https://loe-life.com/images/bg3.png" }
-        ],
-        graphics: [
-          { id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","red","gold"] },
-          { id:"spine-graphic", label:"Spine Graphic", priceDelta: 6, allowedGraphicColors:["white","red"] }
-        ]
-      },
-      {
-        id: "loe-cap",
-        name: "LOE Cap",
-        basePrice: 28,
-        currency: "USD",
-        desc: "Structured cap — clean, hard, and simple.",
-        tags: ["cap","hat","accessory"],
-        styles: [{ id:"cap", label:"Cap", priceDelta: 0 }],
-        fits: ["One Size"],
-        sizes: ["OS"],
-        colors: [
-          { id:"black", label:"Black", hex:"#111111", img:"https://loe-life.com/images/bg1.png" },
-          { id:"red", label:"Red", hex:"#8d1d1b", img:"https://loe-life.com/images/bg2.png" }
-        ],
-        graphics: [{ id:"loe-mark", label:"LOE Mark", priceDelta: 0, allowedGraphicColors:["white","gold"] }]
-      }
-    ];
+    /* ===========================
+   Catalog (v2) — load + group
+   =========================== */
 
-    const GRAPHIC_COLORS = [
-      { id:"white", label:"White", hex:"#f5f5f5" },
-      { id:"red",   label:"Red",   hex:"#d63b35" },
-      { id:"gold",  label:"Gold",  hex:"#d6b15a" },
-      { id:"black", label:"Black", hex:"#101010" }
-    ];
+// Where your generated output lives (you already wrote it to /catalog/productCatalog.v2.json)
+const CATALOG_URL = "/catalog/productCatalog.v2.json";
 
+// Raw rows from v2 (SKU-level)
+let CATALOG_ROWS = [];
+
+// Grouped products for cards + builder (DisplayName + Class)
+let PRODUCTS = [];
+
+/** Load v2 catalog rows */
+async function loadCatalogV2(){
+  const res = await fetch(CATALOG_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Catalog load failed: ${res.status}`);
+  const rows = await res.json();
+  if (!Array.isArray(rows)) throw new Error("Catalog JSON must be an array.");
+  // keep only Active items
+  CATALOG_ROWS = rows.filter(r => r && r.Active);
+  PRODUCTS = buildProductsFromRows(CATALOG_ROWS);
+}
+
+/** Deterministic group key: one card per (DisplayName + Class) */
+function groupKey(row){
+  return `${row.DisplayName}||${row.Class}`;
+}
+
+/** Normalize label from enum-ish strings */
+function prettyEnum(s){
+  return String(s || "")
+    .replace(/_/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase()
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+/** Build grouped products from rows */
+function buildProductsFromRows(rows){
+  const map = new Map();
+
+  for (const r of rows){
+    const key = groupKey(r);
+    let p = map.get(key);
+    if (!p){
+      p = {
+        id: key,                       // stable group id
+        handle: r.ProductHandle || key,
+        name: r.ProductName || prettyEnum(r.DisplayName),
+        displayName: r.DisplayName,
+        audience: r.Audience || r.Class,
+        category: r.Category || "OTHER",
+        subcategory: r.Subcategory || "OTHER",
+        tags: Array.isArray(r.Tags) ? r.Tags : [],
+        // images: you’ll fill later; use fallback for now
+        image: (r.Images && r.Images.primary) ? r.Images.primary : null,
+        // variants (rows)
+        variants: []
+      };
+      map.set(key, p);
+    }
+    p.variants.push(r);
+  }
+
+  // Derive options + price range for each product
+  for (const p of map.values()){
+    const fits = new Set();
+    const sizes = new Set();
+    const finishes = new Set();
+    const prices = [];
+
+    for (const v of p.variants){
+      fits.add(v.Style || v.Fit || "NONE");
+      sizes.add((v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size);
+      finishes.add((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : (v.GraphicType || "").toUpperCase());
+      prices.push(Number(v.BasePrice ?? v.Price ?? 0));
+    }
+
+    p.fits = [...fits].sort();
+    p.sizes = [...sizes].sort(sizeSort);
+    p.finishes = [...finishes].filter(Boolean).sort();
+    p.minPrice = Math.min(...prices);
+    p.maxPrice = Math.max(...prices);
+
+    // default selection
+    p.defaultFit = p.fits[0] || "NONE";
+    p.defaultFinish = p.finishes[0] || "SOLID";
+    p.defaultSize = p.sizes[0] || "ONE_SIZE";
+  }
+
+  // Sort by merch sort if present, else alpha
+  return [...map.values()].sort((a,b)=>{
+    const as = pickMerchSort(a), bs = pickMerchSort(b);
+    if (as !== bs) return as - bs;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+function pickMerchSort(p){
+  // any variant's Merch.Sort (they should match)
+  const v = p.variants && p.variants[0];
+  return (v && v.Merch && Number.isFinite(v.Merch.Sort)) ? v.Merch.Sort : 9999;
+}
+
+function sizeSort(a,b){
+  const order = ["XS","S","M","L","XL","2XL","3XL","4XL","ONE_SIZE","OS"];
+  const ai = order.indexOf(a);
+  const bi = order.indexOf(b);
+  if (ai === -1 && bi === -1) return String(a).localeCompare(String(b));
+  if (ai === -1) return 1;
+  if (bi === -1) return -1;
+  return ai - bi;
+}
     /* ===========================
        State
        =========================== */
@@ -1460,19 +1503,29 @@
       });
     }
 
-    function buildFilters(){
-      const styles = uniq(CATALOG.flatMap(p=>p.styles.map(s=>s.label)));
-      const fits = uniq(CATALOG.flatMap(p=>p.fits));
-      const sizes = uniq(CATALOG.flatMap(p=>p.sizes));
-      const colors = uniq(CATALOG.flatMap(p=>p.colors.map(c=>c.label)));
-      const graphics = uniq(CATALOG.flatMap(p=>p.graphics.map(g=>g.label)));
+function buildFilters(){
+  // Facets from PRODUCTS + their variants
+  const cats = uniq(PRODUCTS.map(p => p.category));
+  const fits = uniq(PRODUCTS.flatMap(p => p.fits.map(prettyEnum)));
+  const sizes = uniq(PRODUCTS.flatMap(p => p.sizes));
+  // Repurpose "Graphics" pills to GraphicFinish
+  const finishes = uniq(PRODUCTS.flatMap(p => p.finishes.map(prettyEnum)));
 
-      setPillRow('fStyle', styles, 'style');
-      setPillRow('fFit', fits, 'fit');
-      setPillRow('fSize', sizes, 'size');
-      setPillRow('fColor', colors, 'color');
-      setPillRow('fGraphic', graphics, 'graphic');
-    }
+  // NOTE: Your UI labels can stay for now (we’ll rename later).
+  // Map:
+  //   Style  -> Category
+  //   Fit    -> Fit/Style enum
+  //   Size   -> Size
+  //   Graphics -> GraphicFinish
+  setPillRow('fStyle', cats, 'style');
+  setPillRow('fFit', fits, 'fit');
+  setPillRow('fSize', sizes, 'size');
+  setPillRow('fGraphic', finishes, 'graphic');
+
+  // Disable/empty Color filter for now (colors not in v2 yet)
+  const colorRow = document.getElementById('fColor');
+  if (colorRow) colorRow.innerHTML = `<span class="small" style="color:var(--muted)">Colors coming soon</span>`;
+}
 
     function buildMobileFilters(){
       const desktop = document.querySelector('.filters');
@@ -1488,13 +1541,13 @@
       filtersMobileMount.innerHTML = '';
       filtersMobileMount.appendChild(clone);
 
-      const map = [
-        ['#fStyle','style', uniq(CATALOG.flatMap(p=>p.styles.map(s=>s.label)))],
-        ['#fFit','fit', uniq(CATALOG.flatMap(p=>p.fits))],
-        ['#fSize','size', uniq(CATALOG.flatMap(p=>p.sizes))],
-        ['#fColor','color', uniq(CATALOG.flatMap(p=>p.colors.map(c=>c.label)))],
-        ['#fGraphic','graphic', uniq(CATALOG.flatMap(p=>p.graphics.map(g=>g.label)))]
-      ];
+const map = [
+  ['#fStyle','style', uniq(PRODUCTS.map(p => p.category))],
+  ['#fFit','fit', uniq(PRODUCTS.flatMap(p => p.fits.map(prettyEnum)))],
+  ['#fSize','size', uniq(PRODUCTS.flatMap(p => p.sizes))],
+  ['#fGraphic','graphic', uniq(PRODUCTS.flatMap(p => p.finishes.map(prettyEnum)))]
+];
+// fColor stays “coming soon”
       map.forEach(([sel,key,items])=>{
         const row = filtersMobileMount.querySelector(sel);
         if (!row) return;
@@ -1526,227 +1579,240 @@
       buildMobileFilters();
     }
 
-    function matchesFilters(p){
-      const f = state.filters;
-      if (f.style && !p.styles.some(s=>s.label === f.style)) return false;
-      if (f.fit && !p.fits.includes(f.fit)) return false;
-      if (f.size && !p.sizes.includes(f.size)) return false;
-      if (f.color && !p.colors.some(c=>c.label === f.color)) return false;
-      if (f.graphic && !p.graphics.some(g=>g.label === f.graphic)) return false;
+function matchesFilters(p){
+  const f = state.filters;
 
-      if (state.q){
-        const hay = [
-          p.name, p.desc,
-          ...(p.tags||[]),
-          ...p.styles.map(s=>s.label),
-          ...p.fits,
-          ...p.sizes,
-          ...p.colors.map(c=>c.label),
-          ...p.graphics.map(g=>g.label)
-        ].join(' ').toLowerCase();
-        if (!hay.includes(state.q.toLowerCase())) return false;
-      }
-      return true;
-    }
+  // Style pill now means Category
+  if (f.style && p.category !== f.style) return false;
 
-    function render(){
-      const items = CATALOG.filter(matchesFilters);
-      countEl.textContent = String(items.length);
+  // Fit pill now means a fit option
+  if (f.fit){
+    const want = f.fit.toUpperCase().replace(/\s+/g,'_');
+    if (!p.fits.includes(want)) return false;
+  }
 
-      grid.innerHTML = '';
-      items.forEach(p=>{
-        const img = p.colors?.[0]?.img || "https://loe-life.com/images/bg1.png";
-        const tagline = p.tags?.slice(0,3).join(" • ") || "LOE‑Life";
+  // Size pill means any variant has that size
+  if (f.size){
+    if (!p.sizes.includes(f.size)) return false;
+  }
 
-        const card = document.createElement('article');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="thumb">
-            <img src="${img}" alt="${p.name}">
-            <div class="tagline">${tagline}</div>
-          </div>
-          <div class="row">
-            <h3 class="name">${p.name}</h3>
-            <div class="price">$${money(p.basePrice)}</div>
-          </div>
-          <div class="meta">${p.desc}</div>
-          <div class="card-actions">
-            <button class="btn primary" type="button">Customize</button>
-            <button class="btn" type="button">Quick Add</button>
-          </div>
-        `;
+  // Graphics pill now means GraphicFinish
+  if (f.graphic){
+    const want = f.graphic.toUpperCase().replace(/\s+/g,'_');
+    if (!p.finishes.includes(want)) return false;
+  }
 
-        const [btnCustomize, btnQuick] = card.querySelectorAll('button');
-        btnCustomize.onclick = ()=> openProductBuilder(p);
-        btnQuick.onclick = ()=>{
-          const variant = makeDefaultVariant(p);
-          addToCart(variant);
-          openDrawer(cartOverlay, cartDrawer);
-        };
+  // Search
+  if (state.q){
+    const hay = [
+      p.name,
+      p.displayName,
+      p.category,
+      p.subcategory,
+      p.audience,
+      ...(p.tags||[]),
+      ...p.fits,
+      ...p.sizes,
+      ...p.finishes
+    ].join(" ").toLowerCase();
+    if (!hay.includes(state.q.toLowerCase())) return false;
+  }
 
-        grid.appendChild(card);
-      });
+  return true;
+}
 
-      cartDot.classList.toggle('on', state.cart.length > 0);
-      updateCartUI();
-    }
+function render(){
+  const items = PRODUCTS.filter(matchesFilters);
+  countEl.textContent = String(items.length);
+
+  grid.innerHTML = '';
+  items.forEach(p=>{
+    const img = p.image || "https://loe-life.com/images/bg1.png";
+
+    const tagline = [
+      prettyEnum(p.category),
+      prettyEnum(p.subcategory),
+      prettyEnum(p.audience)
+    ].filter(Boolean).join(" • ");
+
+    const priceText = (p.minPrice === p.maxPrice)
+      ? `$${money(p.minPrice)}`
+      : `$${money(p.minPrice)}–${money(p.maxPrice)}`;
+
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="thumb">
+        <img src="${img}" alt="${p.name}">
+        <div class="tagline">${tagline}</div>
+      </div>
+      <div class="row">
+        <h3 class="name">${p.name}</h3>
+        <div class="price">${priceText}</div>
+      </div>
+      <div class="meta">${prettyEnum(p.displayName)} • ${p.fits.map(prettyEnum).join(", ")}</div>
+      <div class="card-actions">
+        <button class="btn primary" type="button">Customize</button>
+        <button class="btn" type="button">Quick Add</button>
+      </div>
+    `;
+
+    const [btnCustomize, btnQuick] = card.querySelectorAll('button');
+    btnCustomize.onclick = ()=> openProductBuilder(p);
+    btnQuick.onclick = ()=>{
+      const variant = makeDefaultVariant(p);
+      addToCart(variant);
+      openDrawer(cartOverlay, cartDrawer);
+    };
+
+    grid.appendChild(card);
+  });
+
+  cartDot.classList.toggle('on', state.cart.length > 0);
+  updateCartUI();
+}
 
     /* ===========================
        Variant + pricing
        =========================== */
-    function makeDefaultVariant(p){
-      const style = p.styles[0];
-      const fit = p.fits[0];
-      const size = p.sizes[0];
-      const color = p.colors[0];
-      const graphic = p.graphics[0];
-      const gcolor = GRAPHIC_COLORS.find(gc => graphic.allowedGraphicColors.includes(gc.id)) || GRAPHIC_COLORS[0];
-      return buildVariant(p, style, fit, size, color, graphic, gcolor, 1);
-    }
+function pickVariantRow(p, fit, size, finish){
+  const wantFit = (fit || p.defaultFit || "NONE").toUpperCase();
+  const wantFinish = (finish || p.defaultFinish || "SOLID").toUpperCase();
+  const wantSize = (size || p.defaultSize || "ONE_SIZE");
 
-    function computePrice(p, style, graphic){
-      return (p.basePrice) + (style?.priceDelta||0) + (graphic?.priceDelta||0);
-    }
+  // Find a matching active row
+  const row = p.variants.find(v=>{
+    const vFit = (v.Style || v.Fit || "NONE").toUpperCase();
+    const vFinish = ((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : (v.GraphicType || "")).toUpperCase();
+    const vSize = (v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size;
+    return vFit === wantFit && vFinish === wantFinish && vSize === wantSize;
+  });
 
-    function buildVariant(p, style, fit, size, color, graphic, gcolor, qty){
-      const unit = computePrice(p, style, graphic);
-      return {
-        key: `${p.id}|${style.id}|${fit}|${size}|${color.id}|${graphic.id}|${gcolor.id}`,
-        productId: p.id,
-        name: p.name,
-        unitPrice: unit,
-        currency: p.currency,
-        qty: Number(qty || 1),
-        opts: {
-          style: style.label,
-          fit,
-          size,
-          color: color.label,
-          graphic: graphic.label,
-          graphicColor: gcolor.label
-        },
-        thumb: color.img || p.colors[0].img || "https://loe-life.com/images/bg1.png"
-      };
-    }
+  return row || p.variants[0];
+}
+
+function makeDefaultVariant(p){
+  const row = pickVariantRow(p, p.defaultFit, p.defaultSize, p.defaultFinish);
+  return buildVariantFromRow(p, row, 1);
+}
+
+function buildVariantFromRow(p, row, qty){
+  const unit = Number(row.BasePrice ?? row.Price ?? 0);
+
+  const fit = (row.Style || row.Fit || "NONE").toUpperCase();
+  const size = (row.Variant && row.Variant.Size) ? row.Variant.Size : row.Size;
+  const finish = ((row.Variant && row.Variant.GraphicFinish) ? row.Variant.GraphicFinish : row.GraphicType).toUpperCase();
+
+  return {
+    key: row.SKU || row.PartitionKey,  // unique, stable
+    sku: row.SKU || row.PartitionKey,
+    productId: p.id,
+    name: p.name,
+    unitPrice: unit,
+    currency: row.Currency || "USD",
+    qty: Number(qty || 1),
+    opts: {
+      fit,
+      size,
+      graphicFinish: finish
+    },
+    thumb: p.image || "https://loe-life.com/images/bg1.png"
+  };
+}
 
     /* ===========================
        Builder modal logic
        =========================== */
-    function openProductBuilder(p){
-      state.builder.product = p;
+function openProductBuilder(p){
+  state.builder.product = p;
 
-      const def = makeDefaultVariant(p);
-      const style = p.styles.find(s=>s.label === def.opts.style) || p.styles[0];
-      const graphic = p.graphics.find(g=>g.label === def.opts.graphic) || p.graphics[0];
-      const color = p.colors.find(c=>c.label === def.opts.color) || p.colors[0];
-      const gcolor = GRAPHIC_COLORS.find(gc=>gc.label === def.opts.graphicColor) || GRAPHIC_COLORS[0];
+  // Default selections
+  state.builder.fit = p.defaultFit;
+  state.builder.size = p.defaultSize;
+  state.builder.finish = p.defaultFinish;
+  state.builder.qty = 1;
 
-      state.builder.style = style;
-      state.builder.fit = def.opts.fit;
-      state.builder.size = def.opts.size;
-      state.builder.color = color;
-      state.builder.graphic = graphic;
-      state.builder.gcolor = gcolor;
-      state.builder.qty = 1;
+  bmTitle.textContent = `Customize — ${p.name}`;
 
-      bmTitle.textContent = `Customize — ${p.name}`;
+  // Repurpose fields:
+  // bStyle: single “Product” option (locked)
+  bStyle.innerHTML = `<option value="only">${prettyEnum(p.displayName)}</option>`;
+  bStyle.value = "only";
+  bStyle.disabled = true;
 
-      bStyle.innerHTML = p.styles.map(s=>`<option value="${s.id}">${s.label}${s.priceDelta ? ` (${s.priceDelta>0?'+':''}${s.priceDelta})` : ''}</option>`).join('');
-      bFit.innerHTML = p.fits.map(f=>`<option value="${f}">${f}</option>`).join('');
-      bSize.innerHTML = p.sizes.map(s=>`<option value="${s}">${s}</option>`).join('');
-      bGraphic.innerHTML = p.graphics.map(g=>`<option value="${g.id}">${g.label}${g.priceDelta ? ` (+${g.priceDelta})` : ''}</option>`).join('');
+  // bFit: Fit options
+  bFit.innerHTML = p.fits.map(f=>`<option value="${f}">${prettyEnum(f)}</option>`).join('');
+  bFit.value = state.builder.fit;
 
-      bStyle.value = style.id;
-      bFit.value = state.builder.fit;
-      bSize.value = state.builder.size;
-      bGraphic.value = graphic.id;
-      bQty.value = "1";
+  // bGraphic: Finish options (SOLID/GLITTER)
+  bGraphic.innerHTML = p.finishes.map(g=>`<option value="${g}">${prettyEnum(g)}</option>`).join('');
+  bGraphic.value = state.builder.finish;
 
-      renderColorSwatches(p);
-      refreshBuilderPreview();
+  // Size options depend on Fit + Finish
+  refreshSizeOptions();
+  bQty.value = "1";
 
-      bStyle.onchange = ()=>{
-        state.builder.style = p.styles.find(s=>s.id===bStyle.value) || p.styles[0];
-        refreshBuilderPreview();
-      };
-      bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshBuilderPreview(); };
-      bSize.onchange = ()=>{ state.builder.size = bSize.value; refreshBuilderPreview(); };
-      bGraphic.onchange = ()=>{
-        state.builder.graphic = p.graphics.find(g=>g.id===bGraphic.value) || p.graphics[0];
-        const allowed = state.builder.graphic.allowedGraphicColors;
-        if (!allowed.includes(state.builder.gcolor.id)){
-          state.builder.gcolor = GRAPHIC_COLORS.find(gc=>allowed.includes(gc.id)) || GRAPHIC_COLORS[0];
-        }
-        renderGraphicColorSwatches();
-        refreshBuilderPreview();
-      };
-      bQty.onchange = ()=>{ state.builder.qty = Number(bQty.value); refreshBuilderPreview(); };
+  // Hide color sections for now
+  if (bColors?.parentElement) bColors.parentElement.style.display = 'none';
+  if (bGColors?.parentElement) bGColors.parentElement.style.display = 'none';
 
-      openBuilder();
-    }
+  // Wire events
+  bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshSizeOptions(); refreshBuilderPreviewV2(); };
+  bGraphic.onchange = ()=>{ state.builder.finish = bGraphic.value; refreshSizeOptions(); refreshBuilderPreviewV2(); };
+  bSize.onchange = ()=>{ state.builder.size = bSize.value; refreshBuilderPreviewV2(); };
+  bQty.onchange = ()=>{ state.builder.qty = Number(bQty.value); refreshBuilderPreviewV2(); };
 
-    function renderColorSwatches(p){
-      bColors.innerHTML = '';
-      p.colors.forEach(c=>{
-        const sw = document.createElement('button');
-        sw.type = 'button';
-        sw.className = 'sw' + (state.builder.color?.id === c.id ? ' on' : '');
-        sw.style.background = c.hex;
-        sw.title = c.label;
-        sw.onclick = ()=>{
-          state.builder.color = c;
-          renderColorSwatches(p);
-          refreshBuilderPreview();
-        };
-        bColors.appendChild(sw);
-      });
-      renderGraphicColorSwatches();
-    }
+  refreshBuilderPreviewV2();
+  openBuilder();
+}
 
-    function renderGraphicColorSwatches(){
-      const allowed = state.builder.graphic.allowedGraphicColors;
-      bGColors.innerHTML = '';
-      GRAPHIC_COLORS.filter(gc=>allowed.includes(gc.id)).forEach(gc=>{
-        const sw = document.createElement('button');
-        sw.type = 'button';
-        sw.className = 'sw' + (state.builder.gcolor?.id === gc.id ? ' on' : '');
-        sw.style.background = gc.hex;
-        sw.title = gc.label;
-        sw.onclick = ()=>{
-          state.builder.gcolor = gc;
-          renderGraphicColorSwatches();
-          refreshBuilderPreview();
-        };
-        bGColors.appendChild(sw);
-      });
-    }
+function refreshSizeOptions(){
+  const p = state.builder.product;
+  const fit = state.builder.fit;
+  const finish = state.builder.finish;
 
-    function refreshBuilderPreview(){
-      const p = state.builder.product;
-      const style = state.builder.style;
-      const fit = state.builder.fit;
-      const size = state.builder.size;
-      const color = state.builder.color;
-      const graphic = state.builder.graphic;
-      const gcolor = state.builder.gcolor;
-      const qty = state.builder.qty;
+  const sizes = new Set();
+  for (const v of p.variants){
+    const vFit = (v.Style || v.Fit || "NONE").toUpperCase();
+    const vFinish = ((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : v.GraphicType).toUpperCase();
+    if (vFit !== fit) continue;
+    if (vFinish !== finish) continue;
+    sizes.add((v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size);
+  }
 
-      const unit = computePrice(p, style, graphic);
-      const total = unit * qty;
+  const list = [...sizes].sort(sizeSort);
+  bSize.innerHTML = list.map(s=>`<option value="${s}">${s}</option>`).join('');
 
-      bImg.src = color.img || p.colors[0].img || "https://loe-life.com/images/bg1.png";
-      bLine1.textContent = `${p.name} — ${style.label}`;
-      bLine2.textContent = `${fit} • ${size} • ${color.label} • ${graphic.label} (${gcolor.label})`;
-      bPrice.textContent = money(total);
-    }
+  // keep current if still valid
+  if (!list.includes(state.builder.size)) state.builder.size = list[0] || "ONE_SIZE";
+  bSize.value = state.builder.size;
+}
 
-    builderAdd.onclick = ()=>{
-      const p = state.builder.product;
-      const v = buildVariant(p, state.builder.style, state.builder.fit, state.builder.size, state.builder.color, state.builder.graphic, state.builder.gcolor, state.builder.qty);
-      addToCart(v);
-      closeBuilderModal();
-      openDrawer(cartOverlay, cartDrawer);
-    };
+function refreshBuilderPreviewV2(){
+  const p = state.builder.product;
+  const fit = state.builder.fit;
+  const size = state.builder.size;
+  const finish = state.builder.finish;
+  const qty = state.builder.qty;
+
+  const row = pickVariantRow(p, fit, size, finish);
+  const unit = Number(row.BasePrice ?? row.Price ?? 0);
+  const total = unit * qty;
+
+  bImg.src = p.image || "https://loe-life.com/images/bg1.png";
+  bLine1.textContent = `${p.name}`;
+  bLine2.textContent = `${prettyEnum(fit)} • ${size} • ${prettyEnum(finish)}`;
+  bPrice.textContent = money(total);
+}
+
+builderAdd.onclick = ()=>{
+  const p = state.builder.product;
+  const row = pickVariantRow(p, state.builder.fit, state.builder.size, state.builder.finish);
+  const v = buildVariantFromRow(p, row, state.builder.qty);
+  addToCart(v);
+  closeBuilderModal();
+  openDrawer(cartOverlay, cartDrawer);
+};
     builderCancel.onclick = closeBuilderModal;
     closeBuilder.onclick = closeBuilderModal;
     builderOverlay.onclick = (e)=>{ if (e.target === builderOverlay) closeBuilderModal(); };
@@ -1798,8 +1864,8 @@
             <img src="${i.thumb}" alt="${i.name}">
             <div class="ci">
               <strong>${i.name}</strong>
-              <small>${i.opts.style} • ${i.opts.fit} • ${i.opts.size} • ${i.opts.color}</small>
-              <small>${i.opts.graphic} • ${i.opts.graphicColor}</small>
+              <small>${prettyEnum(i.opts.fit)} • ${i.opts.size}</small>
+              <small>${prettyEnum(i.opts.graphicFinish)}</small>
               <small>$${money(i.unitPrice)} ea</small>
             </div>
             <div class="qty">
@@ -2342,10 +2408,25 @@
     });
 
     // Init
-    loadCart();
-    buildFilters();
-    buildMobileFilters();
-    render();
+async function initShop(){
+  loadCart();
+
+  await loadCatalogV2();   // <-- key change
+
+  buildFilters();
+  buildMobileFilters();
+  render();
+}
+
+initShop().catch(err=>{
+  console.error(err);
+  // Fail-safe: show empty state but don’t crash the whole page
+  PRODUCTS = [];
+  buildFilters();
+  buildMobileFilters();
+  render();
+});
+
 
     // ✅ FIXED: no more checkCreate()
     checkCreateValidity();

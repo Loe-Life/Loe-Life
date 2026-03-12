@@ -1,0 +1,5048 @@
+[
+  {
+    "PartitionKey": "LL-000001",
+    "RowKey": "S",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "S",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000001",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000002",
+    "RowKey": "M",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "M",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000002",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000003",
+    "RowKey": "L",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "L",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000003",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000004",
+    "RowKey": "XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000004",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000005",
+    "RowKey": "2XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "2XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000005",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000006",
+    "RowKey": "3XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "3XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000006",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000007",
+    "RowKey": "4XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "4XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000007",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000008",
+    "RowKey": "S",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "S",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000008",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000009",
+    "RowKey": "M",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "M",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000009",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000010",
+    "RowKey": "L",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "L",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000010",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000011",
+    "RowKey": "XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "XL",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000011",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000012",
+    "RowKey": "2XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "2XL",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000012",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000013",
+    "RowKey": "3XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "3XL",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000013",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000014",
+    "RowKey": "4XL",
+    "DisplayName": "TSHIRT - SHORT SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "SHORT_SLEEVE",
+    "Size": "4XL",
+    "Price": 20,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000014",
+    "ProductHandle": "tshirt-short-sleeve-unisex-short-sleeve",
+    "ProductName": "Tshirt – Short Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "SHORT_SLEEVE",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "short",
+      "sleeve",
+      "unisex",
+      "short_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000015",
+    "RowKey": "S",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "S",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000015",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000016",
+    "RowKey": "M",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "M",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000016",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000017",
+    "RowKey": "L",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "L",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000017",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000018",
+    "RowKey": "XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "XL",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000018",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000019",
+    "RowKey": "2XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "2XL",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000019",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000020",
+    "RowKey": "3XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "3XL",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000020",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000021",
+    "RowKey": "4XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "4XL",
+    "Price": 22,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000021",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000022",
+    "RowKey": "S",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "S",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000022",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000023",
+    "RowKey": "M",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "M",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000023",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000024",
+    "RowKey": "L",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "L",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000024",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000025",
+    "RowKey": "XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "XL",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000025",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000026",
+    "RowKey": "2XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "2XL",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000026",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000027",
+    "RowKey": "3XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "3XL",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000027",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000028",
+    "RowKey": "4XL",
+    "DisplayName": "TSHIRT-LONG SLEEVE",
+    "Class": "UNISEX",
+    "Fit": "LONG_SLEEVE",
+    "Size": "4XL",
+    "Price": 22,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000028",
+    "ProductHandle": "tshirt-long-sleeve-unisex-long-sleeve",
+    "ProductName": "Tshirt – Long Sleeve",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "LONG_SLEEVE",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 22,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tshirt",
+      "long",
+      "sleeve",
+      "unisex",
+      "long_sleeve"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000029",
+    "RowKey": "S",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "S",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000029",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000030",
+    "RowKey": "M",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "M",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000030",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000031",
+    "RowKey": "L",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "L",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000031",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000032",
+    "RowKey": "XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000032",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000033",
+    "RowKey": "2XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "2XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000033",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000034",
+    "RowKey": "3XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "3XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000034",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000035",
+    "RowKey": "4XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "4XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000035",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000036",
+    "RowKey": "S",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "S",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000036",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000037",
+    "RowKey": "M",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "M",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000037",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000038",
+    "RowKey": "L",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "L",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000038",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000039",
+    "RowKey": "XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000039",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000040",
+    "RowKey": "2XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "2XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000040",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000041",
+    "RowKey": "3XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "3XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000041",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000042",
+    "RowKey": "4XL",
+    "DisplayName": "HOODIE - NO ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "NO_ZIPPER",
+    "Size": "4XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000042",
+    "ProductHandle": "hoodie-no-zipper-unisex-no-zipper",
+    "ProductName": "Hoodie – No Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "NO_ZIPPER",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "no",
+      "zipper",
+      "unisex",
+      "no_zipper"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000043",
+    "RowKey": "S",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "S",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000043",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000044",
+    "RowKey": "M",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "M",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000044",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000045",
+    "RowKey": "L",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "L",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000045",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000046",
+    "RowKey": "XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000046",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000047",
+    "RowKey": "2XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "2XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000047",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000048",
+    "RowKey": "3XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "3XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000048",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000049",
+    "RowKey": "4XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "4XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000049",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000050",
+    "RowKey": "S",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "S",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000050",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000051",
+    "RowKey": "M",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "M",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000051",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000052",
+    "RowKey": "L",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "L",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000052",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000053",
+    "RowKey": "XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000053",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000054",
+    "RowKey": "2XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "2XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000054",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000055",
+    "RowKey": "3XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "3XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000055",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000056",
+    "RowKey": "4XL",
+    "DisplayName": "HOODIE - ZIPPER",
+    "Class": "UNISEX",
+    "Fit": "ZIPPER",
+    "Size": "4XL",
+    "Price": 28,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000056",
+    "ProductHandle": "hoodie-zipper-unisex-zipper",
+    "ProductName": "Hoodie – Zipper",
+    "Category": "OUTERWEAR",
+    "Subcategory": "HOODIE",
+    "Audience": "UNISEX",
+    "Style": "ZIPPER",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hoodie",
+      "zipper",
+      "unisex"
+    ],
+    "Merch": {
+      "Sort": 200,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000057",
+    "RowKey": "S",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "S",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000057",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000058",
+    "RowKey": "M",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "M",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000058",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000059",
+    "RowKey": "L",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "L",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000059",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000060",
+    "RowKey": "XL",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "XL",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000060",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000061",
+    "RowKey": "2XL",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "2XL",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000061",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000062",
+    "RowKey": "3XL",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "3XL",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000062",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000063",
+    "RowKey": "4XL",
+    "DisplayName": "SWEATSHIRT NO HOOD",
+    "Class": "UNISEX",
+    "Fit": "NO_HOOD",
+    "Size": "4XL",
+    "Price": 26,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000063",
+    "ProductHandle": "sweatshirt-no-hood-unisex-no-hood",
+    "ProductName": "Sweatshirt No Hood",
+    "Category": "TOPS",
+    "Subcategory": "TSHIRT",
+    "Audience": "UNISEX",
+    "Style": "NO_HOOD",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 26,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sweatshirt",
+      "no",
+      "hood",
+      "unisex",
+      "no_hood"
+    ],
+    "Merch": {
+      "Sort": 100,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000064",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "HEADBANDS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 10,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000064",
+    "ProductHandle": "headbands-unisex-none",
+    "ProductName": "Headbands",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HEADBAND",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 10,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "headbands",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 320,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000065",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "HEADBANDS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 10,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000065",
+    "ProductHandle": "headbands-unisex-none",
+    "ProductName": "Headbands",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HEADBAND",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 10,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "headbands",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 320,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000066",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "HEADBANDS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 10,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000066",
+    "ProductHandle": "headbands-unisex-none",
+    "ProductName": "Headbands",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HEADBAND",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 10,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "headbands",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 320,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000067",
+    "RowKey": "S",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000067",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000068",
+    "RowKey": "M",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000068",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000069",
+    "RowKey": "L",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000069",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000070",
+    "RowKey": "XL",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000070",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000071",
+    "RowKey": "2XL",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "2XL",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000071",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000072",
+    "RowKey": "S",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000072",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000073",
+    "RowKey": "M",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000073",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000074",
+    "RowKey": "L",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000074",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000075",
+    "RowKey": "XL",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000075",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000076",
+    "RowKey": "2XL",
+    "DisplayName": "HATS",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "2XL",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000076",
+    "ProductHandle": "hats-unisex-none",
+    "ProductName": "Hats",
+    "Category": "ACCESSORIES",
+    "Subcategory": "HAT",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "hats",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 300,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000077",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "BEANIES",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 12,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000077",
+    "ProductHandle": "beanies-unisex-none",
+    "ProductName": "Beanies",
+    "Category": "ACCESSORIES",
+    "Subcategory": "BEANIE",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 12,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "beanies",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 310,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000078",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "BEANIES",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 12,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000078",
+    "ProductHandle": "beanies-unisex-none",
+    "ProductName": "Beanies",
+    "Category": "ACCESSORIES",
+    "Subcategory": "BEANIE",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 12,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "beanies",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 310,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000079",
+    "RowKey": "ONE_SIZE",
+    "DisplayName": "BEANIES",
+    "Class": "UNISEX",
+    "Fit": "NONE",
+    "Size": "ONE_SIZE",
+    "Price": 12,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000079",
+    "ProductHandle": "beanies-unisex-none",
+    "ProductName": "Beanies",
+    "Category": "ACCESSORIES",
+    "Subcategory": "BEANIE",
+    "Audience": "UNISEX",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "ONE_SIZE",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 12,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "beanies",
+      "unisex",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 310,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000080",
+    "RowKey": "S",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "S",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000080",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000081",
+    "RowKey": "M",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "M",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000081",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000082",
+    "RowKey": "L",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "L",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000082",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000083",
+    "RowKey": "XL",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000083",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000084",
+    "RowKey": "2XL",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "2XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000084",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000085",
+    "RowKey": "3XL",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "3XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000085",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000086",
+    "RowKey": "4XL",
+    "DisplayName": "SLEEVELESS HOODIES-MENS",
+    "Class": "MENS",
+    "Fit": "SLEEVELESS_HOODIES",
+    "Size": "4XL",
+    "Price": 28,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000086",
+    "ProductHandle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+    "ProductName": "Sleeveless Hoodies – Mens",
+    "Category": "TOPS",
+    "Subcategory": "SLEEVELESS_HOODIE",
+    "Audience": "MENS",
+    "Style": "SLEEVELESS_HOODIES",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 28,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "sleeveless",
+      "hoodies",
+      "mens",
+      "sleeveless_hoodies"
+    ],
+    "Merch": {
+      "Sort": 120,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000087",
+    "RowKey": "S",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000087",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000088",
+    "RowKey": "M",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000088",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000089",
+    "RowKey": "L",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000089",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000090",
+    "RowKey": "XL",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000090",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000091",
+    "RowKey": "2XL",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "2XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000091",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000092",
+    "RowKey": "3XL",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "3XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000092",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000093",
+    "RowKey": "4XL",
+    "DisplayName": "TANK TOPS-MENS",
+    "Class": "MENS",
+    "Fit": "NONE",
+    "Size": "4XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000093",
+    "ProductHandle": "tank-tops-mens-mens-none",
+    "ProductName": "Tank Tops – Mens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "MENS",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "mens",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000094",
+    "RowKey": "S",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "S",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000094",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000095",
+    "RowKey": "M",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "M",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000095",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000096",
+    "RowKey": "L",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "L",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000096",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000097",
+    "RowKey": "XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000097",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000098",
+    "RowKey": "2XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "2XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000098",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000099",
+    "RowKey": "3XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "3XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000099",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000100",
+    "RowKey": "4XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "LOOSE_FIT",
+    "Size": "4XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000100",
+    "ProductHandle": "tank-tops-womens-womens-loose-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "LOOSE_FIT",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "loose_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000101",
+    "RowKey": "S",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "S",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000101",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000102",
+    "RowKey": "M",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "M",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000102",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000103",
+    "RowKey": "L",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "L",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000103",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000104",
+    "RowKey": "XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000104",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000105",
+    "RowKey": "2XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "2XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000105",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "2XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000106",
+    "RowKey": "3XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "3XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000106",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "3XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000107",
+    "RowKey": "4XL",
+    "DisplayName": "TANK TOPS-WOMENS",
+    "Class": "WOMENS",
+    "Fit": "SLIM_FIT",
+    "Size": "4XL",
+    "Price": 20,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000107",
+    "ProductHandle": "tank-tops-womens-womens-slim-fit",
+    "ProductName": "Tank Tops – Womens",
+    "Category": "TOPS",
+    "Subcategory": "TANK_TOP",
+    "Audience": "WOMENS",
+    "Style": "SLIM_FIT",
+    "Variant": {
+      "Size": "4XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 20,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "tank",
+      "tops",
+      "womens",
+      "slim_fit"
+    ],
+    "Merch": {
+      "Sort": 110,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000108",
+    "RowKey": "S",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000108",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000109",
+    "RowKey": "M",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000109",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000110",
+    "RowKey": "L",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000110",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000111",
+    "RowKey": "XL",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 15,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000111",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000112",
+    "RowKey": "S",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 18,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000112",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000113",
+    "RowKey": "M",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 18,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000113",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000114",
+    "RowKey": "L",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 18,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000114",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000115",
+    "RowKey": "XL",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 18,
+    "GraphicType": "solid",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000115",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "SOLID"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000116",
+    "RowKey": "S",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000116",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000117",
+    "RowKey": "M",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000117",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000118",
+    "RowKey": "L",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000118",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000119",
+    "RowKey": "XL",
+    "DisplayName": "DOG TSHIRTS",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 15,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000119",
+    "ProductHandle": "dog-tshirts-dog-none",
+    "ProductName": "Dog Tshirts",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 15,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "tshirts",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000120",
+    "RowKey": "S",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "S",
+    "Price": 18,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000120",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "S",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000121",
+    "RowKey": "M",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "M",
+    "Price": 18,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000121",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "M",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000122",
+    "RowKey": "L",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "L",
+    "Price": 18,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000122",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "L",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  },
+  {
+    "PartitionKey": "LL-000123",
+    "RowKey": "XL",
+    "DisplayName": "DOG HOODIES",
+    "Class": "DOG",
+    "Fit": "NONE",
+    "Size": "XL",
+    "Price": 18,
+    "GraphicType": "glitter",
+    "Active": true,
+    "LastUpdated": "2026-02-18T23:15:00Z",
+    "SKU": "LL-000123",
+    "ProductHandle": "dog-hoodies-dog-none",
+    "ProductName": "Dog Hoodies",
+    "Category": "PETS",
+    "Subcategory": "DOG_APPAREL",
+    "Audience": "DOG",
+    "Style": "NONE",
+    "Variant": {
+      "Size": "XL",
+      "GraphicFinish": "GLITTER"
+    },
+    "BasePrice": 18,
+    "PriceDelta": 0,
+    "Currency": "USD",
+    "Images": {
+      "primary": null,
+      "gallery": []
+    },
+    "Tags": [
+      "dog",
+      "hoodies",
+      "none"
+    ],
+    "Merch": {
+      "Sort": 400,
+      "Featured": false,
+      "New": false
+    }
+  }
+]
