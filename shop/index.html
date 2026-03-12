@@ -74,8 +74,8 @@
     header{
       position: sticky; top:0; z-index:50;
       backdrop-filter: blur(18px) saturate(150%);
-      background: linear-gradient(90deg, rgba(10,10,18,0.86), rgba(10,10,18,0.62));
-      border-bottom: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(90deg, rgba(32, 0, 0, 0.212), rgba(41, 0, 0, 0.205));
+      border-bottom: 1px solid rgba(255, 212, 212, 0.14);
     }
     .nav{
       max-width: var(--maxw);
@@ -801,9 +801,9 @@
 
   <header>
     <div class="nav">
-      <a class="brand" href="https://loe-life.com/" aria-label="Back to Loe-Life home">
+      <a class="brand" href="https://loe-life.com/demo" aria-label="Back to Loe-Life home">
         <div class="logo" aria-hidden="true"></div>
-        <strong>Loe‑Life</strong>
+        <strong style="color:var(--accent-slate-dark)">Loe‑Life</strong>
       </a>
 
       <div class="searchbar" role="search">
@@ -1219,9 +1219,6 @@
     }
 
     /* ===========================
-       Catalog stub
-       =========================== */
-    /* ===========================
    Catalog (v2) — load + group
    =========================== */
 
@@ -1342,7 +1339,7 @@ function sizeSort(a,b){
     const state = {
       q: "",
       filters: { style:null, fit:null, size:null, color:null, graphic:null },
-      builder: { product:null, style:null, fit:null, size:null, color:null, graphic:null, gcolor:null, qty:1 },
+      builder: { product:null, fit:null, size:null, finish:null, qty:1 },
       cart: []
     };
 
@@ -1531,6 +1528,12 @@ function buildFilters(){
       const desktop = document.querySelector('.filters');
       if (!desktop) return;
       const clone = desktop.cloneNode(true);
+      // Prevent duplicate IDs from confusing document.getElementById in the future
+      clone.querySelectorAll('[id]').forEach(el => {
+       // keep these because we query them inside filtersMobileMount:
+       if (['fStyle','fFit','fSize','fColor','fGraphic','clearFilters'].includes(el.id)) return;
+       el.removeAttribute('id');
+      });
       clone.style.display = 'block';
       clone.style.position = 'static';
       clone.style.top = 'auto';
@@ -1565,6 +1568,12 @@ const map = [
           row.appendChild(b);
         });
       });
+
+       // Force Color to "coming soon" on mobile too
+        const mobileColor = filtersMobileMount.querySelector('#fColor');
+        if (mobileColor) {
+         mobileColor.innerHTML = `<span class="small" style="color:var(--muted)">Colors coming soon</span>`;
+        }
 
       const clear = filtersMobileMount.querySelector('#clearFilters');
       clear?.addEventListener('click', ()=>{
@@ -1753,8 +1762,8 @@ function openProductBuilder(p){
   bQty.value = "1";
 
   // Hide color sections for now
-  if (bColors?.parentElement) bColors.parentElement.style.display = 'none';
-  if (bGColors?.parentElement) bGColors.parentElement.style.display = 'none';
+  bColors?.closest('.field')?.style.setProperty('display','none');
+  bGColors?.closest('.field')?.style.setProperty('display','none');
 
   // Wire events
   bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshSizeOptions(); refreshBuilderPreviewV2(); };
