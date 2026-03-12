@@ -30,34 +30,27 @@
   <link rel="preload" as="image" href="https://loe-life.com/images/bg1.png"/>
 
   <style>
+    /* NOTE: Your CSS is unchanged from what you pasted. */
     :root{
       --maxw: 1400px;
-
       --bg-deep:#00000000;
       --ink:#f7f7f7;
       --muted:#b0b0b0;
-
       --accent-red:#e53935;
       --accent-redsoft:#c93330d5;
       --accent-red-dark:#7c1513;
-
       --accent-slate:#959595dc;
       --accent-slate-dark:#6d6d6dd6;
-
       --card: rgba(20,20,30,0.55);
       --card-strong: rgba(15,15,25,0.82);
       --card-border: rgba(255,255,255,0.14);
       --shadow: 0 18px 45px rgba(0,0,0,0.65);
-
       --radius-sm: 12px;
       --radius-lg: 20px;
-
       --header-h: 58px;
       --drawer-w: 420px;
-
       --glass: rgba(20,20,30,0.45);
       --glass-2: rgba(15,15,25,0.75);
-
       --focus: rgba(149,149,149,0.95);
     }
 
@@ -440,32 +433,31 @@
     }
 
     .review-input{
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 10px;
-  padding: 10px 12px;
-  color: var(--ink);
-  outline: none;
-  backdrop-filter: blur(12px);
-}
-.review-input:focus{ outline: 2px solid rgba(149,149,149,0.55); }
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--ink);
+      outline: none;
+      backdrop-filter: blur(12px);
+    }
+    .review-input:focus{ outline: 2px solid rgba(149,149,149,0.55); }
 
-.hr-soft{
-  border:0;
-  border-top:1px solid rgba(255,255,255,0.12);
-  margin: 12px 0;
-}
-.h3{ margin: 0 0 8px; font-size: 1.05rem; }
+    .hr-soft{
+      border:0;
+      border-top:1px solid rgba(255,255,255,0.12);
+      margin: 12px 0;
+    }
+    .h3{ margin: 0 0 8px; font-size: 1.05rem; }
 
-.two-col{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-@media (max-width: 640px){
-  .two-col{ grid-template-columns: 1fr; }
-}
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 640px){
+      .two-col{ grid-template-columns: 1fr; }
+    }
 
     /* Cart list */
     .cart-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction: column; gap: 10px; }
@@ -695,9 +687,7 @@
     select, option { color-scheme: dark; }
     .field select option{ background: #0b0b10; color: #fff; }
 
-    /* ===========================
-       MOBILE HEADER FIX (search row)
-       =========================== */
+    /* MOBILE header grid */
     @media (max-width: 640px){
       .nav{
         height: auto !important;
@@ -722,9 +712,7 @@
       }
     }
 
-    /* ===========================
-       MOBILE CUSTOMIZE MODAL FIX (flex stack)
-       =========================== */
+    /* Mobile builder modal stack */
     @media (max-width: 640px){
       #builderModal.modal.open{
         padding: calc(10px + env(safe-area-inset-top, 0px)) 10px calc(10px + env(safe-area-inset-bottom, 0px));
@@ -774,9 +762,7 @@
       #builderModal .preview .box{ min-height: 220px; }
     }
 
-    /* ===========================
-       AUTH DRAWER: create/reset helpers (PPSC-style)
-       =========================== */
+    /* Auth helper bits */
     .mini-err{
       color: rgba(255,90,90,0.95);
       font-size: .85rem;
@@ -784,59 +770,25 @@
       margin-top: 6px;
       display: block;
     }
-
-    .code-row{
-      display:flex;
-      gap: 8px;
-      align-items:center;
-      margin-top: 10px;
-    }
+    .code-row{ display:flex; gap: 8px; align-items:center; margin-top: 10px; }
     .code-row input{ flex: 1; }
     .api-mini{ min-width: 132px; font-size:.9rem; }
-
-    .password-wrapper{
-      position: relative;
-      width: 100%;
-      margin-top: 10px;
-    }
+    .password-wrapper{ position: relative; width: 100%; margin-top: 10px; }
     .password-wrapper .review-input{ padding-right: 2.6rem; }
-
     .reveal-btn{
-      position:absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      position:absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      width: 34px; height: 34px; border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.14);
       background: rgba(10,10,18,0.55);
-      color: #ffd180;
-      cursor: pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      color: #ffd180; cursor: pointer;
+      display:flex; align-items:center; justify-content:center;
     }
-
     .strength-bar{
-      width: 0%;
-      height: 4px;
-      border-radius: 999px;
-      background: red;
-      margin-top: 6px;
+      width: 0%; height: 4px; border-radius: 999px; background: red; margin-top: 6px;
       transition: width .2s ease, background .2s ease;
     }
-    .strength-text{
-      font-size: .85rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .match-msg{
-      display:none;
-      font-size: .85rem;
-      color: var(--accent-red);
-      margin-top: 6px;
-    }
+    .strength-text{ font-size: .85rem; color: var(--muted); margin-top: 2px; }
+    .match-msg{ display:none; font-size: .85rem; color: var(--accent-red); margin-top: 6px; }
 
     @media (max-width: 640px){
       #authDrawer input, #authDrawer select, #authDrawer textarea { font-size: 16px; }
@@ -867,7 +819,6 @@
   </header>
 
   <div class="wrap">
-    <!-- Desktop filters -->
     <aside class="filters" aria-label="Filters">
       <h2>Filters <button id="clearFilters" class="pill" type="button">Clear</button></h2>
       <p class="sub">Build your fit: style, size, color, and graphics.</p>
@@ -903,7 +854,6 @@
       </div>
     </aside>
 
-    <!-- Main -->
     <section class="main" aria-label="Product results">
       <div class="headline">
         <h1>Build Your Fit</h1>
@@ -975,134 +925,132 @@
         <button class="btn primary" id="doSignIn" type="submit">Sign In</button>
       </form>
 
-      <!-- CREATE ACCOUNT (UPDATED) -->
+      <!-- CREATE ACCOUNT -->
       <form id="createForm" style="margin-top:10px; display:none;" autocomplete="on" novalidate>
-  <div class="field">
-    <label>Full Name</label>
-    <input id="caName" class="review-input" type="text" autocomplete="name" placeholder="First Last" required>
-  </div>
+        <div class="field">
+          <label>Full Name</label>
+          <input id="caName" class="review-input" type="text" autocomplete="name" placeholder="First Last" required>
+        </div>
 
-  <div class="field">
-    <label>Email</label>
-    <input id="caEmail" class="review-input" type="email" autocomplete="email" placeholder="you@email.com" required>
-    <div id="caEmailErr" class="mini-err" style="display:none;">Please enter a valid email domain.</div>
-  </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="caEmail" class="review-input" type="email" autocomplete="email" placeholder="you@email.com" required>
+          <div id="caEmailErr" class="mini-err" style="display:none;">Please enter a valid email domain.</div>
+        </div>
 
-  <div class="field">
-    <label>Phone (optional)</label>
-    <input id="caPhone" class="review-input" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
-  </div>
+        <div class="field">
+          <label>Phone (optional)</label>
+          <input id="caPhone" class="review-input" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digits">
+        </div>
 
-  <label style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
-    <input id="caSms" type="checkbox" style="margin-top:4px;">
-    <span class="small" style="color:var(--ink); line-height:1.35;">
-      <strong>Optional SMS updates:</strong> I agree to receive <strong>transactional</strong> texts about orders/account activity.
-      Msg &amp; data rates may apply. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Consent not required to purchase.
-    </span>
-  </label>
+        <label style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
+          <input id="caSms" type="checkbox" style="margin-top:4px;">
+          <span class="small" style="color:var(--ink); line-height:1.35;">
+            <strong>Optional SMS updates:</strong> I agree to receive <strong>transactional</strong> texts about orders/account activity.
+            Msg &amp; data rates may apply. Reply <strong>STOP</strong> to cancel, <strong>HELP</strong> for help. Consent not required to purchase.
+          </span>
+        </label>
 
-  <hr class="hr-soft">
+        <hr class="hr-soft">
+        <h3 class="h3">Shipping Address</h3>
 
-  <h3 class="h3">Shipping Address</h3>
+        <div class="field">
+          <label>Address Line 1</label>
+          <input id="sLine1" class="review-input" type="text" autocomplete="shipping address-line1" required>
+        </div>
+        <div class="field">
+          <label>Address Line 2 (optional)</label>
+          <input id="sLine2" class="review-input" type="text" autocomplete="shipping address-line2">
+        </div>
 
-  <div class="field">
-    <label>Address Line 1</label>
-    <input id="sLine1" class="review-input" type="text" autocomplete="shipping address-line1" required>
-  </div>
+        <div class="two-col">
+          <div class="field">
+            <label>City</label>
+            <input id="sCity" class="review-input" type="text" autocomplete="shipping address-level2" required>
+          </div>
+          <div class="field">
+            <label>State</label>
+            <input id="sState" class="review-input" type="text" autocomplete="shipping address-level1" required>
+          </div>
+        </div>
 
-  <div class="field">
-    <label>Address Line 2 (optional)</label>
-    <input id="sLine2" class="review-input" type="text" autocomplete="shipping address-line2">
-  </div>
+        <div class="two-col">
+          <div class="field">
+            <label>ZIP / Postal</label>
+            <input id="sZip" class="review-input" type="text" inputmode="numeric" autocomplete="shipping postal-code" required>
+          </div>
+          <div class="field">
+            <label>Country</label>
+            <input id="sCountry" class="review-input" type="text" value="US" autocomplete="shipping country" required>
+          </div>
+        </div>
 
-  <div class="two-col">
-    <div class="field">
-      <label>City</label>
-      <input id="sCity" class="review-input" type="text" autocomplete="shipping address-level2" required>
-    </div>
-    <div class="field">
-      <label>State</label>
-      <input id="sState" class="review-input" type="text" autocomplete="shipping address-level1" required>
-    </div>
-  </div>
+        <hr class="hr-soft">
 
-  <div class="two-col">
-    <div class="field">
-      <label>ZIP / Postal</label>
-      <input id="sZip" class="review-input" type="text" inputmode="numeric" autocomplete="shipping postal-code" required>
-    </div>
-    <div class="field">
-      <label>Country</label>
-      <input id="sCountry" class="review-input" type="text" value="US" autocomplete="shipping country" required>
-    </div>
-  </div>
+        <label style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
+          <input id="billSame" type="checkbox" checked style="margin-top:4px;">
+          <span class="small" style="color:var(--ink); line-height:1.35;">
+            <strong>Billing address same as shipping</strong>
+          </span>
+        </label>
 
-  <hr class="hr-soft">
+        <div id="billingBlock" style="margin-top:10px; display:none;">
+          <h3 class="h3">Billing Address</h3>
 
-  <label style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
-    <input id="billSame" type="checkbox" checked style="margin-top:4px;">
-    <span class="small" style="color:var(--ink); line-height:1.35;">
-      <strong>Billing address same as shipping</strong>
-    </span>
-  </label>
+          <div class="field">
+            <label>Address Line 1</label>
+            <input id="bLine1" class="review-input" type="text" autocomplete="billing address-line1">
+          </div>
 
-  <div id="billingBlock" style="margin-top:10px; display:none;">
-    <h3 class="h3">Billing Address</h3>
+          <div class="field">
+            <label>Address Line 2 (optional)</label>
+            <input id="bLine2" class="review-input" type="text" autocomplete="billing address-line2">
+          </div>
 
-    <div class="field">
-      <label>Address Line 1</label>
-      <input id="bLine1" class="review-input" type="text" autocomplete="billing address-line1">
-    </div>
+          <div class="two-col">
+            <div class="field">
+              <label>City</label>
+              <input id="bCity" class="review-input" type="text" autocomplete="billing address-level2">
+            </div>
+            <div class="field">
+              <label>State</label>
+              <input id="bState" class="review-input" type="text" autocomplete="billing address-level1">
+            </div>
+          </div>
 
-    <div class="field">
-      <label>Address Line 2 (optional)</label>
-      <input id="bLine2" class="review-input" type="text" autocomplete="billing address-line2">
-    </div>
+          <div class="two-col">
+            <div class="field">
+              <label>ZIP / Postal</label>
+              <input id="bZip" class="review-input" type="text" inputmode="numeric" autocomplete="billing postal-code">
+            </div>
+            <div class="field">
+              <label>Country</label>
+              <input id="bCountry" class="review-input" type="text" value="US" autocomplete="billing country">
+            </div>
+          </div>
+        </div>
 
-    <div class="two-col">
-      <div class="field">
-        <label>City</label>
-        <input id="bCity" class="review-input" type="text" autocomplete="billing address-level2">
-      </div>
-      <div class="field">
-        <label>State</label>
-        <input id="bState" class="review-input" type="text" autocomplete="billing address-level1">
-      </div>
-    </div>
+        <hr class="hr-soft">
 
-    <div class="two-col">
-      <div class="field">
-        <label>ZIP / Postal</label>
-        <input id="bZip" class="review-input" type="text" inputmode="numeric" autocomplete="billing postal-code">
-      </div>
-      <div class="field">
-        <label>Country</label>
-        <input id="bCountry" class="review-input" type="text" value="US" autocomplete="billing country">
-      </div>
-    </div>
-  </div>
+        <div class="password-wrapper">
+          <input id="caPass" class="review-input" type="password" autocomplete="new-password" placeholder="Create password" required>
+          <button type="button" class="reveal-btn" data-target="caPass">◉</button>
+        </div>
+        <div id="caStrengthBar" class="strength-bar"></div>
+        <div id="caStrengthText" class="strength-text">Strength: —</div>
 
-  <hr class="hr-soft">
+        <div class="password-wrapper">
+          <input id="caPass2" class="review-input" type="password" autocomplete="new-password" placeholder="Confirm password" required>
+          <button type="button" class="reveal-btn" data-target="caPass2">◉</button>
+        </div>
+        <div id="caMatchMsg" class="match-msg">Passwords do not match.</div>
 
-  <div class="password-wrapper">
-    <input id="caPass" class="review-input" type="password" autocomplete="new-password" placeholder="Create password" required>
-    <button type="button" class="reveal-btn" data-target="caPass">🪅</button>
-  </div>
-  <div id="caStrengthBar" class="strength-bar"></div>
-  <div id="caStrengthText" class="strength-text">Strength: —</div>
+        <button class="btn primary" id="doCreate" type="submit" disabled style="margin-top:10px;">
+          Create Account
+        </button>
+      </form>
 
-  <div class="password-wrapper">
-    <input id="caPass2" class="review-input" type="password" autocomplete="new-password" placeholder="Confirm password" required>
-    <button type="button" class="reveal-btn" data-target="caPass2">🪅</button>
-  </div>
-  <div id="caMatchMsg" class="match-msg">Passwords do not match.</div>
-
-  <button class="btn primary" id="doCreate" type="submit" disabled style="margin-top:10px;">
-    Create Account
-  </button>
-</form>
-
-      <!-- RESET PASSWORD (UPDATED) -->
+      <!-- RESET PASSWORD -->
       <form id="resetForm" style="margin-top:10px; display:none;" autocomplete="on" novalidate>
         <div class="field">
           <label>Email</label>
@@ -1132,14 +1080,14 @@
 
         <div class="password-wrapper">
           <input id="rpPass" class="review-input" type="password" autocomplete="new-password" placeholder="New password" required>
-          <button type="button" class="reveal-btn" data-target="rpPass">🪅</button>
+          <button type="button" class="reveal-btn" data-target="rpPass">◉</button>
         </div>
         <div id="rpStrengthBar" class="strength-bar"></div>
         <div id="rpStrengthText" class="strength-text">Strength: —</div>
 
         <div class="password-wrapper">
           <input id="rpPass2" class="review-input" type="password" autocomplete="new-password" placeholder="Confirm new password" required>
-          <button type="button" class="reveal-btn" data-target="rpPass2">🪅</button>
+          <button type="button" class="reveal-btn" data-target="rpPass2">◉</button>
         </div>
         <div id="rpMatchMsg" class="match-msg">Passwords do not match.</div>
 
@@ -1233,16 +1181,10 @@
         sid = crypto.randomUUID();
         sessionStorage.setItem('sid', sid);
       }
-
       const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
 
       if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
-        return {
-          sid,
-          endpoint: 'INSERT_ACTOR_ENDPOINT',
-          authToken: 'INSERT_AUTH_TOKEN',
-          OmniTok: 'INSERT_OMNITOK'
-        };
+        return { sid, endpoint: 'INSERT_ACTOR_ENDPOINT', authToken: 'INSERT_AUTH_TOKEN', OmniTok: 'INSERT_OMNITOK' };
       }
 
       const res = await fetch(API.issueOmniTok, {
@@ -1277,7 +1219,7 @@
     }
 
     /* ===========================
-       Catalog stub (unchanged)
+       Catalog stub
        =========================== */
     const CATALOG = [
       {
@@ -1352,7 +1294,7 @@
     ];
 
     /* ===========================
-       Filters state
+       State
        =========================== */
     const state = {
       q: "",
@@ -1417,9 +1359,49 @@
     const bPrice = document.getElementById('bPrice');
 
     /* ===========================
-       Helpers
+       Shared helpers (ONE copy)
        =========================== */
     const money = (n) => (Number(n || 0)).toFixed(2);
+    const uniq = (arr) => Array.from(new Set(arr));
+    const digitsOnly = (s) => (s||'').replace(/\D/g,'');
+    function isValidEmailDomain(email){
+      const v = (email || '').trim();
+      const at = v.lastIndexOf('@');
+      if (at < 1) return false;
+      const domain = v.slice(at + 1);
+      return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
+    }
+    function strengthScore(pw){
+      let score = 0;
+      if (!pw) return 0;
+      if (pw.length >= 6) score++;
+      if (/[A-Z]/.test(pw)) score++;
+      if (/[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+      if (pw.length >= 10) score++;
+      return score; // 0..5
+    }
+    function applyStrength(score, barEl, textEl){
+      const widths = ['0%','20%','40%','60%','80%','100%'];
+      const colors = ['red','orangered','orange','gold','yellowgreen','green'];
+      const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
+      barEl.style.width = widths[score];
+      barEl.style.background = colors[score];
+      textEl.textContent = `Strength: ${labels[score]}`;
+    }
+    function setBtnLoading(btn, on){
+      if (!btn) return;
+      if (!on){
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
+        return;
+      }
+      btn.dataset.originalText = btn.textContent;
+      btn.disabled = true;
+      btn.classList.add('loading');
+      btn.textContent = btn.dataset.loadingText || 'Working…';
+    }
 
     function openDrawer(overlay, drawer){
       overlay.classList.add('open');
@@ -1447,8 +1429,19 @@
       document.body.style.overflow = '';
     }
 
+    // reveal toggles (one-time)
+    document.querySelectorAll('#authDrawer .reveal-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const input = document.getElementById(btn.dataset.target);
+        if (!input) return;
+        const hidden = input.type === 'password';
+        input.type = hidden ? 'text' : 'password';
+        btn.textContent = hidden ? '◎' : '◉';
+      });
+    });
+
     /* ===========================
-       Filters UI (unchanged)
+       Filters UI
        =========================== */
     function setPillRow(containerId, items, key){
       const el = document.getElementById(containerId);
@@ -1466,13 +1459,6 @@
         el.appendChild(b);
       });
     }
-
-    function syncFilterPills(){
-      buildFilters();
-      buildMobileFilters();
-    }
-
-    function uniq(arr){ return Array.from(new Set(arr)); }
 
     function buildFilters(){
       const styles = uniq(CATALOG.flatMap(p=>p.styles.map(s=>s.label)));
@@ -1533,6 +1519,11 @@
         render();
         syncFilterPills();
       });
+    }
+
+    function syncFilterPills(){
+      buildFilters();
+      buildMobileFilters();
     }
 
     function matchesFilters(p){
@@ -1601,7 +1592,7 @@
     }
 
     /* ===========================
-       Variant + pricing (unchanged)
+       Variant + pricing
        =========================== */
     function makeDefaultVariant(p){
       const style = p.styles[0];
@@ -1639,7 +1630,7 @@
     }
 
     /* ===========================
-       Builder modal logic (unchanged)
+       Builder modal logic
        =========================== */
     function openProductBuilder(p){
       state.builder.product = p;
@@ -1761,7 +1752,7 @@
     builderOverlay.onclick = (e)=>{ if (e.target === builderOverlay) closeBuilderModal(); };
 
     /* ===========================
-       Cart logic (unchanged)
+       Cart logic
        =========================== */
     function addToCart(v){
       const idx = state.cart.findIndex(x=>x.key===v.key);
@@ -1849,7 +1840,7 @@
     }
 
     /* ===========================
-       Checkout (unchanged)
+       Checkout
        =========================== */
     let holdTimer = null;
     let holdStart = 0;
@@ -1987,7 +1978,8 @@
       createForm.style.display = (which==='create') ? 'block' : 'none';
       resetForm.style.display  = (which==='reset')  ? 'block' : 'none';
 
-      if (which === 'create') checkCreate();
+      // ✅ FIXED: no more checkCreate()
+      if (which === 'create') checkCreateValidity();
       if (which === 'reset') checkReset();
     }
     tabSignIn.onclick = ()=> setTab('signIn');
@@ -2010,68 +2002,12 @@
     }
 
     /* ===========================
-       AUTH HELPERS (ported behavior)
-       =========================== */
-    function digitsOnly(s){ return (s||'').replace(/\D/g,''); }
-
-    function isValidEmailDomain(email){
-      const v = (email || '').trim();
-      const at = v.lastIndexOf('@');
-      if (at < 1) return false;
-      const domain = v.slice(at + 1);
-      return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
-    }
-
-    function strengthScore(pw){
-      let score = 0;
-      if (!pw) return 0;
-      if (pw.length >= 6) score++;
-      if (/[A-Z]/.test(pw)) score++;
-      if (/[0-9]/.test(pw)) score++;
-      if (/[^A-Za-z0-9]/.test(pw)) score++;
-      if (pw.length >= 10) score++;
-      return score; // 0..5
-    }
-
-    function applyStrength(score, barEl, textEl){
-      const widths = ['0%','20%','40%','60%','80%','100%'];
-      const colors = ['red','orangered','orange','gold','yellowgreen','green'];
-      const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
-      barEl.style.width = widths[score];
-      barEl.style.background = colors[score];
-      textEl.textContent = `Strength: ${labels[score]}`;
-    }
-
-    function setBtnLoading(btn, on){
-      if (!btn) return;
-      if (!on){
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
-        return;
-      }
-      btn.dataset.originalText = btn.textContent;
-      btn.disabled = true;
-      btn.classList.add('loading');
-      btn.textContent = btn.dataset.loadingText || 'Working…';
-    }
-
-    // reveal toggles
-    document.querySelectorAll('#authDrawer .reveal-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const input = document.getElementById(btn.dataset.target);
-        if (!input) return;
-        const hidden = input.type === 'password';
-        input.type = hidden ? 'text' : 'password';
-        btn.textContent = hidden ? '🪇' : '🪅';
-      });
-    });
-
-    /* ===========================
-       SIGN IN (kept as your stub)
+       SIGN IN (stub)
        =========================== */
     signInForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
+      const siEmail = document.getElementById('siEmail');
+      const siPass = document.getElementById('siPass');
       const payload = { act:'login', email: siEmail.value.trim(), password: siPass.value, ts:new Date().toISOString() };
       try{
         const cfg = await getOmniTok('login');
@@ -2082,285 +2018,148 @@
           closeDrawer(authOverlay, authDrawer);
           return;
         }
-        // TODO: wire actual actor endpoint when ready
       }catch(err){ console.error(err); }
     });
 
     /* ===========================
-       CREATE ACCOUNT (new: request code + password gating)
+       CREATE ACCOUNT (shipping/billing + password)
        =========================== */
-    const caName = document.getElementById('caName');
-    const caEmail = document.getElementById('caEmail');
+    const billSame = document.getElementById('billSame');
+    const billingBlock = document.getElementById('billingBlock');
+
+    function syncBillingVisibility(){
+      const same = billSame?.checked;
+      if (billingBlock) billingBlock.style.display = same ? 'none' : 'block';
+    }
+    billSame?.addEventListener('change', syncBillingVisibility);
+    syncBillingVisibility();
+
     const caEmailErr = document.getElementById('caEmailErr');
-    const caPhone = document.getElementById('caPhone');
-    const caSms = document.getElementById('caSms');
-
-    const caRequestCode = document.getElementById('caRequestCode');
-    const caCode = document.getElementById('caCode');
-
-    const caPass = document.getElementById('caPass');
-    const caPass2 = document.getElementById('caPass2');
     const caStrengthBar = document.getElementById('caStrengthBar');
     const caStrengthText = document.getElementById('caStrengthText');
     const caMatchMsg = document.getElementById('caMatchMsg');
     const doCreate = document.getElementById('doCreate');
 
-    let caCodeSent = false;
+    function getShipping(){
+      return {
+        line1: document.getElementById('sLine1').value.trim(),
+        line2: document.getElementById('sLine2').value.trim() || null,
+        city: document.getElementById('sCity').value.trim(),
+        state: document.getElementById('sState').value.trim(),
+        zip: document.getElementById('sZip').value.trim(),
+        country: document.getElementById('sCountry').value.trim() || 'US'
+      };
+    }
+    function getBilling(){
+      if (document.getElementById('billSame').checked) return { ...getShipping() };
+      return {
+        line1: document.getElementById('bLine1').value.trim(),
+        line2: document.getElementById('bLine2').value.trim() || null,
+        city: document.getElementById('bCity').value.trim(),
+        state: document.getElementById('bState').value.trim(),
+        zip: document.getElementById('bZip').value.trim(),
+        country: document.getElementById('bCountry').value.trim() || 'US'
+      };
+    }
 
-    function checkCreate(){
-      const emailOk = isValidEmailDomain(caEmail.value);
-      caEmailErr.style.display = (!caEmail.value || emailOk) ? 'none' : 'block';
+    function checkCreateValidity(){
+      const name = document.getElementById('caName').value.trim();
+      const email = document.getElementById('caEmail').value.trim();
+      const phone = digitsOnly(document.getElementById('caPhone').value);
+      const sms = document.getElementById('caSms').checked;
 
-      const nameOk = (caName.value||'').trim().length >= 2;
+      const emailOk = isValidEmailDomain(email);
+      caEmailErr.style.display = (!email || emailOk) ? 'none' : 'block';
 
-      // request code enabled once email domain valid, until code sent
-      caRequestCode.disabled = !(emailOk && !caCodeSent);
+      const phoneOk = !sms ? true : (phone.length >= 10);
 
-      // code entry unlocked after request
-      const codeOk = !caCode.disabled && /^[0-9]{6}$/.test((caCode.value||'').trim());
+      const ship = getShipping();
+      const shipOk = ship.line1 && ship.city && ship.state && ship.zip && ship.country;
 
-      const pw1 = caPass.value || '';
-      const pw2 = caPass2.value || '';
+      const same = document.getElementById('billSame').checked;
+      const bill = getBilling();
+      const billOk = same ? shipOk : (bill.line1 && bill.city && bill.state && bill.zip && bill.country);
+
+      const pw1 = document.getElementById('caPass').value || '';
+      const pw2 = document.getElementById('caPass2').value || '';
       const matchOk = pw1 && pw1 === pw2;
       caMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
 
       const score = strengthScore(pw1);
       applyStrength(score, caStrengthBar, caStrengthText);
-      const strongEnough = (score >= 4); // Strong/Excellent
+      const strongEnough = (score >= 4);
 
-      doCreate.disabled = !(nameOk && emailOk && codeOk && matchOk && strongEnough);
+      doCreate.disabled = !(name.length >= 2 && emailOk && phoneOk && shipOk && billOk && matchOk && strongEnough);
     }
 
     ['input','change'].forEach(evt=>{
-      caName.addEventListener(evt, checkCreate);
-      caEmail.addEventListener(evt, checkCreate);
-      caPhone.addEventListener(evt, ()=>{ caPhone.value = digitsOnly(caPhone.value).slice(0,15); checkCreate(); });
-      caSms.addEventListener(evt, checkCreate);
-      caCode.addEventListener(evt, ()=>{ caCode.value = digitsOnly(caCode.value).slice(0,6); checkCreate(); });
-      caPass.addEventListener(evt, checkCreate);
-      caPass2.addEventListener(evt, checkCreate);
+      document.getElementById('createForm').addEventListener(evt, checkCreateValidity, true);
     });
+    checkCreateValidity();
 
-    caRequestCode.addEventListener('click', async ()=>{
-      if (caRequestCode.disabled) return;
+    createForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      checkCreateValidity();
+      if (doCreate.disabled) return;
 
-      lockAuthTabs();
-      setBtnLoading(caRequestCode, true);
+      const payload = {
+        act: 'signup',
+        ts: new Date().toISOString(),
+        source: 'loe-life-shop',
+        profile: {
+          fullName: document.getElementById('caName').value.trim(),
+          email: document.getElementById('caEmail').value.trim(),
+          phone: digitsOnly(document.getElementById('caPhone').value) || null,
+          smsConsent: document.getElementById('caSms').checked,
+          shipping: getShipping(),
+          billing: getBilling()
+        },
+        password: document.getElementById('caPass').value
+      };
 
       try{
-        const email = caEmail.value.trim();
-        const phone = digitsOnly(caPhone.value) || "";
-        const smsConsent = !!caSms.checked;
+        const cfg = await getOmniTok('signup');
 
-        // Pattern: issuer sends code (like your PPSC flow)
-        await getOmniTok({ act:'signup_code', email, phone, smsConsent });
+        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+          console.log('CreateAccount payload ready:', payload);
+          alert('Create account queued (endpoint not set).');
+          return;
+        }
 
-        caCode.disabled = false;
-        caCodeSent = true;
-        caRequestCode.textContent = 'Enter Code';
+        const res = await fetch(cfg.endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'x-auth-token': cfg.authToken,
+            'X-OmniTok': cfg.OmniTok,
+            'X-SID': cfg.sid,
+            'x-job-id': crypto.randomUUID()
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('signup actor endpoint failed');
+
+        alert('Account created. Please sign in.');
+        createForm.reset();
+        document.getElementById('billSame').checked = true;
+        syncBillingVisibility();
+        checkCreateValidity();
+        setTab('signIn');
       }catch(err){
         console.error(err);
-        caCodeSent = false;
-        caRequestCode.textContent = 'Request Code';
-      }finally{
-        caRequestCode.classList.remove('loading');
-        caRequestCode.disabled = caCodeSent; // keep locked after sent
-        unlockAuthTabs();
-        checkCreate();
+        alert('Create account failed.');
       }
     });
 
-    // ---------- Create Account: billing toggle ----------
-const billSame = document.getElementById('billSame');
-const billingBlock = document.getElementById('billingBlock');
-
-function syncBillingVisibility(){
-  const same = billSame?.checked;
-  if (billingBlock) billingBlock.style.display = same ? 'none' : 'block';
-}
-billSame?.addEventListener('change', syncBillingVisibility);
-syncBillingVisibility();
-
-// ---------- Create Account: validators ----------
-function digitsOnly(s){ return (s||'').replace(/\D/g,''); }
-
-function isValidEmailDomain(email){
-  const v = (email || '').trim();
-  const at = v.lastIndexOf('@');
-  if (at < 1) return false;
-  const domain = v.slice(at + 1);
-  return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
-}
-
-function strengthScore(pw){
-  let score = 0;
-  if (!pw) return 0;
-  if (pw.length >= 6) score++;
-  if (/[A-Z]/.test(pw)) score++;
-  if (/[0-9]/.test(pw)) score++;
-  if (/[^A-Za-z0-9]/.test(pw)) score++;
-  if (pw.length >= 10) score++;
-  return score; // 0..5
-}
-
-function applyStrength(score, barEl, textEl){
-  const widths = ['0%','20%','40%','60%','80%','100%'];
-  const colors = ['red','orangered','orange','gold','yellowgreen','green'];
-  const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
-  barEl.style.width = widths[score];
-  barEl.style.background = colors[score];
-  textEl.textContent = `Strength: ${labels[score]}`;
-}
-
-function setRevealHandlers(){
-  document.querySelectorAll('#authDrawer .reveal-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const input = document.getElementById(btn.dataset.target);
-      if (!input) return;
-      const hidden = input.type === 'password';
-      input.type = hidden ? 'text' : 'password';
-      btn.textContent = hidden ? '🪇' : '🪅';
-    });
-  });
-}
-setRevealHandlers();
-
-function readAddr(prefix){
-  return {
-    line1: document.getElementById(prefix+'Line1')?.value.trim() || '',
-    line2: document.getElementById(prefix+'Line2')?.value.trim() || null,
-    city:  document.getElementById(prefix+'City')?.value.trim() || '',
-    state: document.getElementById(prefix+'State')?.value.trim() || '',
-    zip:   document.getElementById(prefix+'Zip')?.value.trim() || '',
-    country: document.getElementById(prefix+'Country')?.value.trim() || 'US'
-  };
-}
-
-// Map to your ids (shipping = s, billing = b)
-function getShipping(){
-  return {
-    line1: document.getElementById('sLine1').value.trim(),
-    line2: document.getElementById('sLine2').value.trim() || null,
-    city: document.getElementById('sCity').value.trim(),
-    state: document.getElementById('sState').value.trim(),
-    zip: document.getElementById('sZip').value.trim(),
-    country: document.getElementById('sCountry').value.trim() || 'US'
-  };
-}
-function getBilling(){
-  if (document.getElementById('billSame').checked) return { ...getShipping() };
-  return {
-    line1: document.getElementById('bLine1').value.trim(),
-    line2: document.getElementById('bLine2').value.trim() || null,
-    city: document.getElementById('bCity').value.trim(),
-    state: document.getElementById('bState').value.trim(),
-    zip: document.getElementById('bZip').value.trim(),
-    country: document.getElementById('bCountry').value.trim() || 'US'
-  };
-}
-
-function checkCreateValidity(){
-  const name = document.getElementById('caName').value.trim();
-  const email = document.getElementById('caEmail').value.trim();
-  const phone = digitsOnly(document.getElementById('caPhone').value);
-  const sms = document.getElementById('caSms').checked;
-
-  const emailOk = isValidEmailDomain(email);
-  caEmailErr.style.display = (!email || emailOk) ? 'none' : 'block';
-
-  // if SMS checked, require a phone length
-  const phoneOk = !sms ? true : (phone.length >= 10);
-
-  const ship = getShipping();
-  const shipOk = ship.line1 && ship.city && ship.state && ship.zip && ship.country;
-
-  const same = document.getElementById('billSame').checked;
-  const bill = getBilling();
-  const billOk = same ? shipOk : (bill.line1 && bill.city && bill.state && bill.zip && bill.country);
-
-  const pw1 = document.getElementById('caPass').value || '';
-  const pw2 = document.getElementById('caPass2').value || '';
-  const matchOk = pw1 && pw1 === pw2;
-  caMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
-
-  const score = strengthScore(pw1);
-  applyStrength(score, caStrengthBar, caStrengthText);
-  const strongEnough = (score >= 4);
-
-  doCreate.disabled = !(name.length >= 2 && emailOk && phoneOk && shipOk && billOk && matchOk && strongEnough);
-}
-
-['input','change'].forEach(evt=>{
-  document.getElementById('createForm').addEventListener(evt, checkCreateValidity, true);
-});
-checkCreateValidity();
-
-// ---------- Create Account submit ----------
-createForm.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  checkCreateValidity();
-  if (doCreate.disabled) return;
-
-  const payload = {
-    act: 'signup',
-    ts: new Date().toISOString(),
-    source: 'loe-life-shop',
-    profile: {
-      fullName: document.getElementById('caName').value.trim(),
-      email: document.getElementById('caEmail').value.trim(),
-      phone: digitsOnly(document.getElementById('caPhone').value) || null,
-      smsConsent: document.getElementById('caSms').checked,
-      shipping: getShipping(),
-      billing: getBilling()
-    },
-    password: document.getElementById('caPass').value
-  };
-
-  try{
-    const cfg = await getOmniTok('signup');
-
-    if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
-      console.log('CreateAccount payload ready:', payload);
-      alert('Create account queued (endpoint not set).');
-      return;
-    }
-
-    const res = await fetch(cfg.endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json',
-        'x-auth-token': cfg.authToken,
-        'X-OmniTok': cfg.OmniTok,
-        'X-SID': cfg.sid,
-        'x-job-id': crypto.randomUUID()
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) throw new Error('signup actor endpoint failed');
-
-    alert('Account created. Please sign in.');
-    createForm.reset();
-    document.getElementById('billSame').checked = true;
-    syncBillingVisibility();
-    checkCreateValidity();
-    setTab('signIn');
-  }catch(err){
-    console.error(err);
-    alert('Create account failed.');
-  }
-});
-
     /* ===========================
-       RESET PASSWORD (new: request code + password set)
+       RESET PASSWORD (code flow)
        =========================== */
     const rpEmail = document.getElementById('rpEmail');
     const rpPhone = document.getElementById('rpPhone');
     const rpSmsAlso = document.getElementById('rpSmsAlso');
-
     const rpRequestCode = document.getElementById('rpRequestCode');
     const rpCode = document.getElementById('rpCode');
-
     const rpPass = document.getElementById('rpPass');
     const rpPass2 = document.getElementById('rpPass2');
     const rpStrengthBar = document.getElementById('rpStrengthBar');
@@ -2536,6 +2335,7 @@ createForm.addEventListener('submit', async (e)=>{
       syncFilterPills();
     };
 
+    // Search
     q.addEventListener('input', ()=>{
       state.q = q.value || "";
       render();
@@ -2547,8 +2347,8 @@ createForm.addEventListener('submit', async (e)=>{
     buildMobileFilters();
     render();
 
-    // initial validators
-    checkCreate();
+    // ✅ FIXED: no more checkCreate()
+    checkCreateValidity();
     checkReset();
   </script>
 </body>
