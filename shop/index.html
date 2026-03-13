@@ -87,21 +87,29 @@
       justify-content: space-between;
       gap: 12px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 180px;
-    }
-    .logo{
-      width: 36px; height: 36px; border-radius: 12px;
-      background: url("https://loe-life.com/images/bg1.png") center/cover no-repeat;
-      border: 1px solid rgba(255,255,255,0.22);
-      box-shadow: 0 0 0 1px rgba(245,124,0,0.25), 0 18px 40px rgba(0,0,0,0.75);
-    }
-    .brand strong{
-      font-weight: 800; letter-spacing: .03em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-      white-space: nowrap;
-    }
+
+/* Brand link stays the same idea */
+.brand{
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.brandmark{
+  display: block;
+  height: 85px;        /* primary size control */
+  width: auto;         /* preserve aspect ratio */
+  max-width: 140px;     /* REMOVE or INCREASE this to enlarge */
+  object-fit: contain; /* ✅ now this works */
+}
+
+/* Mobile: make it visibly larger */
+@media (max-width: 640px){
+  .brandmark{
+    height: 85px;
+    max-width: 140px;  /* allow real growth */
+  }
+}
 
     .searchbar{
       flex: 1 1 auto;
@@ -841,56 +849,17 @@
     @media (max-width: 640px){
       #authDrawer input, #authDrawer select, #authDrawer textarea { font-size: 16px; }
     }
-
-    /* ✅ Brand-as-background header */
-.site-header{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  overflow: hidden;
-}
-
-/* Background image layer */
-/* ✅ Header container */
-.site-header{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255,255,255,0.14);
-}
-
-/* ✅ Banner background layer */
-.site-header::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(0,0,0,0.55),
-      rgba(0,0,0,0.75)
-    ),
-    url("https://loe-life.com/images/header-banner.png") center / contain no-repeat;
-  z-index: 0;
-}
-
-/* ✅ Header content floats above banner */
-.site-header .nav{
-  position: relative;
-  z-index: 1;
-  min-height: var(--header-h);
-}
-
   </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <header class="site-header">
+  <header>
     <div class="nav">
-
+      <a class="brand" href="https://loe-life.com/demo" aria-label="Back to Loe-Life home">
+        <img class="brandmark" src="/images/logo.png" alt="Loe‑Life" />
+      </a>
 
       <div class="searchbar" role="search">
         <input id="q" type="search" placeholder="Search styles, graphics, tags…" autocomplete="off" aria-label="Search products"/>
