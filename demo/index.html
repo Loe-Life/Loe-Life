@@ -201,23 +201,28 @@
       gap: 12px;
     }
 
-    .brand { display: flex; align-items: center; gap: 10px; }
+    /* Brand link stays the same idea */
+.brand{
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
 
-    .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background-size: cover;
-      background-position: center;
-      box-shadow: var(--accent-glow);
-      border: 1px solid rgba(255,255,255,0.25);
-    }
+.brandmark{
+  display: block;
+  height: 85px;        /* primary size control */
+  width: auto;         /* preserve aspect ratio */
+  max-width: 140px;     /* REMOVE or INCREASE this to enlarge */
+  object-fit: contain; /* ✅ now this works */
+}
 
-    .brand strong {
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
+/* Mobile: make it visibly larger */
+@media (max-width: 640px){
+  .brandmark{
+    height: 44px;
+    max-width: 120px;  /* allow real growth */
+  }
+}
 
     nav ul {
       display: flex;
@@ -1108,10 +1113,9 @@
   <!-- HEADER -->
   <header>
     <div class="nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <strong style="color:var(--accent-slate-dark)">Loe-Life</strong>
-      </div>
+      <a class="brand" href="https://loe-life.com/demo" aria-label="Back to Loe-Life home">
+        <img class="brandmark" src="/images/logo.png" alt="Loe‑Life" />
+      </a>
 
       <nav aria-label="Primary">
         <ul>

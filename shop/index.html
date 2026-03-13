@@ -851,6 +851,16 @@
 }
 
 /* Background image layer */
+/* ✅ Header container */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+
+/* ✅ Banner background layer */
 .site-header::before{
   content: "";
   position: absolute;
@@ -861,14 +871,15 @@
       rgba(0,0,0,0.55),
       rgba(0,0,0,0.75)
     ),
-    url("https://loe-life.com/images/header-banner.png") center / cover no-repeat;
+    url("https://loe-life.com/images/header-banner.png") center / contain no-repeat;
   z-index: 0;
 }
 
-/* Nav content floats above background */
+/* ✅ Header content floats above banner */
 .site-header .nav{
   position: relative;
   z-index: 1;
+  min-height: var(--header-h);
 }
 
   </style>
@@ -877,7 +888,7 @@
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <header>
+  <header class="site-header">
     <div class="nav">
 
 
