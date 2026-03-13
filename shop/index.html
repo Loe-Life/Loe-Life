@@ -670,6 +670,7 @@
       background: rgba(0,0,0,0.68);
     }
     .modal .sheet{ position: relative; z-index: 1; }
+
     /* ✅ Builder modal header — ALL breakpoints (fixes ✕ dropping to next row) */
 #builderModal .mhead{
   position: relative;
@@ -706,6 +707,17 @@
   display: grid;
   place-items: center;
 }
+/* ✅ Builder modal scroll area padding (desktop/tablet) */
+#builderModal .mbody{
+  padding: 14px 16px 16px;  /* add left/right breathing room */
+}
+
+/* Optional: keep selects + swatches from kissing edges if anything weird happens */
+#builderModal .field,
+#builderModal .color-row{
+  padding-left: 2px; /* tiny nudge; safe */
+}
+
 
     /* Responsive breakpoints */
     @media (max-width: 1040px){
@@ -766,7 +778,7 @@
         overflow: hidden !important;
         border-radius: 16px;
       }
-      
+
       #builderModal .mbody{
         flex: 1 1 auto;
         overflow: auto;
