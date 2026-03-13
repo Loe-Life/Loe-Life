@@ -841,6 +841,36 @@
     @media (max-width: 640px){
       #authDrawer input, #authDrawer select, #authDrawer textarea { font-size: 16px; }
     }
+
+    /* ✅ Brand-as-background header */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/* Background image layer */
+.site-header::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.55),
+      rgba(0,0,0,0.75)
+    ),
+    url("https://loe-life.com/images/header-banner.png") center / cover no-repeat;
+  z-index: 0;
+}
+
+/* Nav content floats above background */
+.site-header .nav{
+  position: relative;
+  z-index: 1;
+}
+
   </style>
 </head>
 
@@ -849,10 +879,7 @@
 
   <header>
     <div class="nav">
-      <a class="brand" href="https://loe-life.com/demo" aria-label="Back to Loe-Life home">
-        <div class="logo" aria-hidden="true"></div>
-        <strong style="color:var(--accent-slate-dark)">Loe‑Life</strong>
-      </a>
+
 
       <div class="searchbar" role="search">
         <input id="q" type="search" placeholder="Search styles, graphics, tags…" autocomplete="off" aria-label="Search products"/>
