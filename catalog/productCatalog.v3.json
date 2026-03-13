@@ -1,0 +1,1930 @@
+{
+  "schema": "loe-life.catalog@v3",
+  "generatedAt": "2026-03-13T18:17:38.988Z",
+  "source": "C:\\LoeLife\\Loe-Life\\catalog\\productCatalog.v2.json",
+  "currency": "USD",
+  "pricing": {
+    "finishDelta": {
+      "SOLID": 0,
+      "GLITTER": 5
+    },
+    "notes": [
+      "Base prices are aligned to the customer spreadsheet where unambiguous.",
+      "Glitter pricing is applied as a delta on top of basePrice.",
+      "Where spreadsheet values were missing/ambiguous, basePrice is null and warnings are emitted."
+    ]
+  },
+  "warnings": [
+    {
+      "handle": "tank-tops-womens-womens-loose-fit",
+      "issue": "MISSING_BASE_PRICE",
+      "displayName": "TANK TOPS-WOMENS"
+    },
+    {
+      "handle": "tank-tops-womens-womens-slim-fit",
+      "issue": "MISSING_BASE_PRICE",
+      "displayName": "TANK TOPS-WOMENS"
+    }
+  ],
+  "graphicsLibraries": {
+    "default": {
+      "id": "default",
+      "label": "Default Graphics (Placeholder)",
+      "items": [
+        {
+          "id": "placeholder-logo",
+          "name": "Placeholder Logo",
+          "finishes": [
+            "SOLID",
+            "GLITTER"
+          ],
+          "colorsByFinish": {
+            "SOLID": [
+              "WHITE",
+              "BLACK",
+              "RED",
+              "BLUE"
+            ],
+            "GLITTER": [
+              "GOLD",
+              "SILVER"
+            ]
+          },
+          "images": {
+            "preview": "/images/placeholders/graphic.png",
+            "thumbnail": "/images/placeholders/graphic-thumb.png"
+          }
+        }
+      ]
+    }
+  },
+  "products": [
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "sweatshirt-no-hood-unisex-no-hood",
+      "handle": "sweatshirt-no-hood-unisex-no-hood",
+      "name": "Sweatshirt No Hood",
+      "displayName": "SWEATSHIRT NO HOOD",
+      "category": "TOPS",
+      "subcategory": "TSHIRT",
+      "audience": "UNISEX",
+      "style": "NO_HOOD",
+      "tags": [
+        "sweatshirt",
+        "no",
+        "hood",
+        "unisex",
+        "no_hood"
+      ],
+      "merch": {
+        "Sort": 100,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NO_HOOD"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 24,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-s",
+          "fit": "NO_HOOD",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000057"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-m",
+          "fit": "NO_HOOD",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000058"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-l",
+          "fit": "NO_HOOD",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000059"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-xl",
+          "fit": "NO_HOOD",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000060"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-2xl",
+          "fit": "NO_HOOD",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000061"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-3xl",
+          "fit": "NO_HOOD",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000062"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sweatshirt-no-hood-unisex-no-hood-no-hood-4xl",
+          "fit": "NO_HOOD",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000063"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "tshirt-long-sleeve-unisex-long-sleeve",
+      "handle": "tshirt-long-sleeve-unisex-long-sleeve",
+      "name": "Tshirt – Long Sleeve",
+      "displayName": "TSHIRT-LONG SLEEVE",
+      "category": "TOPS",
+      "subcategory": "TSHIRT",
+      "audience": "UNISEX",
+      "style": "LONG_SLEEVE",
+      "tags": [
+        "tshirt",
+        "long",
+        "sleeve",
+        "unisex",
+        "long_sleeve"
+      ],
+      "merch": {
+        "Sort": 100,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "LONG_SLEEVE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 22,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-s",
+          "fit": "LONG_SLEEVE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000015",
+            "GLITTER": "LL-000022"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-m",
+          "fit": "LONG_SLEEVE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000016",
+            "GLITTER": "LL-000023"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-l",
+          "fit": "LONG_SLEEVE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000017",
+            "GLITTER": "LL-000024"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-xl",
+          "fit": "LONG_SLEEVE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000018",
+            "GLITTER": "LL-000025"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-2xl",
+          "fit": "LONG_SLEEVE",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000019",
+            "GLITTER": "LL-000026"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-3xl",
+          "fit": "LONG_SLEEVE",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000020",
+            "GLITTER": "LL-000027"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-long-sleeve-unisex-long-sleeve-long-sleeve-4xl",
+          "fit": "LONG_SLEEVE",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000021",
+            "GLITTER": "LL-000028"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "tshirt-short-sleeve-unisex-short-sleeve",
+      "handle": "tshirt-short-sleeve-unisex-short-sleeve",
+      "name": "Tshirt – Short Sleeve",
+      "displayName": "TSHIRT - SHORT SLEEVE",
+      "category": "TOPS",
+      "subcategory": "TSHIRT",
+      "audience": "UNISEX",
+      "style": "SHORT_SLEEVE",
+      "tags": [
+        "tshirt",
+        "short",
+        "sleeve",
+        "unisex",
+        "short_sleeve"
+      ],
+      "merch": {
+        "Sort": 100,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "SHORT_SLEEVE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 20,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-s",
+          "fit": "SHORT_SLEEVE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000001",
+            "GLITTER": "LL-000008"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-m",
+          "fit": "SHORT_SLEEVE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000002",
+            "GLITTER": "LL-000009"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-l",
+          "fit": "SHORT_SLEEVE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000003",
+            "GLITTER": "LL-000010"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-xl",
+          "fit": "SHORT_SLEEVE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000004",
+            "GLITTER": "LL-000011"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-2xl",
+          "fit": "SHORT_SLEEVE",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000005",
+            "GLITTER": "LL-000012"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-3xl",
+          "fit": "SHORT_SLEEVE",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000006",
+            "GLITTER": "LL-000013"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tshirt-short-sleeve-unisex-short-sleeve-short-sleeve-4xl",
+          "fit": "SHORT_SLEEVE",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000007",
+            "GLITTER": "LL-000014"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "tank-tops-mens-mens-none",
+      "handle": "tank-tops-mens-mens-none",
+      "name": "Tank Tops – Mens",
+      "displayName": "TANK TOPS-MENS",
+      "category": "TOPS",
+      "subcategory": "TANK_TOP",
+      "audience": "MENS",
+      "style": "NONE",
+      "tags": [
+        "tank",
+        "tops",
+        "mens",
+        "none"
+      ],
+      "merch": {
+        "Sort": 110,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 15,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "tank-tops-mens-mens-none-none-s",
+          "fit": "NONE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000087"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-m",
+          "fit": "NONE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000088"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-l",
+          "fit": "NONE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000089"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-xl",
+          "fit": "NONE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000090"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-2xl",
+          "fit": "NONE",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000091"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-3xl",
+          "fit": "NONE",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000092"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-mens-mens-none-none-4xl",
+          "fit": "NONE",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000093"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "tank-tops-womens-womens-loose-fit",
+      "handle": "tank-tops-womens-womens-loose-fit",
+      "name": "Tank Tops – Womens",
+      "displayName": "TANK TOPS-WOMENS",
+      "category": "TOPS",
+      "subcategory": "TANK_TOP",
+      "audience": "WOMENS",
+      "style": "LOOSE_FIT",
+      "tags": [
+        "tank",
+        "tops",
+        "womens",
+        "loose_fit"
+      ],
+      "merch": {
+        "Sort": 110,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "LOOSE_FIT"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": null,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": [
+          "Base price missing/unknown from spreadsheet export; set manually."
+        ]
+      },
+      "variants": [
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-s",
+          "fit": "LOOSE_FIT",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000094"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-m",
+          "fit": "LOOSE_FIT",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000095"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-l",
+          "fit": "LOOSE_FIT",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000096"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-xl",
+          "fit": "LOOSE_FIT",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000097"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-2xl",
+          "fit": "LOOSE_FIT",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000098"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-3xl",
+          "fit": "LOOSE_FIT",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000099"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-loose-fit-loose-fit-4xl",
+          "fit": "LOOSE_FIT",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000100"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "tank-tops-womens-womens-slim-fit",
+      "handle": "tank-tops-womens-womens-slim-fit",
+      "name": "Tank Tops – Womens",
+      "displayName": "TANK TOPS-WOMENS",
+      "category": "TOPS",
+      "subcategory": "TANK_TOP",
+      "audience": "WOMENS",
+      "style": "SLIM_FIT",
+      "tags": [
+        "tank",
+        "tops",
+        "womens",
+        "slim_fit"
+      ],
+      "merch": {
+        "Sort": 110,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "SLIM_FIT"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": null,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": [
+          "Base price missing/unknown from spreadsheet export; set manually."
+        ]
+      },
+      "variants": [
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-s",
+          "fit": "SLIM_FIT",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000101"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-m",
+          "fit": "SLIM_FIT",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000102"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-l",
+          "fit": "SLIM_FIT",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000103"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-xl",
+          "fit": "SLIM_FIT",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000104"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-2xl",
+          "fit": "SLIM_FIT",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000105"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-3xl",
+          "fit": "SLIM_FIT",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000106"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "tank-tops-womens-womens-slim-fit-slim-fit-4xl",
+          "fit": "SLIM_FIT",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000107"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+      "handle": "sleeveless-hoodies-mens-mens-sleeveless-hoodies",
+      "name": "Sleeveless Hoodies – Mens",
+      "displayName": "SLEEVELESS HOODIES-MENS",
+      "category": "TOPS",
+      "subcategory": "SLEEVELESS_HOODIE",
+      "audience": "MENS",
+      "style": "SLEEVELESS_HOODIES",
+      "tags": [
+        "sleeveless",
+        "hoodies",
+        "mens",
+        "sleeveless_hoodies"
+      ],
+      "merch": {
+        "Sort": 120,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "SLEEVELESS_HOODIES"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 18,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-s",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000080"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-m",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000081"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-l",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000082"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-xl",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000083"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-2xl",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000084"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-3xl",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000085"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "sleeveless-hoodies-mens-mens-sleeveless-hoodies-sleeveless-hoodies-4xl",
+          "fit": "SLEEVELESS_HOODIES",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000086"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "hoodie-no-zipper-unisex-no-zipper",
+      "handle": "hoodie-no-zipper-unisex-no-zipper",
+      "name": "Hoodie – No Zipper",
+      "displayName": "HOODIE - NO ZIPPER",
+      "category": "OUTERWEAR",
+      "subcategory": "HOODIE",
+      "audience": "UNISEX",
+      "style": "NO_ZIPPER",
+      "tags": [
+        "hoodie",
+        "no",
+        "zipper",
+        "unisex",
+        "no_zipper"
+      ],
+      "merch": {
+        "Sort": 200,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NO_ZIPPER"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 28,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-s",
+          "fit": "NO_ZIPPER",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000029",
+            "GLITTER": "LL-000036"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-m",
+          "fit": "NO_ZIPPER",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000030",
+            "GLITTER": "LL-000037"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-l",
+          "fit": "NO_ZIPPER",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000031",
+            "GLITTER": "LL-000038"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-xl",
+          "fit": "NO_ZIPPER",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000032",
+            "GLITTER": "LL-000039"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-2xl",
+          "fit": "NO_ZIPPER",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000033",
+            "GLITTER": "LL-000040"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-3xl",
+          "fit": "NO_ZIPPER",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000034",
+            "GLITTER": "LL-000041"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-no-zipper-unisex-no-zipper-no-zipper-4xl",
+          "fit": "NO_ZIPPER",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000035",
+            "GLITTER": "LL-000042"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "hoodie-zipper-unisex-zipper",
+      "handle": "hoodie-zipper-unisex-zipper",
+      "name": "Hoodie – Zipper",
+      "displayName": "HOODIE - ZIPPER",
+      "category": "OUTERWEAR",
+      "subcategory": "HOODIE",
+      "audience": "UNISEX",
+      "style": "ZIPPER",
+      "tags": [
+        "hoodie",
+        "zipper",
+        "unisex"
+      ],
+      "merch": {
+        "Sort": 200,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "ZIPPER"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL",
+          "3XL",
+          "4XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 28,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-s",
+          "fit": "ZIPPER",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000043",
+            "GLITTER": "LL-000050"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-m",
+          "fit": "ZIPPER",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000044",
+            "GLITTER": "LL-000051"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-l",
+          "fit": "ZIPPER",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000045",
+            "GLITTER": "LL-000052"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-xl",
+          "fit": "ZIPPER",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000046",
+            "GLITTER": "LL-000053"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-2xl",
+          "fit": "ZIPPER",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000047",
+            "GLITTER": "LL-000054"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-3xl",
+          "fit": "ZIPPER",
+          "size": "3XL",
+          "skuByFinish": {
+            "SOLID": "LL-000048",
+            "GLITTER": "LL-000055"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hoodie-zipper-unisex-zipper-zipper-4xl",
+          "fit": "ZIPPER",
+          "size": "4XL",
+          "skuByFinish": {
+            "SOLID": "LL-000049",
+            "GLITTER": "LL-000056"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "hats-unisex-none",
+      "handle": "hats-unisex-none",
+      "name": "Hats",
+      "displayName": "HATS",
+      "category": "ACCESSORIES",
+      "subcategory": "HAT",
+      "audience": "UNISEX",
+      "style": "NONE",
+      "tags": [
+        "hats",
+        "unisex",
+        "none"
+      ],
+      "merch": {
+        "Sort": 300,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "2XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 20,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "hats-unisex-none-none-s",
+          "fit": "NONE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000067",
+            "GLITTER": "LL-000072"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hats-unisex-none-none-m",
+          "fit": "NONE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000068",
+            "GLITTER": "LL-000073"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hats-unisex-none-none-l",
+          "fit": "NONE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000069",
+            "GLITTER": "LL-000074"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hats-unisex-none-none-xl",
+          "fit": "NONE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000070",
+            "GLITTER": "LL-000075"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "hats-unisex-none-none-2xl",
+          "fit": "NONE",
+          "size": "2XL",
+          "skuByFinish": {
+            "SOLID": "LL-000071",
+            "GLITTER": "LL-000076"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "beanies-unisex-none",
+      "handle": "beanies-unisex-none",
+      "name": "Beanies",
+      "displayName": "BEANIES",
+      "category": "ACCESSORIES",
+      "subcategory": "BEANIE",
+      "audience": "UNISEX",
+      "style": "NONE",
+      "tags": [
+        "beanies",
+        "unisex",
+        "none"
+      ],
+      "merch": {
+        "Sort": 310,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "ONE_SIZE"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 16,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "beanies-unisex-none-none-one-size",
+          "fit": "NONE",
+          "size": "ONE_SIZE",
+          "skuByFinish": {
+            "SOLID": "LL-000079"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "headbands-unisex-none",
+      "handle": "headbands-unisex-none",
+      "name": "Headbands",
+      "displayName": "HEADBANDS",
+      "category": "ACCESSORIES",
+      "subcategory": "HEADBAND",
+      "audience": "UNISEX",
+      "style": "NONE",
+      "tags": [
+        "headbands",
+        "unisex",
+        "none"
+      ],
+      "merch": {
+        "Sort": 320,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "ONE_SIZE"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 10,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "headbands-unisex-none-none-one-size",
+          "fit": "NONE",
+          "size": "ONE_SIZE",
+          "skuByFinish": {
+            "SOLID": "LL-000066"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "dog-hoodies-dog-none",
+      "handle": "dog-hoodies-dog-none",
+      "name": "Dog Hoodies",
+      "displayName": "DOG HOODIES",
+      "category": "PETS",
+      "subcategory": "DOG_APPAREL",
+      "audience": "DOG",
+      "style": "NONE",
+      "tags": [
+        "dog",
+        "hoodies",
+        "none"
+      ],
+      "merch": {
+        "Sort": 400,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 8,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "dog-hoodies-dog-none-none-s",
+          "fit": "NONE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000112",
+            "GLITTER": "LL-000120"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-hoodies-dog-none-none-m",
+          "fit": "NONE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000113",
+            "GLITTER": "LL-000121"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-hoodies-dog-none-none-l",
+          "fit": "NONE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000114",
+            "GLITTER": "LL-000122"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-hoodies-dog-none-none-xl",
+          "fit": "NONE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000115",
+            "GLITTER": "LL-000123"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    },
+    {
+      "schema": "loe-life.catalog.product@v3",
+      "id": "dog-tshirts-dog-none",
+      "handle": "dog-tshirts-dog-none",
+      "name": "Dog Tshirts",
+      "displayName": "DOG TSHIRTS",
+      "category": "PETS",
+      "subcategory": "DOG_APPAREL",
+      "audience": "DOG",
+      "style": "NONE",
+      "tags": [
+        "dog",
+        "tshirts",
+        "none"
+      ],
+      "merch": {
+        "Sort": 400,
+        "Featured": false,
+        "New": false
+      },
+      "images": {
+        "primary": null,
+        "gallery": [],
+        "byGarmentColor": {}
+      },
+      "options": {
+        "fits": [
+          "NONE"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "finishes": [
+          "GLITTER",
+          "SOLID"
+        ],
+        "garmentColors": [
+          "BLACK",
+          "WHITE",
+          "GRAY"
+        ],
+        "graphicsLibrary": "default",
+        "graphicColorsByFinish": {
+          "SOLID": [
+            "WHITE",
+            "BLACK",
+            "RED",
+            "BLUE"
+          ],
+          "GLITTER": [
+            "GOLD",
+            "SILVER"
+          ]
+        }
+      },
+      "pricing": {
+        "currency": "USD",
+        "basePrice": 8,
+        "finishDelta": {
+          "SOLID": 0,
+          "GLITTER": 5
+        },
+        "graphicDeltaById": {},
+        "garmentColorDelta": {},
+        "notes": []
+      },
+      "variants": [
+        {
+          "id": "dog-tshirts-dog-none-none-s",
+          "fit": "NONE",
+          "size": "S",
+          "skuByFinish": {
+            "SOLID": "LL-000108",
+            "GLITTER": "LL-000116"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-tshirts-dog-none-none-m",
+          "fit": "NONE",
+          "size": "M",
+          "skuByFinish": {
+            "SOLID": "LL-000109",
+            "GLITTER": "LL-000117"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-tshirts-dog-none-none-l",
+          "fit": "NONE",
+          "size": "L",
+          "skuByFinish": {
+            "SOLID": "LL-000110",
+            "GLITTER": "LL-000118"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        },
+        {
+          "id": "dog-tshirts-dog-none-none-xl",
+          "fit": "NONE",
+          "size": "XL",
+          "skuByFinish": {
+            "SOLID": "LL-000111",
+            "GLITTER": "LL-000119"
+          },
+          "lastUpdated": "2026-02-18T23:15:00Z",
+          "active": true
+        }
+      ]
+    }
+  ]
+}

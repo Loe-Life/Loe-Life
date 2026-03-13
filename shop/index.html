@@ -1169,323 +1169,401 @@
     </div>
   </div>
 
-  <script>
-    /* ===========================
-       OmniTok helper (stub)
-       =========================== */
-    const API = { issueOmniTok: 'INSERT_OMNITOK_ISSUER_ENDPOINT' };
+<script>
+  /* ===========================
+     OmniTok helper (stub)
+     =========================== */
+  const API = { issueOmniTok: 'INSERT_OMNITOK_ISSUER_ENDPOINT' };
 
-    async function getOmniTok(act) {
-      let sid = sessionStorage.getItem('sid');
-      if (!sid) {
-        sid = crypto.randomUUID();
-        sessionStorage.setItem('sid', sid);
-      }
-      const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
+  async function getOmniTok(act) {
+    let sid = sessionStorage.getItem('sid');
+    if (!sid) {
+      sid = crypto.randomUUID();
+      sessionStorage.setItem('sid', sid);
+    }
+    const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
 
-      if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
-        return { sid, endpoint: 'INSERT_ACTOR_ENDPOINT', authToken: 'INSERT_AUTH_TOKEN', OmniTok: 'INSERT_OMNITOK' };
-      }
-
-      const res = await fetch(API.issueOmniTok, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-
-      if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
-      const data = await res.json();
-      return { ...data, sid };
+    if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
+      return { sid, endpoint: 'INSERT_ACTOR_ENDPOINT', authToken: 'INSERT_AUTH_TOKEN', OmniTok: 'INSERT_OMNITOK' };
     }
 
-    /* ===========================
-       Auth state (stub)
-       =========================== */
-    const LOE_AUTH_KEY = 'loe_auth_v1';
-    function getAuth(){ try { return JSON.parse(localStorage.getItem(LOE_AUTH_KEY) || 'null'); } catch { return null; } }
-    function isSignedIn(){
-      const a = getAuth();
-      if (!a) return false;
-      if (a.exp && Date.now() > a.exp) return false;
-      return !!a.signedIn;
-    }
-    function setSignedIn(v){
-      if (!v) { localStorage.removeItem(LOE_AUTH_KEY); return; }
-      localStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
-        signedIn: true,
-        userId: v.userId || 'dev-user',
-        exp: v.exp || (Date.now() + 14*24*60*60*1000)
-      }));
-    }
-
-    /* ===========================
-   Catalog (v2) — load + group
-   =========================== */
-
-// Where your generated output lives (you already wrote it to /catalog/productCatalog.v2.json)
-const CATALOG_URL = "/catalog/productCatalog.v2.json";
-
-// Raw rows from v2 (SKU-level)
-let CATALOG_ROWS = [];
-
-// Grouped products for cards + builder (DisplayName + Class)
-let PRODUCTS = [];
-
-/** Load v2 catalog rows */
-async function loadCatalogV2(){
-  const res = await fetch(CATALOG_URL, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Catalog load failed: ${res.status}`);
-  const rows = await res.json();
-  if (!Array.isArray(rows)) throw new Error("Catalog JSON must be an array.");
-  // keep only Active items
-  CATALOG_ROWS = rows.filter(r => r && r.Active);
-  PRODUCTS = buildProductsFromRows(CATALOG_ROWS);
-}
-
-/** Deterministic group key: one card per (DisplayName + Class) */
-function groupKey(row){
-  return `${row.DisplayName}||${row.Class}`;
-}
-
-/** Normalize label from enum-ish strings */
-function prettyEnum(s){
-  return String(s || "")
-    .replace(/_/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase()
-    .replace(/\b\w/g, c => c.toUpperCase());
-}
-
-/** Build grouped products from rows */
-function buildProductsFromRows(rows){
-  const map = new Map();
-
-  for (const r of rows){
-    const key = groupKey(r);
-    let p = map.get(key);
-    if (!p){
-      p = {
-        id: key,                       // stable group id
-        handle: r.ProductHandle || key,
-        name: r.ProductName || prettyEnum(r.DisplayName),
-        displayName: r.DisplayName,
-        audience: r.Audience || r.Class,
-        category: r.Category || "OTHER",
-        subcategory: r.Subcategory || "OTHER",
-        tags: Array.isArray(r.Tags) ? r.Tags : [],
-        // images: you’ll fill later; use fallback for now
-        image: (r.Images && r.Images.primary) ? r.Images.primary : null,
-        // variants (rows)
-        variants: []
-      };
-      map.set(key, p);
-    }
-    p.variants.push(r);
-  }
-
-  // Derive options + price range for each product
-  for (const p of map.values()){
-    const fits = new Set();
-    const sizes = new Set();
-    const finishes = new Set();
-    const prices = [];
-
-    for (const v of p.variants){
-      fits.add(v.Style || v.Fit || "NONE");
-      sizes.add((v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size);
-      finishes.add((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : (v.GraphicType || "").toUpperCase());
-      prices.push(Number(v.BasePrice ?? v.Price ?? 0));
-    }
-
-    p.fits = [...fits].sort();
-    p.sizes = [...sizes].sort(sizeSort);
-    p.finishes = [...finishes].filter(Boolean).sort();
-    p.minPrice = Math.min(...prices);
-    p.maxPrice = Math.max(...prices);
-
-    // default selection
-    p.defaultFit = p.fits[0] || "NONE";
-    p.defaultFinish = p.finishes[0] || "SOLID";
-    p.defaultSize = p.sizes[0] || "ONE_SIZE";
-  }
-
-  // Sort by merch sort if present, else alpha
-  return [...map.values()].sort((a,b)=>{
-    const as = pickMerchSort(a), bs = pickMerchSort(b);
-    if (as !== bs) return as - bs;
-    return a.name.localeCompare(b.name);
-  });
-}
-
-function pickMerchSort(p){
-  // any variant's Merch.Sort (they should match)
-  const v = p.variants && p.variants[0];
-  return (v && v.Merch && Number.isFinite(v.Merch.Sort)) ? v.Merch.Sort : 9999;
-}
-
-function sizeSort(a,b){
-  const order = ["XS","S","M","L","XL","2XL","3XL","4XL","ONE_SIZE","OS"];
-  const ai = order.indexOf(a);
-  const bi = order.indexOf(b);
-  if (ai === -1 && bi === -1) return String(a).localeCompare(String(b));
-  if (ai === -1) return 1;
-  if (bi === -1) return -1;
-  return ai - bi;
-}
-    /* ===========================
-       State
-       =========================== */
-    const state = {
-      q: "",
-      filters: { style:null, fit:null, size:null, color:null, graphic:null },
-      builder: { product:null, fit:null, size:null, finish:null, qty:1 },
-      cart: []
-    };
-
-    /* ===========================
-       DOM refs
-       =========================== */
-    const grid = document.getElementById('grid');
-    const countEl = document.getElementById('count');
-    const q = document.getElementById('q');
-
-    const cartOverlay = document.getElementById('cartOverlay');
-    const cartDrawer = document.getElementById('cartDrawer');
-    const cartBtn = document.getElementById('cartBtn');
-    const closeCart = document.getElementById('closeCart');
-    const cartList = document.getElementById('cartList');
-    const cartDot = document.getElementById('cartDot');
-
-    const subTotal = document.getElementById('subTotal');
-    const ship = document.getElementById('ship');
-    const tax = document.getElementById('tax');
-    const grand = document.getElementById('grand');
-    const holdCheckout = document.getElementById('holdCheckout');
-    const holdFill = document.getElementById('holdFill');
-    const holdLabel = document.getElementById('holdLabel');
-    const checkoutFallback = document.getElementById('checkoutFallback');
-
-    const authOverlay = document.getElementById('authOverlay');
-    const authDrawer = document.getElementById('authDrawer');
-    const authBtn = document.getElementById('authBtn');
-    const closeAuth = document.getElementById('closeAuth');
-    const fakeSignToggle = document.getElementById('fakeSignToggle');
-
-    const openFiltersMobile = document.getElementById('openFiltersMobile');
-    const filtersOverlay = document.getElementById('filtersOverlay');
-    const filtersDrawer = document.getElementById('filtersDrawer');
-    const closeFilters = document.getElementById('closeFilters');
-    const filtersMobileMount = document.getElementById('filtersMobileMount');
-
-    const builderModal = document.getElementById('builderModal');
-    const builderOverlay = document.getElementById('builderOverlay');
-    const closeBuilder = document.getElementById('closeBuilder');
-    const builderCancel = document.getElementById('builderCancel');
-    const builderAdd = document.getElementById('builderAdd');
-
-    const bmTitle = document.getElementById('bmTitle');
-    const bStyle = document.getElementById('bStyle');
-    const bFit = document.getElementById('bFit');
-    const bSize = document.getElementById('bSize');
-    const bGraphic = document.getElementById('bGraphic');
-    const bColors = document.getElementById('bColors');
-    const bGColors = document.getElementById('bGColors');
-    const bQty = document.getElementById('bQty');
-
-    const bImg = document.getElementById('bImg');
-    const bLine1 = document.getElementById('bLine1');
-    const bLine2 = document.getElementById('bLine2');
-    const bPrice = document.getElementById('bPrice');
-
-    /* ===========================
-       Shared helpers (ONE copy)
-       =========================== */
-    const money = (n) => (Number(n || 0)).toFixed(2);
-    const uniq = (arr) => Array.from(new Set(arr));
-    const digitsOnly = (s) => (s||'').replace(/\D/g,'');
-    function isValidEmailDomain(email){
-      const v = (email || '').trim();
-      const at = v.lastIndexOf('@');
-      if (at < 1) return false;
-      const domain = v.slice(at + 1);
-      return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
-    }
-    function strengthScore(pw){
-      let score = 0;
-      if (!pw) return 0;
-      if (pw.length >= 6) score++;
-      if (/[A-Z]/.test(pw)) score++;
-      if (/[0-9]/.test(pw)) score++;
-      if (/[^A-Za-z0-9]/.test(pw)) score++;
-      if (pw.length >= 10) score++;
-      return score; // 0..5
-    }
-    function applyStrength(score, barEl, textEl){
-      const widths = ['0%','20%','40%','60%','80%','100%'];
-      const colors = ['red','orangered','orange','gold','yellowgreen','green'];
-      const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
-      barEl.style.width = widths[score];
-      barEl.style.background = colors[score];
-      textEl.textContent = `Strength: ${labels[score]}`;
-    }
-    function setBtnLoading(btn, on){
-      if (!btn) return;
-      if (!on){
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
-        return;
-      }
-      btn.dataset.originalText = btn.textContent;
-      btn.disabled = true;
-      btn.classList.add('loading');
-      btn.textContent = btn.dataset.loadingText || 'Working…';
-    }
-
-    function openDrawer(overlay, drawer){
-      overlay.classList.add('open');
-      drawer.classList.add('open');
-      overlay.setAttribute('aria-hidden','false');
-      drawer.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeDrawer(overlay, drawer){
-      overlay.classList.remove('open');
-      drawer.classList.remove('open');
-      overlay.setAttribute('aria-hidden','true');
-      drawer.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-    }
-
-    function openBuilder(){
-      builderModal.classList.add('open');
-      builderModal.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeBuilderModal(){
-      builderModal.classList.remove('open');
-      builderModal.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-    }
-
-    // reveal toggles (one-time)
-    document.querySelectorAll('#authDrawer .reveal-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const input = document.getElementById(btn.dataset.target);
-        if (!input) return;
-        const hidden = input.type === 'password';
-        input.type = hidden ? 'text' : 'password';
-        btn.textContent = hidden ? '◎' : '◉';
-      });
+    const res = await fetch(API.issueOmniTok, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
 
-    /* ===========================
-       Filters UI
-       =========================== */
-    function setPillRow(containerId, items, key){
-      const el = document.getElementById(containerId);
-      el.innerHTML = '';
+    if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
+    const data = await res.json();
+    return { ...data, sid };
+  }
+
+  /* ===========================
+     Auth state (stub)
+     =========================== */
+  const LOE_AUTH_KEY = 'loe_auth_v1';
+  function getAuth(){ try { return JSON.parse(localStorage.getItem(LOE_AUTH_KEY) || 'null'); } catch { return null; } }
+  function isSignedIn(){
+    const a = getAuth();
+    if (!a) return false;
+    if (a.exp && Date.now() > a.exp) return false;
+    return !!a.signedIn;
+  }
+  function setSignedIn(v){
+    if (!v) { localStorage.removeItem(LOE_AUTH_KEY); return; }
+    localStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
+      signedIn: true,
+      userId: v.userId || 'dev-user',
+      exp: v.exp || (Date.now() + 14*24*60*60*1000)
+    }));
+  }
+
+  /* ===========================
+     Catalog (v3) — load + normalize
+     =========================== */
+
+  // v3 output (object root with products[])
+  const CATALOG_URL = "/catalog/productCatalog.v3.json";
+
+  let CATALOG_V3 = null;
+  let PRODUCTS = [];
+  let GRAPHICS_BY_ID = {};
+
+  async function loadCatalogV3(){
+    const res = await fetch(CATALOG_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Catalog load failed: ${res.status}`);
+    const cat = await res.json();
+    if (!cat || !Array.isArray(cat.products)) throw new Error("Catalog v3 must have a products[] array.");
+
+    CATALOG_V3 = cat;
+    GRAPHICS_BY_ID = indexGraphicsLibraries(cat.graphicsLibraries || {});
+    PRODUCTS = normalizeProductsV3(cat);
+  }
+
+  function indexGraphicsLibraries(libs){
+    const out = {};
+    for (const libId of Object.keys(libs || {})){
+      const lib = libs[libId];
+      const items = Array.isArray(lib?.items) ? lib.items : [];
+      for (const it of items){
+        if (it?.id) out[it.id] = it;
+      }
+    }
+    return out;
+  }
+
+  function graphicsForProduct(p){
+    const libId = p?.options?.graphicsLibrary || "default";
+    const lib = CATALOG_V3?.graphicsLibraries?.[libId];
+    return Array.isArray(lib?.items) ? lib.items : [];
+  }
+
+  function priceRangeForProduct(p){
+    const base = Number(p?.pricing?.basePrice);
+    if (!Number.isFinite(base)) return { min: null, max: null };
+
+    const delta = p?.pricing?.finishDelta || CATALOG_V3?.pricing?.finishDelta || { SOLID:0, GLITTER:0 };
+    const finishes = (p?.options?.finishes || ["SOLID","GLITTER"]).map(x => String(x).toUpperCase());
+    const deltas = finishes.map(f => Number(delta[f] ?? 0));
+
+    return {
+      min: base + Math.min(...deltas),
+      max: base + Math.max(...deltas)
+    };
+  }
+
+  function normalizeProductsV3(cat){
+    const list = (cat.products || [])
+      .filter(p => p && p.schema && String(p.schema).includes("@v3"))
+      .map(p => {
+        const g = graphicsForProduct(p);
+        const pr = priceRangeForProduct(p);
+
+        const fits = (p?.options?.fits || []).map(x => String(x).toUpperCase());
+        const sizes = (p?.options?.sizes || []).map(String);
+        const finishes = (p?.options?.finishes || ["SOLID","GLITTER"]).map(x => String(x).toUpperCase());
+        const garmentColors = (p?.options?.garmentColors || []).map(x => String(x).toUpperCase());
+
+        return {
+          ...p,
+          // UI conveniences
+          image: p?.images?.primary || "https://loe-life.com/images/bg1.png",
+          fits,
+          sizes,
+          finishes,
+          garmentColors,
+          graphics: g,
+          minPrice: pr.min,
+          maxPrice: pr.max,
+
+          // defaults
+          defaultFit: (fits[0] || String(p?.style || "NONE").toUpperCase() || "NONE"),
+          defaultSize: (sizes[0] || "ONE_SIZE"),
+          defaultFinish: (finishes[0] || "SOLID"),
+          defaultGraphicId: (g?.[0]?.id || null)
+        };
+      });
+
+    return list.sort((a,b)=>{
+      const as = Number(a?.merch?.Sort ?? 9999);
+      const bs = Number(b?.merch?.Sort ?? 9999);
+      if (as !== bs) return as - bs;
+      return String(a?.name || "").localeCompare(String(b?.name || ""));
+    });
+  }
+
+  /* ===========================
+     State
+     =========================== */
+  const state = {
+    q: "",
+    filters: { style:null, fit:null, size:null, color:null, graphic:null },
+    builder: {
+      product: null,
+      fit: null,
+      size: null,
+      finish: "SOLID",
+      garmentColor: null,
+      graphicId: null,
+      graphicColor: null,
+      qty: 1
+    },
+    cart: []
+  };
+
+  /* ===========================
+     DOM refs
+     =========================== */
+  const grid = document.getElementById('grid');
+  const countEl = document.getElementById('count');
+  const q = document.getElementById('q');
+
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const cartBtn = document.getElementById('cartBtn');
+  const closeCart = document.getElementById('closeCart');
+  const cartList = document.getElementById('cartList');
+  const cartDot = document.getElementById('cartDot');
+
+  const subTotal = document.getElementById('subTotal');
+  const ship = document.getElementById('ship');
+  const tax = document.getElementById('tax');
+  const grand = document.getElementById('grand');
+  const holdCheckout = document.getElementById('holdCheckout');
+  const holdFill = document.getElementById('holdFill');
+  const holdLabel = document.getElementById('holdLabel');
+  const checkoutFallback = document.getElementById('checkoutFallback');
+
+  const authOverlay = document.getElementById('authOverlay');
+  const authDrawer = document.getElementById('authDrawer');
+  const authBtn = document.getElementById('authBtn');
+  const closeAuth = document.getElementById('closeAuth');
+  const fakeSignToggle = document.getElementById('fakeSignToggle');
+
+  const openFiltersMobile = document.getElementById('openFiltersMobile');
+  const filtersOverlay = document.getElementById('filtersOverlay');
+  const filtersDrawer = document.getElementById('filtersDrawer');
+  const closeFilters = document.getElementById('closeFilters');
+  const filtersMobileMount = document.getElementById('filtersMobileMount');
+
+  const builderModal = document.getElementById('builderModal');
+  const builderOverlay = document.getElementById('builderOverlay');
+  const closeBuilder = document.getElementById('closeBuilder');
+  const builderCancel = document.getElementById('builderCancel');
+  const builderAdd = document.getElementById('builderAdd');
+
+  const bmTitle = document.getElementById('bmTitle');
+  const bStyle = document.getElementById('bStyle');     // repurposed -> Finish selector (SOLID/GLITTER)
+  const bFit = document.getElementById('bFit');
+  const bSize = document.getElementById('bSize');
+  const bGraphic = document.getElementById('bGraphic'); // repurposed -> Graphic selector (library)
+  const bColors = document.getElementById('bColors');
+  const bGColors = document.getElementById('bGColors');
+  const bQty = document.getElementById('bQty');
+
+  const bImg = document.getElementById('bImg');
+  const bLine1 = document.getElementById('bLine1');
+  const bLine2 = document.getElementById('bLine2');
+  const bPrice = document.getElementById('bPrice');
+
+  /* ===========================
+     Shared helpers (ONE copy)
+     =========================== */
+  const money = (n) => (Number(n || 0)).toFixed(2);
+  const uniq = (arr) => Array.from(new Set(arr));
+  const digitsOnly = (s) => (s||'').replace(/\D/g,'');
+
+  function prettyEnum(s){
+    return String(s || "")
+      .replace(/_/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase()
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  function sizeSort(a,b){
+    const order = ["XS","S","M","L","XL","2XL","3XL","4XL","ONE_SIZE","OS"];
+    const ai = order.indexOf(a);
+    const bi = order.indexOf(b);
+    if (ai === -1 && bi === -1) return String(a).localeCompare(String(b));
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  }
+
+  function isValidEmailDomain(email){
+    const v = (email || '').trim();
+    const at = v.lastIndexOf('@');
+    if (at < 1) return false;
+    const domain = v.slice(at + 1);
+    return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
+  }
+
+  function strengthScore(pw){
+    let score = 0;
+    if (!pw) return 0;
+    if (pw.length >= 6) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    if (pw.length >= 10) score++;
+    return score; // 0..5
+  }
+
+  function applyStrength(score, barEl, textEl){
+    const widths = ['0%','20%','40%','60%','80%','100%'];
+    const colors = ['red','orangered','orange','gold','yellowgreen','green'];
+    const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
+    barEl.style.width = widths[score];
+    barEl.style.background = colors[score];
+    textEl.textContent = `Strength: ${labels[score]}`;
+  }
+
+  function setBtnLoading(btn, on){
+    if (!btn) return;
+    if (!on){
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
+      return;
+    }
+    btn.dataset.originalText = btn.textContent;
+    btn.disabled = true;
+    btn.classList.add('loading');
+    btn.textContent = btn.dataset.loadingText || 'Working…';
+  }
+
+  function openDrawer(overlay, drawer){
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    drawer.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(overlay, drawer){
+    overlay.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    drawer.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  function openBuilder(){
+    builderModal.classList.add('open');
+    builderModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBuilderModal(){
+    builderModal.classList.remove('open');
+    builderModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  // reveal toggles (one-time)
+  document.querySelectorAll('#authDrawer .reveal-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const input = document.getElementById(btn.dataset.target);
+      if (!input) return;
+      const hidden = input.type === 'password';
+      input.type = hidden ? 'text' : 'password';
+      btn.textContent = hidden ? '◎' : '◉';
+    });
+  });
+
+  /* ===========================
+     Filters UI
+     =========================== */
+  function setPillRow(containerId, items, key){
+    const el = document.getElementById(containerId);
+    el.innerHTML = '';
+    items.forEach(v=>{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pill' + (state.filters[key] === v ? ' on' : '');
+      b.textContent = v;
+      b.onclick = ()=>{
+        state.filters[key] = (state.filters[key] === v) ? null : v;
+        render();
+        syncFilterPills();
+      };
+      el.appendChild(b);
+    });
+  }
+
+  function buildFilters(){
+    const cats = uniq(PRODUCTS.map(p => p.category).filter(Boolean));
+    const fits = uniq(PRODUCTS.flatMap(p => (p.fits||[]).map(prettyEnum)));
+    const sizes = uniq(PRODUCTS.flatMap(p => (p.sizes||[])));
+    const colors = uniq(PRODUCTS.flatMap(p => (p.garmentColors||[]).map(prettyEnum)));
+    const graphics = uniq(PRODUCTS.flatMap(p => (p.graphics||[]).map(g => g.name)).filter(Boolean));
+
+    setPillRow('fStyle', cats, 'style');        // Category
+    setPillRow('fFit', fits, 'fit');            // fits
+    setPillRow('fSize', sizes, 'size');         // sizes
+    setPillRow('fColor', colors, 'color');      // garment colors
+    setPillRow('fGraphic', graphics, 'graphic');// graphic names
+  }
+
+  function buildMobileFilters(){
+    const desktop = document.querySelector('.filters');
+    if (!desktop) return;
+
+    const clone = desktop.cloneNode(true);
+    clone.querySelectorAll('[id]').forEach(el => {
+      if (['fStyle','fFit','fSize','fColor','fGraphic','clearFilters'].includes(el.id)) return;
+      el.removeAttribute('id');
+    });
+
+    clone.style.display = 'block';
+    clone.style.position = 'static';
+    clone.style.top = 'auto';
+    clone.style.maxHeight = 'none';
+    clone.style.overflow = 'visible';
+    const actions = clone.querySelector('.actions');
+    if (actions) actions.remove();
+
+    filtersMobileMount.innerHTML = '';
+    filtersMobileMount.appendChild(clone);
+
+    const cats = uniq(PRODUCTS.map(p => p.category).filter(Boolean));
+    const fits = uniq(PRODUCTS.flatMap(p => (p.fits||[]).map(prettyEnum)));
+    const sizes = uniq(PRODUCTS.flatMap(p => (p.sizes||[])));
+    const colors = uniq(PRODUCTS.flatMap(p => (p.garmentColors||[]).map(prettyEnum)));
+    const graphics = uniq(PRODUCTS.flatMap(p => (p.graphics||[]).map(g => g.name)).filter(Boolean));
+
+    const map = [
+      ['#fStyle','style', cats],
+      ['#fFit','fit', fits],
+      ['#fSize','size', sizes],
+      ['#fColor','color', colors],
+      ['#fGraphic','graphic', graphics],
+    ];
+
+    map.forEach(([sel,key,items])=>{
+      const row = filtersMobileMount.querySelector(sel);
+      if (!row) return;
+      row.innerHTML = '';
       items.forEach(v=>{
         const b = document.createElement('button');
         b.type = 'button';
@@ -1496,950 +1574,971 @@ function sizeSort(a,b){
           render();
           syncFilterPills();
         };
-        el.appendChild(b);
+        row.appendChild(b);
       });
-    }
+    });
 
-function buildFilters(){
-  // Facets from PRODUCTS + their variants
-  const cats = uniq(PRODUCTS.map(p => p.category));
-  const fits = uniq(PRODUCTS.flatMap(p => p.fits.map(prettyEnum)));
-  const sizes = uniq(PRODUCTS.flatMap(p => p.sizes));
-  // Repurpose "Graphics" pills to GraphicFinish
-  const finishes = uniq(PRODUCTS.flatMap(p => p.finishes.map(prettyEnum)));
-
-  // NOTE: Your UI labels can stay for now (we’ll rename later).
-  // Map:
-  //   Style  -> Category
-  //   Fit    -> Fit/Style enum
-  //   Size   -> Size
-  //   Graphics -> GraphicFinish
-  setPillRow('fStyle', cats, 'style');
-  setPillRow('fFit', fits, 'fit');
-  setPillRow('fSize', sizes, 'size');
-  setPillRow('fGraphic', finishes, 'graphic');
-
-  // Disable/empty Color filter for now (colors not in v2 yet)
-  const colorRow = document.getElementById('fColor');
-  if (colorRow) colorRow.innerHTML = `<span class="small" style="color:var(--muted)">Colors coming soon</span>`;
-}
-
-    function buildMobileFilters(){
-      const desktop = document.querySelector('.filters');
-      if (!desktop) return;
-      const clone = desktop.cloneNode(true);
-      // Prevent duplicate IDs from confusing document.getElementById in the future
-      clone.querySelectorAll('[id]').forEach(el => {
-       // keep these because we query them inside filtersMobileMount:
-       if (['fStyle','fFit','fSize','fColor','fGraphic','clearFilters'].includes(el.id)) return;
-       el.removeAttribute('id');
-      });
-      clone.style.display = 'block';
-      clone.style.position = 'static';
-      clone.style.top = 'auto';
-      clone.style.maxHeight = 'none';
-      clone.style.overflow = 'visible';
-      const actions = clone.querySelector('.actions');
-      if (actions) actions.remove();
-      filtersMobileMount.innerHTML = '';
-      filtersMobileMount.appendChild(clone);
-
-const map = [
-  ['#fStyle','style', uniq(PRODUCTS.map(p => p.category))],
-  ['#fFit','fit', uniq(PRODUCTS.flatMap(p => p.fits.map(prettyEnum)))],
-  ['#fSize','size', uniq(PRODUCTS.flatMap(p => p.sizes))],
-  ['#fGraphic','graphic', uniq(PRODUCTS.flatMap(p => p.finishes.map(prettyEnum)))]
-];
-// fColor stays “coming soon”
-      map.forEach(([sel,key,items])=>{
-        const row = filtersMobileMount.querySelector(sel);
-        if (!row) return;
-        row.innerHTML = '';
-        items.forEach(v=>{
-          const b = document.createElement('button');
-          b.type = 'button';
-          b.className = 'pill' + (state.filters[key] === v ? ' on' : '');
-          b.textContent = v;
-          b.onclick = ()=>{
-            state.filters[key] = (state.filters[key] === v) ? null : v;
-            render();
-            syncFilterPills();
-          };
-          row.appendChild(b);
-        });
-      });
-
-       // Force Color to "coming soon" on mobile too
-        const mobileColor = filtersMobileMount.querySelector('#fColor');
-        if (mobileColor) {
-         mobileColor.innerHTML = `<span class="small" style="color:var(--muted)">Colors coming soon</span>`;
-        }
-
-      const clear = filtersMobileMount.querySelector('#clearFilters');
-      clear?.addEventListener('click', ()=>{
-        state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
-        render();
-        syncFilterPills();
-      });
-    }
-
-    function syncFilterPills(){
-      buildFilters();
-      buildMobileFilters();
-    }
-
-function matchesFilters(p){
-  const f = state.filters;
-
-  // Style pill now means Category
-  if (f.style && p.category !== f.style) return false;
-
-  // Fit pill now means a fit option
-  if (f.fit){
-    const want = f.fit.toUpperCase().replace(/\s+/g,'_');
-    if (!p.fits.includes(want)) return false;
-  }
-
-  // Size pill means any variant has that size
-  if (f.size){
-    if (!p.sizes.includes(f.size)) return false;
-  }
-
-  // Graphics pill now means GraphicFinish
-  if (f.graphic){
-    const want = f.graphic.toUpperCase().replace(/\s+/g,'_');
-    if (!p.finishes.includes(want)) return false;
-  }
-
-  // Search
-  if (state.q){
-    const hay = [
-      p.name,
-      p.displayName,
-      p.category,
-      p.subcategory,
-      p.audience,
-      ...(p.tags||[]),
-      ...p.fits,
-      ...p.sizes,
-      ...p.finishes
-    ].join(" ").toLowerCase();
-    if (!hay.includes(state.q.toLowerCase())) return false;
-  }
-
-  return true;
-}
-
-function render(){
-  const items = PRODUCTS.filter(matchesFilters);
-  countEl.textContent = String(items.length);
-
-  grid.innerHTML = '';
-  items.forEach(p=>{
-    const img = p.image || "https://loe-life.com/images/bg1.png";
-
-    const tagline = [
-      prettyEnum(p.category),
-      prettyEnum(p.subcategory),
-      prettyEnum(p.audience)
-    ].filter(Boolean).join(" • ");
-
-    const priceText = (p.minPrice === p.maxPrice)
-      ? `$${money(p.minPrice)}`
-      : `$${money(p.minPrice)}–${money(p.maxPrice)}`;
-
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="thumb">
-        <img src="${img}" alt="${p.name}">
-        <div class="tagline">${tagline}</div>
-      </div>
-      <div class="row">
-        <h3 class="name">${p.name}</h3>
-        <div class="price">${priceText}</div>
-      </div>
-      <div class="meta">${prettyEnum(p.displayName)} • ${p.fits.map(prettyEnum).join(", ")}</div>
-      <div class="card-actions">
-        <button class="btn primary" type="button">Customize</button>
-        <button class="btn" type="button">Quick Add</button>
-      </div>
-    `;
-
-    const [btnCustomize, btnQuick] = card.querySelectorAll('button');
-    btnCustomize.onclick = ()=> openProductBuilder(p);
-    btnQuick.onclick = ()=>{
-      const variant = makeDefaultVariant(p);
-      addToCart(variant);
-      openDrawer(cartOverlay, cartDrawer);
-    };
-
-    grid.appendChild(card);
-  });
-
-  cartDot.classList.toggle('on', state.cart.length > 0);
-  updateCartUI();
-}
-
-    /* ===========================
-       Variant + pricing
-       =========================== */
-function pickVariantRow(p, fit, size, finish){
-  const wantFit = (fit || p.defaultFit || "NONE").toUpperCase();
-  const wantFinish = (finish || p.defaultFinish || "SOLID").toUpperCase();
-  const wantSize = (size || p.defaultSize || "ONE_SIZE");
-
-  // Find a matching active row
-  const row = p.variants.find(v=>{
-    const vFit = (v.Style || v.Fit || "NONE").toUpperCase();
-    const vFinish = ((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : (v.GraphicType || "")).toUpperCase();
-    const vSize = (v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size;
-    return vFit === wantFit && vFinish === wantFinish && vSize === wantSize;
-  });
-
-  return row || p.variants[0];
-}
-
-function makeDefaultVariant(p){
-  const row = pickVariantRow(p, p.defaultFit, p.defaultSize, p.defaultFinish);
-  return buildVariantFromRow(p, row, 1);
-}
-
-function buildVariantFromRow(p, row, qty){
-  const unit = Number(row.BasePrice ?? row.Price ?? 0);
-
-  const fit = (row.Style || row.Fit || "NONE").toUpperCase();
-  const size = (row.Variant && row.Variant.Size) ? row.Variant.Size : row.Size;
-  const finish = ((row.Variant && row.Variant.GraphicFinish) ? row.Variant.GraphicFinish : row.GraphicType).toUpperCase();
-
-  return {
-    key: row.SKU || row.PartitionKey,  // unique, stable
-    sku: row.SKU || row.PartitionKey,
-    productId: p.id,
-    name: p.name,
-    unitPrice: unit,
-    currency: row.Currency || "USD",
-    qty: Number(qty || 1),
-    opts: {
-      fit,
-      size,
-      graphicFinish: finish
-    },
-    thumb: p.image || "https://loe-life.com/images/bg1.png"
-  };
-}
-
-    /* ===========================
-       Builder modal logic
-       =========================== */
-function openProductBuilder(p){
-  state.builder.product = p;
-
-  // Default selections
-  state.builder.fit = p.defaultFit;
-  state.builder.size = p.defaultSize;
-  state.builder.finish = p.defaultFinish;
-  state.builder.qty = 1;
-
-  bmTitle.textContent = `Customize — ${p.name}`;
-
-  // Repurpose fields:
-  // bStyle: single “Product” option (locked)
-  bStyle.innerHTML = `<option value="only">${prettyEnum(p.displayName)}</option>`;
-  bStyle.value = "only";
-  bStyle.disabled = true;
-
-  // bFit: Fit options
-  bFit.innerHTML = p.fits.map(f=>`<option value="${f}">${prettyEnum(f)}</option>`).join('');
-  bFit.value = state.builder.fit;
-
-  // bGraphic: Finish options (SOLID/GLITTER)
-  bGraphic.innerHTML = p.finishes.map(g=>`<option value="${g}">${prettyEnum(g)}</option>`).join('');
-  bGraphic.value = state.builder.finish;
-
-  // Size options depend on Fit + Finish
-  refreshSizeOptions();
-  bQty.value = "1";
-
-  // Hide color sections for now
-  bColors?.closest('.field')?.style.setProperty('display','none');
-  bGColors?.closest('.field')?.style.setProperty('display','none');
-
-  // Wire events
-  bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshSizeOptions(); refreshBuilderPreviewV2(); };
-  bGraphic.onchange = ()=>{ state.builder.finish = bGraphic.value; refreshSizeOptions(); refreshBuilderPreviewV2(); };
-  bSize.onchange = ()=>{ state.builder.size = bSize.value; refreshBuilderPreviewV2(); };
-  bQty.onchange = ()=>{ state.builder.qty = Number(bQty.value); refreshBuilderPreviewV2(); };
-
-  refreshBuilderPreviewV2();
-  openBuilder();
-}
-
-function refreshSizeOptions(){
-  const p = state.builder.product;
-  const fit = state.builder.fit;
-  const finish = state.builder.finish;
-
-  const sizes = new Set();
-  for (const v of p.variants){
-    const vFit = (v.Style || v.Fit || "NONE").toUpperCase();
-    const vFinish = ((v.Variant && v.Variant.GraphicFinish) ? v.Variant.GraphicFinish : v.GraphicType).toUpperCase();
-    if (vFit !== fit) continue;
-    if (vFinish !== finish) continue;
-    sizes.add((v.Variant && v.Variant.Size) ? v.Variant.Size : v.Size);
-  }
-
-  const list = [...sizes].sort(sizeSort);
-  bSize.innerHTML = list.map(s=>`<option value="${s}">${s}</option>`).join('');
-
-  // keep current if still valid
-  if (!list.includes(state.builder.size)) state.builder.size = list[0] || "ONE_SIZE";
-  bSize.value = state.builder.size;
-}
-
-function refreshBuilderPreviewV2(){
-  const p = state.builder.product;
-  const fit = state.builder.fit;
-  const size = state.builder.size;
-  const finish = state.builder.finish;
-  const qty = state.builder.qty;
-
-  const row = pickVariantRow(p, fit, size, finish);
-  const unit = Number(row.BasePrice ?? row.Price ?? 0);
-  const total = unit * qty;
-
-  bImg.src = p.image || "https://loe-life.com/images/bg1.png";
-  bLine1.textContent = `${p.name}`;
-  bLine2.textContent = `${prettyEnum(fit)} • ${size} • ${prettyEnum(finish)}`;
-  bPrice.textContent = money(total);
-}
-
-builderAdd.onclick = ()=>{
-  const p = state.builder.product;
-  const row = pickVariantRow(p, state.builder.fit, state.builder.size, state.builder.finish);
-  const v = buildVariantFromRow(p, row, state.builder.qty);
-  addToCart(v);
-  closeBuilderModal();
-  openDrawer(cartOverlay, cartDrawer);
-};
-    builderCancel.onclick = closeBuilderModal;
-    closeBuilder.onclick = closeBuilderModal;
-    builderOverlay.onclick = (e)=>{ if (e.target === builderOverlay) closeBuilderModal(); };
-
-    /* ===========================
-       Cart logic
-       =========================== */
-    function addToCart(v){
-      const idx = state.cart.findIndex(x=>x.key===v.key);
-      if (idx>=0) state.cart[idx].qty += v.qty;
-      else state.cart.push(v);
-      persistCart();
+    const clear = filtersMobileMount.querySelector('#clearFilters');
+    clear?.addEventListener('click', ()=>{
+      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
       render();
+      syncFilterPills();
+    });
+  }
+
+  function syncFilterPills(){
+    buildFilters();
+    buildMobileFilters();
+  }
+
+  function matchesFilters(p){
+    const f = state.filters;
+
+    if (f.style && p.category !== f.style) return false;
+
+    if (f.fit){
+      const want = f.fit.toUpperCase().replace(/\s+/g,'_');
+      if (!(p.fits||[]).includes(want)) return false;
     }
 
-    function updateQty(key, qty){
-      const it = state.cart.find(x=>x.key===key);
-      if (!it) return;
-      const q = Math.max(0, Math.min(99, Number(qty || 0)));
-      if (q===0) state.cart = state.cart.filter(x=>x.key!==key);
-      else it.qty = q;
-      persistCart();
-      updateCartUI();
-      cartDot.classList.toggle('on', state.cart.length > 0);
+    if (f.size){
+      if (!(p.sizes||[]).includes(f.size)) return false;
     }
 
-    function computeTotals(){
-      const subtotal = state.cart.reduce((s,i)=> s + (i.unitPrice*i.qty), 0);
-      const estShip = subtotal>0 ? Math.min(12, Math.max(0, subtotal*0.06)) : 0;
-      const estTax = subtotal>0 ? Math.max(0, subtotal*0.0825) : 0;
-      const total = subtotal + estShip + estTax;
-      return { subtotal, estShip, estTax, total };
+    if (f.color){
+      const want = f.color.toUpperCase().replace(/\s+/g,'_');
+      if (!(p.garmentColors||[]).includes(want)) return false;
     }
 
-    function updateCartUI(){
-      cartList.innerHTML = '';
-
-      if (state.cart.length === 0){
-        const empty = document.createElement('div');
-        empty.className = 'small';
-        empty.style.padding = '6px 2px';
-        empty.textContent = "Your cart is empty — build a fit and add it here.";
-        cartList.appendChild(empty);
-      } else {
-        state.cart.forEach(i=>{
-          const li = document.createElement('li');
-          li.className = 'cart-item';
-          li.innerHTML = `
-            <img src="${i.thumb}" alt="${i.name}">
-            <div class="ci">
-              <strong>${i.name}</strong>
-              <small>${prettyEnum(i.opts.fit)} • ${i.opts.size}</small>
-              <small>${prettyEnum(i.opts.graphicFinish)}</small>
-              <small>$${money(i.unitPrice)} ea</small>
-            </div>
-            <div class="qty">
-              <button class="qbtn" aria-label="Decrease quantity" type="button">−</button>
-              <input class="qval" type="number" min="0" max="99" value="${i.qty}">
-              <button class="qbtn" aria-label="Increase quantity" type="button">+</button>
-            </div>
-          `;
-          const [minus, input, plus] = li.querySelectorAll('.qbtn, .qval');
-          minus.onclick = ()=> updateQty(i.key, i.qty-1);
-          plus.onclick = ()=> updateQty(i.key, i.qty+1);
-          input.oninput = ()=> updateQty(i.key, input.value);
-          cartList.appendChild(li);
-        });
-      }
-
-      const t = computeTotals();
-      subTotal.textContent = money(t.subtotal);
-      ship.textContent = money(t.estShip);
-      tax.textContent = money(t.estTax);
-      grand.textContent = money(t.total);
-
-      const enabled = state.cart.length > 0;
-      holdCheckout.classList.toggle('disabled', !enabled);
-      checkoutFallback.disabled = !enabled;
-      if (!enabled){
-        holdFill.style.width = '0%';
-        holdLabel.textContent = 'Hold to Confirm';
-      }
+    if (f.graphic){
+      const wantName = String(f.graphic).toLowerCase();
+      const has = (p.graphics||[]).some(g => String(g.name||"").toLowerCase() === wantName);
+      if (!has) return false;
     }
 
-    function persistCart(){ sessionStorage.setItem('loe_cart_v1', JSON.stringify(state.cart)); }
-    function loadCart(){
-      try{
-        const saved = sessionStorage.getItem('loe_cart_v1');
-        if (saved) state.cart = JSON.parse(saved) || [];
-      }catch{}
+    if (state.q){
+      const hay = [
+        p.name,
+        p.displayName,
+        p.category,
+        p.subcategory,
+        p.audience,
+        ...(p.tags||[]),
+        ...(p.fits||[]),
+        ...(p.sizes||[]),
+        ...(p.finishes||[]),
+        ...(p.garmentColors||[]),
+        ...(p.graphics||[]).map(g=>g.name)
+      ].join(" ").toLowerCase();
+
+      if (!hay.includes(state.q.toLowerCase())) return false;
     }
 
-    /* ===========================
-       Checkout
-       =========================== */
-    let holdTimer = null;
-    let holdStart = 0;
-    const HOLD_MS = 900;
+    return true;
+  }
 
-    function beginHold(){
-      if (holdCheckout.classList.contains('disabled')) return;
-      holdStart = performance.now();
-      holdLabel.textContent = 'Holding…';
-      holdFill.style.width = '0%';
+  function render(){
+    const items = PRODUCTS.filter(matchesFilters);
+    countEl.textContent = String(items.length);
 
-      const tick = ()=>{
-        const elapsed = performance.now() - holdStart;
-        const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
-        holdFill.style.width = pct + '%';
-        if (elapsed >= HOLD_MS){
-          endHold(true);
+    grid.innerHTML = '';
+    items.forEach(p=>{
+      const img = p.image || "https://loe-life.com/images/bg1.png";
+
+      const tagline = [
+        prettyEnum(p.category),
+        prettyEnum(p.subcategory),
+        prettyEnum(p.audience)
+      ].filter(Boolean).join(" • ");
+
+      const priceText = (p.minPrice == null || p.maxPrice == null)
+        ? `TBD`
+        : (p.minPrice === p.maxPrice ? `$${money(p.minPrice)}` : `$${money(p.minPrice)}–$${money(p.maxPrice)}`);
+
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb">
+          <img src="${img}" alt="${p.name}">
+          <div class="tagline">${tagline}</div>
+        </div>
+        <div class="row">
+          <h3 class="name">${p.name}</h3>
+          <div class="price">${priceText}</div>
+        </div>
+        <div class="meta">${prettyEnum(p.displayName)} • ${(p.fits||[]).map(prettyEnum).join(", ")}</div>
+        <div class="card-actions">
+          <button class="btn primary" type="button">Customize</button>
+          <button class="btn" type="button">Quick Add</button>
+        </div>
+      `;
+
+      const [btnCustomize, btnQuick] = card.querySelectorAll('button');
+      btnCustomize.onclick = ()=> openProductBuilder(p);
+      btnQuick.onclick = ()=>{
+        if (p?.pricing?.basePrice == null) {
+          alert("This item is not priced yet (basePrice missing).");
           return;
         }
-        holdTimer = requestAnimationFrame(tick);
+        const variant = makeDefaultVariant(p);
+        addToCart(variant);
+        openDrawer(cartOverlay, cartDrawer);
       };
-      holdTimer = requestAnimationFrame(tick);
+
+      grid.appendChild(card);
+    });
+
+    cartDot.classList.toggle('on', state.cart.length > 0);
+    updateCartUI();
+  }
+
+  /* ===========================
+     Variant + pricing (v3)
+     =========================== */
+
+  function pickVariantV3(p, fit, size){
+    const wantFit = String(fit || p.defaultFit || "NONE").toUpperCase();
+    const wantSize = String(size || p.defaultSize || "ONE_SIZE");
+
+    const v = (p.variants || []).find(x =>
+      String(x.fit).toUpperCase() === wantFit && String(x.size) === wantSize
+    );
+
+    return v || (p.variants ? p.variants[0] : null);
+  }
+
+  function computeUnitPriceV3(p, finish){
+    const base = Number(p?.pricing?.basePrice);
+    if (!Number.isFinite(base)) return null;
+
+    const f = String(finish || p.defaultFinish || "SOLID").toUpperCase();
+    const delta = p?.pricing?.finishDelta || CATALOG_V3?.pricing?.finishDelta || { SOLID:0, GLITTER:0 };
+
+    return base + Number(delta[f] ?? 0);
+  }
+
+  function makeDefaultVariant(p){
+    const finish = p.defaultFinish || "SOLID";
+    const variant = pickVariantV3(p, p.defaultFit, p.defaultSize);
+
+    return buildCartItemV3(p, variant, {
+      finish,
+      garmentColor: p.garmentColors?.[0] || null,
+      graphicId: p.defaultGraphicId,
+      graphicColor: null,
+      qty: 1
+    });
+  }
+
+  function buildCartItemV3(p, variant, sel){
+    const finish = String(sel.finish || "SOLID").toUpperCase();
+    const unit = computeUnitPriceV3(p, finish);
+    if (unit == null) throw new Error("Unit price unavailable (basePrice missing).");
+
+    const sku = variant?.skuByFinish?.[finish] || null;
+    if (!sku) throw new Error(`No SKU for finish ${finish} on ${p.handle} (${variant?.fit}/${variant?.size}).`);
+
+    const g = (sel.graphicId ? GRAPHICS_BY_ID?.[sel.graphicId] : null);
+
+    return {
+      key: `${sku}::${sel.garmentColor||"NA"}::${sel.graphicId||"NA"}::${sel.graphicColor||"NA"}`,
+      sku,                         // fulfillment SKU (finish-specific)
+      productHandle: p.handle,
+      productId: p.id,
+      name: p.name,
+      unitPrice: unit,
+      currency: p?.pricing?.currency || "USD",
+      qty: Number(sel.qty || 1),
+
+      opts: {
+        fit: String(variant.fit).toUpperCase(),
+        size: String(variant.size),
+        finish,
+        garmentColor: sel.garmentColor || null,
+        graphicId: sel.graphicId || null,
+        graphicName: g?.name || null,
+        graphicColor: sel.graphicColor || null
+      },
+
+      thumb: p.image || "https://loe-life.com/images/bg1.png"
+    };
+  }
+
+  /* ===========================
+     Builder modal logic (v3)
+     =========================== */
+
+  function colorToCss(name){
+    const map = {
+      BLACK:"#111111", WHITE:"#f5f5f5", GRAY:"#9aa0a6",
+      RED:"#e53935", BLUE:"#1e88e5", GOLD:"#d4af37", SILVER:"#c0c0c0"
+    };
+    return map[String(name||"").toUpperCase()] || "#444";
+  }
+
+  function renderSwatches(container, values, current, onPick){
+    if (!container) return;
+    container.innerHTML = "";
+    values.forEach(v=>{
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "sw" + (String(v).toUpperCase() === String(current||"").toUpperCase() ? " on" : "");
+      b.title = String(v);
+      b.style.background = colorToCss(v);
+      b.onclick = () => onPick(v);
+      container.appendChild(b);
+    });
+  }
+
+  function openProductBuilder(p){
+    state.builder.product = p;
+
+    state.builder.fit = p.defaultFit;
+    state.builder.size = p.defaultSize;
+    state.builder.finish = p.defaultFinish || "SOLID";
+    state.builder.garmentColor = (p.garmentColors && p.garmentColors[0]) ? p.garmentColors[0] : null;
+    state.builder.graphicId = p.defaultGraphicId || (p.graphics?.[0]?.id || null);
+    state.builder.qty = 1;
+
+    bmTitle.textContent = `Customize — ${p.name}`;
+
+    // bStyle is FINISH selector (SOLID/GLITTER)
+    bStyle.disabled = false;
+    bStyle.innerHTML = (p.finishes||[]).map(f=>`<option value="${f}">${prettyEnum(f)}</option>`).join('');
+    bStyle.value = state.builder.finish;
+
+    // bFit fits
+    bFit.innerHTML = (p.fits||[]).map(f=>`<option value="${f}">${prettyEnum(f)}</option>`).join('');
+    bFit.value = state.builder.fit;
+
+    // sizes depend on fit only (v3 variants are fit+size)
+    refreshSizeOptionsV3();
+
+    // bGraphic is GRAPHIC selector
+    bGraphic.innerHTML = (p.graphics||[]).map(g=>`<option value="${g.id}">${g.name}</option>`).join('');
+    bGraphic.value = state.builder.graphicId || "";
+
+    // show color sections
+    bColors?.closest('.field')?.style.setProperty('display','block');
+    bGColors?.closest('.field')?.style.setProperty('display','block');
+
+    refreshGraphicColorsV3();
+    refreshBuilderPreviewV3();
+
+    bStyle.onchange = ()=>{ state.builder.finish = bStyle.value; refreshGraphicColorsV3(); refreshBuilderPreviewV3(); };
+    bFit.onchange = ()=>{ state.builder.fit = bFit.value; refreshSizeOptionsV3(); refreshBuilderPreviewV3(); };
+    bSize.onchange = ()=>{ state.builder.size = bSize.value; refreshBuilderPreviewV3(); };
+    bGraphic.onchange = ()=>{ state.builder.graphicId = bGraphic.value; refreshGraphicColorsV3(); refreshBuilderPreviewV3(); };
+    bQty.onchange = ()=>{ state.builder.qty = Number(bQty.value); refreshBuilderPreviewV3(); };
+
+    bQty.value = "1";
+    openBuilder();
+  }
+
+  function refreshSizeOptionsV3(){
+    const p = state.builder.product;
+    const fit = String(state.builder.fit || "NONE").toUpperCase();
+
+    const sizes = new Set();
+    (p.variants||[]).forEach(v=>{
+      if (String(v.fit).toUpperCase() === fit) sizes.add(String(v.size));
+    });
+
+    const list = [...sizes].sort(sizeSort);
+    bSize.innerHTML = list.map(s=>`<option value="${s}">${s}</option>`).join('');
+
+    if (!list.includes(state.builder.size)) state.builder.size = list[0] || "ONE_SIZE";
+    bSize.value = state.builder.size;
+  }
+
+  function refreshGraphicColorsV3(){
+    const p = state.builder.product;
+    const finish = String(state.builder.finish || "SOLID").toUpperCase();
+    const gid = state.builder.graphicId;
+
+    // garment colors
+    renderSwatches(bColors, p.garmentColors || [], state.builder.garmentColor, (c)=>{
+      state.builder.garmentColor = c;
+      refreshBuilderPreviewV3();
+    });
+
+    // graphic colors: graphic-specific colorsByFinish first; fallback to product options
+    const g = GRAPHICS_BY_ID?.[gid];
+    const colors = (g?.colorsByFinish?.[finish] || p?.options?.graphicColorsByFinish?.[finish] || []);
+    if (!state.builder.graphicColor && colors[0]) state.builder.graphicColor = colors[0];
+
+    renderSwatches(bGColors, colors, state.builder.graphicColor, (c)=>{
+      state.builder.graphicColor = c;
+      refreshBuilderPreviewV3();
+    });
+  }
+
+  function refreshBuilderPreviewV3(){
+    const p = state.builder.product;
+    const fit = state.builder.fit;
+    const size = state.builder.size;
+    const finish = state.builder.finish;
+    const qty = state.builder.qty;
+
+    const variant = pickVariantV3(p, fit, size);
+    const unit = computeUnitPriceV3(p, finish);
+    const total = (unit == null) ? null : unit * qty;
+
+    bImg.src = p.image || "https://loe-life.com/images/bg1.png";
+    bLine1.textContent = `${p.name}`;
+
+    const gName = GRAPHICS_BY_ID?.[state.builder.graphicId]?.name || "—";
+    bLine2.textContent = `${prettyEnum(fit)} • ${size} • ${prettyEnum(finish)} • ${state.builder.garmentColor || "—"} • ${gName}`;
+
+    bPrice.textContent = (total == null) ? "TBD" : money(total);
+  }
+
+  builderAdd.onclick = ()=>{
+    try{
+      const p = state.builder.product;
+      const variant = pickVariantV3(p, state.builder.fit, state.builder.size);
+      const item = buildCartItemV3(p, variant, {
+        finish: state.builder.finish,
+        garmentColor: state.builder.garmentColor,
+        graphicId: state.builder.graphicId,
+        graphicColor: state.builder.graphicColor,
+        qty: state.builder.qty
+      });
+      addToCart(item);
+      closeBuilderModal();
+      openDrawer(cartOverlay, cartDrawer);
+    }catch(e){
+      console.error(e);
+      alert(e?.message || "Unable to add item.");
+    }
+  };
+
+  builderCancel.onclick = closeBuilderModal;
+  closeBuilder.onclick = closeBuilderModal;
+  builderOverlay.onclick = (e)=>{ if (e.target === builderOverlay) closeBuilderModal(); };
+
+  /* ===========================
+     Cart logic
+     =========================== */
+  function addToCart(v){
+    const idx = state.cart.findIndex(x=>x.key===v.key);
+    if (idx>=0) state.cart[idx].qty += v.qty;
+    else state.cart.push(v);
+    persistCart();
+    render();
+  }
+
+  function updateQty(key, qty){
+    const it = state.cart.find(x=>x.key===key);
+    if (!it) return;
+    const q = Math.max(0, Math.min(99, Number(qty || 0)));
+    if (q===0) state.cart = state.cart.filter(x=>x.key!==key);
+    else it.qty = q;
+    persistCart();
+    updateCartUI();
+    cartDot.classList.toggle('on', state.cart.length > 0);
+  }
+
+  function computeTotals(){
+    const subtotal = state.cart.reduce((s,i)=> s + (i.unitPrice*i.qty), 0);
+    const estShip = subtotal>0 ? Math.min(12, Math.max(0, subtotal*0.06)) : 0;
+    const estTax = subtotal>0 ? Math.max(0, subtotal*0.0825) : 0;
+    const total = subtotal + estShip + estTax;
+    return { subtotal, estShip, estTax, total };
+  }
+
+  function updateCartUI(){
+    cartList.innerHTML = '';
+
+    if (state.cart.length === 0){
+      const empty = document.createElement('div');
+      empty.className = 'small';
+      empty.style.padding = '6px 2px';
+      empty.textContent = "Your cart is empty — build a fit and add it here.";
+      cartList.appendChild(empty);
+    } else {
+      state.cart.forEach(i=>{
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+
+        const gLine = [
+          i.opts.garmentColor || "—",
+          i.opts.graphicName || "—",
+          i.opts.graphicColor || "—"
+        ].join(" • ");
+
+        li.innerHTML = `
+          <img src="${i.thumb}" alt="${i.name}">
+          <div class="ci">
+            <strong>${i.name}</strong>
+            <small>${prettyEnum(i.opts.fit)} • ${i.opts.size} • ${prettyEnum(i.opts.finish)}</small>
+            <small>${gLine}</small>
+            <small>$${money(i.unitPrice)} ea</small>
+          </div>
+          <div class="qty">
+            <button class="qbtn" aria-label="Decrease quantity" type="button">−</button>
+            <input class="qval" type="number" min="0" max="99" value="${i.qty}">
+            <button class="qbtn" aria-label="Increase quantity" type="button">+</button>
+          </div>
+        `;
+        const [minus, input, plus] = li.querySelectorAll('.qbtn, .qval');
+        minus.onclick = ()=> updateQty(i.key, i.qty-1);
+        plus.onclick = ()=> updateQty(i.key, i.qty+1);
+        input.oninput = ()=> updateQty(i.key, input.value);
+        cartList.appendChild(li);
+      });
     }
 
-    function endHold(success){
-      if (holdTimer) cancelAnimationFrame(holdTimer);
-      holdTimer = null;
+    const t = computeTotals();
+    subTotal.textContent = money(t.subtotal);
+    ship.textContent = money(t.estShip);
+    tax.textContent = money(t.estTax);
+    grand.textContent = money(t.total);
 
-      if (!success){
+    const enabled = state.cart.length > 0;
+    holdCheckout.classList.toggle('disabled', !enabled);
+    checkoutFallback.disabled = !enabled;
+    if (!enabled){
+      holdFill.style.width = '0%';
+      holdLabel.textContent = 'Hold to Confirm';
+    }
+  }
+
+  function persistCart(){ sessionStorage.setItem('loe_cart_v1', JSON.stringify(state.cart)); }
+  function loadCart(){
+    try{
+      const saved = sessionStorage.getItem('loe_cart_v1');
+      if (saved) state.cart = JSON.parse(saved) || [];
+    }catch{}
+  }
+
+  /* ===========================
+     Checkout
+     =========================== */
+  let holdTimer = null;
+  let holdStart = 0;
+  const HOLD_MS = 900;
+
+  function beginHold(){
+    if (holdCheckout.classList.contains('disabled')) return;
+    holdStart = performance.now();
+    holdLabel.textContent = 'Holding…';
+    holdFill.style.width = '0%';
+
+    const tick = ()=>{
+      const elapsed = performance.now() - holdStart;
+      const pct = Math.min(100, (elapsed / HOLD_MS) * 100);
+      holdFill.style.width = pct + '%';
+      if (elapsed >= HOLD_MS){
+        endHold(true);
+        return;
+      }
+      holdTimer = requestAnimationFrame(tick);
+    };
+    holdTimer = requestAnimationFrame(tick);
+  }
+
+  function endHold(success){
+    if (holdTimer) cancelAnimationFrame(holdTimer);
+    holdTimer = null;
+
+    if (!success){
+      holdLabel.textContent = 'Hold to Confirm';
+      holdFill.style.width = '0%';
+      return;
+    }
+
+    holdLabel.textContent = 'Submitting…';
+    checkout().finally(()=>{
+      setTimeout(()=>{
         holdLabel.textContent = 'Hold to Confirm';
         holdFill.style.width = '0%';
+      }, 900);
+    });
+  }
+
+  async function checkout(){
+    const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
+    sessionStorage.setItem('sid', sid);
+
+    const totals = computeTotals();
+    const payload = {
+      id: `co-${Date.now()}`,
+      sid,
+      ts: new Date().toISOString(),
+      act: 'createCheckout',
+      source: 'loe-life-shop',
+      auth: isSignedIn() ? { signedIn:true, userId: getAuth()?.userId || null } : { signedIn:false },
+      cart: state.cart.map(i=>({
+        key: i.key,
+        sku: i.sku,                 // finish-specific SKU
+        productId: i.productId,
+        productHandle: i.productHandle,
+        name: i.name,
+        qty: i.qty,
+        unitPrice: i.unitPrice,
+        currency: i.currency,
+        opts: i.opts
+      })),
+      totals: {
+        subtotal: totals.subtotal,
+        estShip: totals.estShip,
+        estTax: totals.estTax,
+        total: totals.total
+      }
+    };
+
+    try{
+      if (!isSignedIn()){
+        openDrawer(authOverlay, authDrawer);
+        console.log("Checkout blocked (not signed in). Payload would be:", payload);
         return;
       }
 
-      holdLabel.textContent = 'Submitting…';
-      checkout().finally(()=>{
-        setTimeout(()=>{
-          holdLabel.textContent = 'Hold to Confirm';
-          holdFill.style.width = '0%';
-        }, 900);
-      });
-    }
+      const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('checkout');
 
-    async function checkout(){
-      const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
-      sessionStorage.setItem('sid', sid);
-
-      const totals = computeTotals();
-      const payload = {
-        id: `co-${Date.now()}`,
-        sid,
-        ts: new Date().toISOString(),
-        act: 'createCheckout',
-        source: 'loe-life-shop',
-        auth: isSignedIn() ? { signedIn:true, userId: getAuth()?.userId || null } : { signedIn:false },
-        cart: state.cart.map(i=>({
-          key: i.key,
-          productId: i.productId,
-          name: i.name,
-          qty: i.qty,
-          unitPrice: i.unitPrice,
-          currency: i.currency,
-          opts: i.opts
-        })),
-        totals: {
-          subtotal: totals.subtotal,
-          estShip: totals.estShip,
-          estTax: totals.estTax,
-          total: totals.total
-        }
-      };
-
-      try{
-        if (!isSignedIn()){
-          openDrawer(authOverlay, authDrawer);
-          console.log("Checkout blocked (not signed in). Payload would be:", payload);
-          return;
-        }
-
-        const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('checkout');
-
-        if (!endpoint || endpoint.includes('INSERT_')){
-          console.log("Checkout payload ready for OmniTok:", payload);
-          alert("Checkout queued (endpoint not set). See console for payload.");
-          return;
-        }
-
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': authToken,
-            'X-OmniTok': omniTok,
-            'X-SID': sid2
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) throw new Error('checkout actor endpoint failed');
-
-        const data = await res.json().catch(()=>null);
-        alert("Checkout created. Next step: Stripe Elements (to be wired).");
-        console.log("Checkout response:", data);
-
-      }catch(err){
-        console.error(err);
-        alert("Checkout failed (stub).");
+      if (!endpoint || endpoint.includes('INSERT_')){
+        console.log("Checkout payload ready for OmniTok:", payload);
+        alert("Checkout queued (endpoint not set). See console for payload.");
+        return;
       }
-    }
 
-    holdCheckout.addEventListener('pointerdown', (e)=>{ e.preventDefault(); beginHold(); });
-    holdCheckout.addEventListener('pointerup', ()=> endHold(true));
-    holdCheckout.addEventListener('pointercancel', ()=> endHold(false));
-    holdCheckout.addEventListener('pointerleave', ()=> endHold(false));
-    checkoutFallback.onclick = checkout;
-
-    /* ===========================
-       AUTH DRAWER TABS
-       =========================== */
-    const tabSignIn = document.getElementById('tabSignIn');
-    const tabCreate = document.getElementById('tabCreate');
-    const tabReset  = document.getElementById('tabReset');
-
-    const signInForm = document.getElementById('signInForm');
-    const createForm = document.getElementById('createForm');
-    const resetForm  = document.getElementById('resetForm');
-
-    function setTab(which){
-      [tabSignIn,tabCreate,tabReset].forEach(t=>t.classList.remove('on'));
-      tabSignIn.classList.toggle('on', which==='signIn');
-      tabCreate.classList.toggle('on', which==='create');
-      tabReset.classList.toggle('on', which==='reset');
-
-      signInForm.style.display = (which==='signIn') ? 'block' : 'none';
-      createForm.style.display = (which==='create') ? 'block' : 'none';
-      resetForm.style.display  = (which==='reset')  ? 'block' : 'none';
-
-      // ✅ FIXED: no more checkCreate()
-      if (which === 'create') checkCreateValidity();
-      if (which === 'reset') checkReset();
-    }
-    tabSignIn.onclick = ()=> setTab('signIn');
-    tabCreate.onclick = ()=> setTab('create');
-    tabReset.onclick  = ()=> setTab('reset');
-
-    function lockAuthTabs(){
-      [tabSignIn, tabCreate, tabReset].forEach(b=>{
-        b.disabled = true;
-        b.style.opacity = '0.55';
-        b.style.pointerEvents = 'none';
-      });
-    }
-    function unlockAuthTabs(){
-      [tabSignIn, tabCreate, tabReset].forEach(b=>{
-        b.disabled = false;
-        b.style.opacity = '';
-        b.style.pointerEvents = '';
-      });
-    }
-
-    /* ===========================
-       SIGN IN (stub)
-       =========================== */
-    signInForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const siEmail = document.getElementById('siEmail');
-      const siPass = document.getElementById('siPass');
-      const payload = { act:'login', email: siEmail.value.trim(), password: siPass.value, ts:new Date().toISOString() };
-      try{
-        const cfg = await getOmniTok('login');
-        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
-          console.log("Login payload ready:", payload);
-          setSignedIn({ userId:'dev-user' });
-          alert("Signed in (dev stub).");
-          closeDrawer(authOverlay, authDrawer);
-          return;
-        }
-      }catch(err){ console.error(err); }
-    });
-
-    /* ===========================
-       CREATE ACCOUNT (shipping/billing + password)
-       =========================== */
-    const billSame = document.getElementById('billSame');
-    const billingBlock = document.getElementById('billingBlock');
-
-    function syncBillingVisibility(){
-      const same = billSame?.checked;
-      if (billingBlock) billingBlock.style.display = same ? 'none' : 'block';
-    }
-    billSame?.addEventListener('change', syncBillingVisibility);
-    syncBillingVisibility();
-
-    const caEmailErr = document.getElementById('caEmailErr');
-    const caStrengthBar = document.getElementById('caStrengthBar');
-    const caStrengthText = document.getElementById('caStrengthText');
-    const caMatchMsg = document.getElementById('caMatchMsg');
-    const doCreate = document.getElementById('doCreate');
-
-    function getShipping(){
-      return {
-        line1: document.getElementById('sLine1').value.trim(),
-        line2: document.getElementById('sLine2').value.trim() || null,
-        city: document.getElementById('sCity').value.trim(),
-        state: document.getElementById('sState').value.trim(),
-        zip: document.getElementById('sZip').value.trim(),
-        country: document.getElementById('sCountry').value.trim() || 'US'
-      };
-    }
-    function getBilling(){
-      if (document.getElementById('billSame').checked) return { ...getShipping() };
-      return {
-        line1: document.getElementById('bLine1').value.trim(),
-        line2: document.getElementById('bLine2').value.trim() || null,
-        city: document.getElementById('bCity').value.trim(),
-        state: document.getElementById('bState').value.trim(),
-        zip: document.getElementById('bZip').value.trim(),
-        country: document.getElementById('bCountry').value.trim() || 'US'
-      };
-    }
-
-    function checkCreateValidity(){
-      const name = document.getElementById('caName').value.trim();
-      const email = document.getElementById('caEmail').value.trim();
-      const phone = digitsOnly(document.getElementById('caPhone').value);
-      const sms = document.getElementById('caSms').checked;
-
-      const emailOk = isValidEmailDomain(email);
-      caEmailErr.style.display = (!email || emailOk) ? 'none' : 'block';
-
-      const phoneOk = !sms ? true : (phone.length >= 10);
-
-      const ship = getShipping();
-      const shipOk = ship.line1 && ship.city && ship.state && ship.zip && ship.country;
-
-      const same = document.getElementById('billSame').checked;
-      const bill = getBilling();
-      const billOk = same ? shipOk : (bill.line1 && bill.city && bill.state && bill.zip && bill.country);
-
-      const pw1 = document.getElementById('caPass').value || '';
-      const pw2 = document.getElementById('caPass2').value || '';
-      const matchOk = pw1 && pw1 === pw2;
-      caMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
-
-      const score = strengthScore(pw1);
-      applyStrength(score, caStrengthBar, caStrengthText);
-      const strongEnough = (score >= 4);
-
-      doCreate.disabled = !(name.length >= 2 && emailOk && phoneOk && shipOk && billOk && matchOk && strongEnough);
-    }
-
-    ['input','change'].forEach(evt=>{
-      document.getElementById('createForm').addEventListener(evt, checkCreateValidity, true);
-    });
-    checkCreateValidity();
-
-    createForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      checkCreateValidity();
-      if (doCreate.disabled) return;
-
-      const payload = {
-        act: 'signup',
-        ts: new Date().toISOString(),
-        source: 'loe-life-shop',
-        profile: {
-          fullName: document.getElementById('caName').value.trim(),
-          email: document.getElementById('caEmail').value.trim(),
-          phone: digitsOnly(document.getElementById('caPhone').value) || null,
-          smsConsent: document.getElementById('caSms').checked,
-          shipping: getShipping(),
-          billing: getBilling()
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': authToken,
+          'X-OmniTok': omniTok,
+          'X-SID': sid2
         },
-        password: document.getElementById('caPass').value
-      };
+        body: JSON.stringify(payload)
+      });
 
-      try{
-        const cfg = await getOmniTok('signup');
+      if (!res.ok) throw new Error('checkout actor endpoint failed');
 
-        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
-          console.log('CreateAccount payload ready:', payload);
-          alert('Create account queued (endpoint not set).');
-          return;
-        }
+      const data = await res.json().catch(()=>null);
+      alert("Checkout created. Next step: Stripe Elements (to be wired).");
+      console.log("Checkout response:", data);
 
-        const res = await fetch(cfg.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type':'application/json',
-            'x-auth-token': cfg.authToken,
-            'X-OmniTok': cfg.OmniTok,
-            'X-SID': cfg.sid,
-            'x-job-id': crypto.randomUUID()
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) throw new Error('signup actor endpoint failed');
-
-        alert('Account created. Please sign in.');
-        createForm.reset();
-        document.getElementById('billSame').checked = true;
-        syncBillingVisibility();
-        checkCreateValidity();
-        setTab('signIn');
-      }catch(err){
-        console.error(err);
-        alert('Create account failed.');
-      }
-    });
-
-    /* ===========================
-       RESET PASSWORD (code flow)
-       =========================== */
-    const rpEmail = document.getElementById('rpEmail');
-    const rpPhone = document.getElementById('rpPhone');
-    const rpSmsAlso = document.getElementById('rpSmsAlso');
-    const rpRequestCode = document.getElementById('rpRequestCode');
-    const rpCode = document.getElementById('rpCode');
-    const rpPass = document.getElementById('rpPass');
-    const rpPass2 = document.getElementById('rpPass2');
-    const rpStrengthBar = document.getElementById('rpStrengthBar');
-    const rpStrengthText = document.getElementById('rpStrengthText');
-    const rpMatchMsg = document.getElementById('rpMatchMsg');
-    const doReset = document.getElementById('doReset');
-
-    let rpCodeSent = false;
-
-    function checkReset(){
-      const emailOk = isValidEmailDomain(rpEmail.value);
-      const phoneOk = /^\d{10}$/.test(digitsOnly(rpPhone.value));
-
-      rpRequestCode.disabled = !(emailOk && phoneOk && !rpCodeSent);
-
-      const codeOk = !rpCode.disabled && /^[0-9]{6}$/.test((rpCode.value||'').trim());
-
-      const pw1 = rpPass.value || '';
-      const pw2 = rpPass2.value || '';
-      const matchOk = pw1 && pw1 === pw2;
-      rpMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
-
-      const score = strengthScore(pw1);
-      applyStrength(score, rpStrengthBar, rpStrengthText);
-      const strongEnough = (score >= 4);
-
-      doReset.disabled = !(emailOk && phoneOk && codeOk && matchOk && strongEnough);
+    }catch(err){
+      console.error(err);
+      alert("Checkout failed (stub).");
     }
+  }
 
-    ['input','change'].forEach(evt=>{
-      rpEmail.addEventListener(evt, checkReset);
-      rpPhone.addEventListener(evt, ()=>{ rpPhone.value = digitsOnly(rpPhone.value).slice(0,10); checkReset(); });
-      rpSmsAlso.addEventListener(evt, checkReset);
-      rpCode.addEventListener(evt, ()=>{ rpCode.value = digitsOnly(rpCode.value).slice(0,6); checkReset(); });
-      rpPass.addEventListener(evt, checkReset);
-      rpPass2.addEventListener(evt, checkReset);
+  holdCheckout.addEventListener('pointerdown', (e)=>{ e.preventDefault(); beginHold(); });
+  holdCheckout.addEventListener('pointerup', ()=> endHold(true));
+  holdCheckout.addEventListener('pointercancel', ()=> endHold(false));
+  holdCheckout.addEventListener('pointerleave', ()=> endHold(false));
+  checkoutFallback.onclick = checkout;
+
+  /* ===========================
+     AUTH DRAWER TABS
+     =========================== */
+  const tabSignIn = document.getElementById('tabSignIn');
+  const tabCreate = document.getElementById('tabCreate');
+  const tabReset  = document.getElementById('tabReset');
+
+  const signInForm = document.getElementById('signInForm');
+  const createForm = document.getElementById('createForm');
+  const resetForm  = document.getElementById('resetForm');
+
+  function setTab(which){
+    [tabSignIn,tabCreate,tabReset].forEach(t=>t.classList.remove('on'));
+    tabSignIn.classList.toggle('on', which==='signIn');
+    tabCreate.classList.toggle('on', which==='create');
+    tabReset.classList.toggle('on', which==='reset');
+
+    signInForm.style.display = (which==='signIn') ? 'block' : 'none';
+    createForm.style.display = (which==='create') ? 'block' : 'none';
+    resetForm.style.display  = (which==='reset')  ? 'block' : 'none';
+
+    if (which === 'create') checkCreateValidity();
+    if (which === 'reset') checkReset();
+  }
+  tabSignIn.onclick = ()=> setTab('signIn');
+  tabCreate.onclick = ()=> setTab('create');
+  tabReset.onclick  = ()=> setTab('reset');
+
+  function lockAuthTabs(){
+    [tabSignIn, tabCreate, tabReset].forEach(b=>{
+      b.disabled = true;
+      b.style.opacity = '0.55';
+      b.style.pointerEvents = 'none';
     });
-
-    rpRequestCode.addEventListener('click', async ()=>{
-      if (rpRequestCode.disabled) return;
-
-      lockAuthTabs();
-      setBtnLoading(rpRequestCode, true);
-
-      try{
-        const email = rpEmail.value.trim();
-        const phone = digitsOnly(rpPhone.value);
-        const smsAlso = !!rpSmsAlso.checked;
-
-        await getOmniTok({ act:'reset_code', email, phone, smsAlso });
-
-        rpCode.disabled = false;
-        rpCodeSent = true;
-        rpRequestCode.textContent = 'Enter Code';
-      }catch(err){
-        console.error(err);
-        rpCodeSent = false;
-        rpRequestCode.textContent = 'Request Code';
-      }finally{
-        rpRequestCode.classList.remove('loading');
-        rpRequestCode.disabled = rpCodeSent;
-        unlockAuthTabs();
-        checkReset();
-      }
+  }
+  function unlockAuthTabs(){
+    [tabSignIn, tabCreate, tabReset].forEach(b=>{
+      b.disabled = false;
+      b.style.opacity = '';
+      b.style.pointerEvents = '';
     });
+  }
 
-    resetForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      checkReset();
-      if (doReset.disabled) return;
-
-      lockAuthTabs();
-      setBtnLoading(doReset, true);
-
-      const payload = {
-        act:'reset',
-        email: rpEmail.value.trim(),
-        phone: digitsOnly(rpPhone.value),
-        smsAlso: !!rpSmsAlso.checked,
-        verificationCode: (rpCode.value||'').trim(),
-        newPassword: rpPass.value,
-        ts: new Date().toISOString()
-      };
-
-      try{
-        const cfg = await getOmniTok('reset');
-        if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
-          console.log("Reset payload ready:", payload);
-          alert("Reset queued (endpoint not set).");
-          return;
-        }
-
-        const res = await fetch(cfg.endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': cfg.authToken,
-            'X-OmniTok': cfg.OmniTok,
-            'X-SID': cfg.sid,
-            'x-job-id': crypto.randomUUID()
-          },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) throw new Error('reset actor endpoint failed');
-        alert('Password reset successful. Please sign in.');
-
-        resetForm.reset();
-        rpCodeSent = false;
-        rpCode.disabled = true;
-        rpRequestCode.textContent = 'Request Code';
-        setTab('signIn');
-      }catch(err){
-        console.error(err);
-        alert('Reset failed.');
-      }finally{
-        setBtnLoading(doReset, false);
-        unlockAuthTabs();
-        checkReset();
-      }
-    });
-
-    fakeSignToggle.onclick = ()=>{
-      if (isSignedIn()){
-        setSignedIn(null);
-        alert("Signed out (dev).");
-      } else {
+  /* ===========================
+     SIGN IN (stub)
+     =========================== */
+  signInForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const siEmail = document.getElementById('siEmail');
+    const siPass = document.getElementById('siPass');
+    const payload = { act:'login', email: siEmail.value.trim(), password: siPass.value, ts:new Date().toISOString() };
+    try{
+      const cfg = await getOmniTok('login');
+      if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+        console.log("Login payload ready:", payload);
         setSignedIn({ userId:'dev-user' });
-        alert("Signed in (dev).");
+        alert("Signed in (dev stub).");
+        closeDrawer(authOverlay, authDrawer);
+        return;
       }
+    }catch(err){ console.error(err); }
+  });
+
+  /* ===========================
+     CREATE ACCOUNT (shipping/billing + password)
+     =========================== */
+  const billSame = document.getElementById('billSame');
+  const billingBlock = document.getElementById('billingBlock');
+
+  function syncBillingVisibility(){
+    const same = billSame?.checked;
+    if (billingBlock) billingBlock.style.display = same ? 'none' : 'block';
+  }
+  billSame?.addEventListener('change', syncBillingVisibility);
+  syncBillingVisibility();
+
+  const caEmailErr = document.getElementById('caEmailErr');
+  const caStrengthBar = document.getElementById('caStrengthBar');
+  const caStrengthText = document.getElementById('caStrengthText');
+  const caMatchMsg = document.getElementById('caMatchMsg');
+  const doCreate = document.getElementById('doCreate');
+
+  function getShipping(){
+    return {
+      line1: document.getElementById('sLine1').value.trim(),
+      line2: document.getElementById('sLine2').value.trim() || null,
+      city: document.getElementById('sCity').value.trim(),
+      state: document.getElementById('sState').value.trim(),
+      zip: document.getElementById('sZip').value.trim(),
+      country: document.getElementById('sCountry').value.trim() || 'US'
+    };
+  }
+  function getBilling(){
+    if (document.getElementById('billSame').checked) return { ...getShipping() };
+    return {
+      line1: document.getElementById('bLine1').value.trim(),
+      line2: document.getElementById('bLine2').value.trim() || null,
+      city: document.getElementById('bCity').value.trim(),
+      state: document.getElementById('bState').value.trim(),
+      zip: document.getElementById('bZip').value.trim(),
+      country: document.getElementById('bCountry').value.trim() || 'US'
+    };
+  }
+
+  function checkCreateValidity(){
+    const name = document.getElementById('caName').value.trim();
+    const email = document.getElementById('caEmail').value.trim();
+    const phone = digitsOnly(document.getElementById('caPhone').value);
+    const sms = document.getElementById('caSms').checked;
+
+    const emailOk = isValidEmailDomain(email);
+    caEmailErr.style.display = (!email || emailOk) ? 'none' : 'block';
+
+    const phoneOk = !sms ? true : (phone.length >= 10);
+
+    const ship = getShipping();
+    const shipOk = ship.line1 && ship.city && ship.state && ship.zip && ship.country;
+
+    const same = document.getElementById('billSame').checked;
+    const bill = getBilling();
+    const billOk = same ? shipOk : (bill.line1 && bill.city && bill.state && bill.zip && bill.country);
+
+    const pw1 = document.getElementById('caPass').value || '';
+    const pw2 = document.getElementById('caPass2').value || '';
+    const matchOk = pw1 && pw1 === pw2;
+    caMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
+
+    const score = strengthScore(pw1);
+    applyStrength(score, caStrengthBar, caStrengthText);
+    const strongEnough = (score >= 4);
+
+    doCreate.disabled = !(name.length >= 2 && emailOk && phoneOk && shipOk && billOk && matchOk && strongEnough);
+  }
+
+  ['input','change'].forEach(evt=>{
+    document.getElementById('createForm').addEventListener(evt, checkCreateValidity, true);
+  });
+  checkCreateValidity();
+
+  createForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    checkCreateValidity();
+    if (doCreate.disabled) return;
+
+    const payload = {
+      act: 'signup',
+      ts: new Date().toISOString(),
+      source: 'loe-life-shop',
+      profile: {
+        fullName: document.getElementById('caName').value.trim(),
+        email: document.getElementById('caEmail').value.trim(),
+        phone: digitsOnly(document.getElementById('caPhone').value) || null,
+        smsConsent: document.getElementById('caSms').checked,
+        shipping: getShipping(),
+        billing: getBilling()
+      },
+      password: document.getElementById('caPass').value
     };
 
-    /* ===========================
-       Drawer events
-       =========================== */
-    cartBtn.onclick = ()=> openDrawer(cartOverlay, cartDrawer);
-    closeCart.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
-    cartOverlay.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
+    try{
+      const cfg = await getOmniTok('signup');
 
-    authBtn.onclick = ()=> openDrawer(authOverlay, authDrawer);
-    closeAuth.onclick = ()=> closeDrawer(authOverlay, authDrawer);
-    authOverlay.onclick = ()=> closeDrawer(authOverlay, authDrawer);
+      if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+        console.log('CreateAccount payload ready:', payload);
+        alert('Create account queued (endpoint not set).');
+        return;
+      }
 
-    openFiltersMobile.onclick = ()=> openDrawer(filtersOverlay, filtersDrawer);
-    closeFilters.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
-    filtersOverlay.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
+      const res = await fetch(cfg.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'x-auth-token': cfg.authToken,
+          'X-OmniTok': cfg.OmniTok,
+          'X-SID': cfg.sid,
+          'x-job-id': crypto.randomUUID()
+        },
+        body: JSON.stringify(payload)
+      });
 
-    // Desktop filter buttons
-    document.getElementById('clearFilters').onclick = ()=>{
-      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
-      render();
-      syncFilterPills();
+      if (!res.ok) throw new Error('signup actor endpoint failed');
+
+      alert('Account created. Please sign in.');
+      createForm.reset();
+      document.getElementById('billSame').checked = true;
+      syncBillingVisibility();
+      checkCreateValidity();
+      setTab('signIn');
+    }catch(err){
+      console.error(err);
+      alert('Create account failed.');
+    }
+  });
+
+  /* ===========================
+     RESET PASSWORD (code flow)
+     =========================== */
+  const rpEmail = document.getElementById('rpEmail');
+  const rpPhone = document.getElementById('rpPhone');
+  const rpSmsAlso = document.getElementById('rpSmsAlso');
+  const rpRequestCode = document.getElementById('rpRequestCode');
+  const rpCode = document.getElementById('rpCode');
+  const rpPass = document.getElementById('rpPass');
+  const rpPass2 = document.getElementById('rpPass2');
+  const rpStrengthBar = document.getElementById('rpStrengthBar');
+  const rpStrengthText = document.getElementById('rpStrengthText');
+  const rpMatchMsg = document.getElementById('rpMatchMsg');
+  const doReset = document.getElementById('doReset');
+
+  let rpCodeSent = false;
+
+  function checkReset(){
+    const emailOk = isValidEmailDomain(rpEmail.value);
+    const phoneOk = /^\d{10}$/.test(digitsOnly(rpPhone.value));
+
+    rpRequestCode.disabled = !(emailOk && phoneOk && !rpCodeSent);
+
+    const codeOk = !rpCode.disabled && /^[0-9]{6}$/.test((rpCode.value||'').trim());
+
+    const pw1 = rpPass.value || '';
+    const pw2 = rpPass2.value || '';
+    const matchOk = pw1 && pw1 === pw2;
+    rpMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
+
+    const score = strengthScore(pw1);
+    applyStrength(score, rpStrengthBar, rpStrengthText);
+    const strongEnough = (score >= 4);
+
+    doReset.disabled = !(emailOk && phoneOk && codeOk && matchOk && strongEnough);
+  }
+
+  ['input','change'].forEach(evt=>{
+    rpEmail.addEventListener(evt, checkReset);
+    rpPhone.addEventListener(evt, ()=>{ rpPhone.value = digitsOnly(rpPhone.value).slice(0,10); checkReset(); });
+    rpSmsAlso.addEventListener(evt, checkReset);
+    rpCode.addEventListener(evt, ()=>{ rpCode.value = digitsOnly(rpCode.value).slice(0,6); checkReset(); });
+    rpPass.addEventListener(evt, checkReset);
+    rpPass2.addEventListener(evt, checkReset);
+  });
+
+  rpRequestCode.addEventListener('click', async ()=>{
+    if (rpRequestCode.disabled) return;
+
+    lockAuthTabs();
+    setBtnLoading(rpRequestCode, true);
+
+    try{
+      const email = rpEmail.value.trim();
+      const phone = digitsOnly(rpPhone.value);
+      const smsAlso = !!rpSmsAlso.checked;
+
+      await getOmniTok({ act:'reset_code', email, phone, smsAlso });
+
+      rpCode.disabled = false;
+      rpCodeSent = true;
+      rpRequestCode.textContent = 'Enter Code';
+    }catch(err){
+      console.error(err);
+      rpCodeSent = false;
+      rpRequestCode.textContent = 'Request Code';
+    }finally{
+      rpRequestCode.classList.remove('loading');
+      rpRequestCode.disabled = rpCodeSent;
+      unlockAuthTabs();
+      checkReset();
+    }
+  });
+
+  resetForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    checkReset();
+    if (doReset.disabled) return;
+
+    lockAuthTabs();
+    setBtnLoading(doReset, true);
+
+    const payload = {
+      act:'reset',
+      email: rpEmail.value.trim(),
+      phone: digitsOnly(rpPhone.value),
+      smsAlso: !!rpSmsAlso.checked,
+      verificationCode: (rpCode.value||'').trim(),
+      newPassword: rpPass.value,
+      ts: new Date().toISOString()
     };
-    document.getElementById('applyFilters').onclick = ()=> render();
-    document.getElementById('resetFilters').onclick = ()=>{
-      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
-      state.q = "";
-      q.value = "";
-      render();
-      syncFilterPills();
-    };
 
-    // Mobile filter footer buttons
-    document.getElementById('applyFiltersMobile').onclick = ()=>{
-      render();
-      closeDrawer(filtersOverlay, filtersDrawer);
-    };
-    document.getElementById('resetFiltersMobile').onclick = ()=>{
-      state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
-      state.q = "";
-      q.value = "";
-      render();
-      syncFilterPills();
-    };
+    try{
+      const cfg = await getOmniTok('reset');
+      if (!cfg.endpoint || cfg.endpoint.includes('INSERT_')){
+        console.log("Reset payload ready:", payload);
+        alert("Reset queued (endpoint not set).");
+        return;
+      }
 
-    // Search
-    q.addEventListener('input', ()=>{
-      state.q = q.value || "";
-      render();
-    });
+      const res = await fetch(cfg.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': cfg.authToken,
+          'X-OmniTok': cfg.OmniTok,
+          'X-SID': cfg.sid,
+          'x-job-id': crypto.randomUUID()
+        },
+        body: JSON.stringify(payload)
+      });
 
-    // Init
-async function initShop(){
-  loadCart();
+      if (!res.ok) throw new Error('reset actor endpoint failed');
+      alert('Password reset successful. Please sign in.');
 
-  await loadCatalogV2();   // <-- key change
+      resetForm.reset();
+      rpCodeSent = false;
+      rpCode.disabled = true;
+      rpRequestCode.textContent = 'Request Code';
+      setTab('signIn');
+    }catch(err){
+      console.error(err);
+      alert('Reset failed.');
+    }finally{
+      setBtnLoading(doReset, false);
+      unlockAuthTabs();
+      checkReset();
+    }
+  });
 
-  buildFilters();
-  buildMobileFilters();
-  render();
-}
+  fakeSignToggle.onclick = ()=>{
+    if (isSignedIn()){
+      setSignedIn(null);
+      alert("Signed out (dev).");
+    } else {
+      setSignedIn({ userId:'dev-user' });
+      alert("Signed in (dev).");
+    }
+  };
 
-initShop().catch(err=>{
-  console.error(err);
-  // Fail-safe: show empty state but don’t crash the whole page
-  PRODUCTS = [];
-  buildFilters();
-  buildMobileFilters();
-  render();
-});
+  /* ===========================
+     Drawer events
+     =========================== */
+  cartBtn.onclick = ()=> openDrawer(cartOverlay, cartDrawer);
+  closeCart.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
+  cartOverlay.onclick = ()=> closeDrawer(cartOverlay, cartDrawer);
 
+  authBtn.onclick = ()=> openDrawer(authOverlay, authDrawer);
+  closeAuth.onclick = ()=> closeDrawer(authOverlay, authDrawer);
+  authOverlay.onclick = ()=> closeDrawer(authOverlay, authDrawer);
 
-    // ✅ FIXED: no more checkCreate()
+  openFiltersMobile.onclick = ()=> openDrawer(filtersOverlay, filtersDrawer);
+  closeFilters.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
+  filtersOverlay.onclick = ()=> closeDrawer(filtersOverlay, filtersDrawer);
+
+  // Desktop filter buttons
+  document.getElementById('clearFilters').onclick = ()=>{
+    state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+    render();
+    syncFilterPills();
+  };
+  document.getElementById('applyFilters').onclick = ()=> render();
+  document.getElementById('resetFilters').onclick = ()=>{
+    state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+    state.q = "";
+    q.value = "";
+    render();
+    syncFilterPills();
+  };
+
+  // Mobile filter footer buttons
+  document.getElementById('applyFiltersMobile').onclick = ()=>{
+    render();
+    closeDrawer(filtersOverlay, filtersDrawer);
+  };
+  document.getElementById('resetFiltersMobile').onclick = ()=>{
+    state.filters = { style:null, fit:null, size:null, color:null, graphic:null };
+    state.q = "";
+    q.value = "";
+    render();
+    syncFilterPills();
+  };
+
+  // Search
+  q.addEventListener('input', ()=>{
+    state.q = q.value || "";
+    render();
+  });
+
+  /* ===========================
+     Init
+     =========================== */
+  async function initShop(){
+    loadCart();
+
+    await loadCatalogV3();
+
+    buildFilters();
+    buildMobileFilters();
+    render();
+
+    // ensure auth helpers are initialized
     checkCreateValidity();
     checkReset();
-  </script>
+  }
+
+  initShop().catch(err=>{
+    console.error(err);
+    PRODUCTS = [];
+    buildFilters();
+    buildMobileFilters();
+    render();
+  });
+</script>
 </body>
 </html>
