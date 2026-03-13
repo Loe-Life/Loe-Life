@@ -1073,6 +1073,32 @@
     transition: none !important;
   }
 }
+
+/* =========================================================
+   PASSWORD STYLE
+   ========================================================= */
+
+   /* Password UX (copied from shop patterns, minimal) */
+.password-wrapper{ position: relative; width: 100%; margin-top: 10px; }
+.password-wrapper .review-input{ padding-right: 2.6rem; }
+.reveal-btn{
+  position:absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10,10,18,0.55);
+  color: #ffd180; cursor: pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.strength-bar{
+  width: 0%; height: 4px; border-radius: 999px; background: red; margin-top: 6px;
+  transition: width .2s ease, background .2s ease;
+}
+.strength-text{ font-size: .85rem; color: var(--muted); margin-top: 2px; }
+.match-msg{ display:none; font-size: .85rem; color: var(--accent-red); margin-top: 6px; }
+
+@media (max-width: 640px){
+  #contactPopup input, #contactPopup select, #contactPopup textarea { font-size: 16px; }
+}
   </style>
 </head>
 
@@ -1211,8 +1237,26 @@
               </label>
             </div>
           </div>
-
+            
           <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:10px 0;">
+
+          <h3 style="margin:0; font-size:1.05rem;">Account Password</h3>
+          <p class="small" style="margin:6px 0 0;">
+           Create a password to sign in later and speed up checkout.
+          </p>
+
+          <div class="password-wrapper">
+            <input id="cpPass" class="review-input" type="password" autocomplete="new-password" placeholder="Create password" required>
+              <button type="button" class="reveal-btn" data-target="cpPass" aria-label="Reveal password">◉</button>
+            </div>
+            <div id="cpStrengthBar" class="strength-bar"></div>
+            <div id="cpStrengthText" class="strength-text">Strength: —</div>
+
+            <div class="password-wrapper">
+              <input id="cpPass2" class="review-input" type="password" autocomplete="new-password" placeholder="Confirm password" required>
+              <button type="button" class="reveal-btn" data-target="cpPass2" aria-label="Reveal password confirmation">◉</button>
+            </div>
+          <div id="cpMatchMsg" class="match-msg">Passwords do not match.</div>
 
           <!-- Optional SMS consent (transactional + compliant language) -->
           <label class="review-label" style="gap:10px;">
@@ -1227,7 +1271,7 @@
 
           <div class="contact-actions">
             <button class="btn" id="contactCancelBtn" type="button">Close</button>
-            <button class="btn primary" id="contactSubmitBtn" type="submit">Create Profile</button>
+            <button class="btn primary" id="contactSubmitBtn" type="submit" disabled>Create Profile</button>
           </div>
 
           <div id="contactToast" class="contact-toast" role="status" aria-live="polite">
@@ -1307,7 +1351,7 @@
         </p>
         <ul class="list">
           <li><strong>We do not sell your data.</strong></li>
-          <li><strong>We do not store passwords</strong> in this landing page.</li>
+          <li><strong>Passwords are submitted securely to create your account</strong>  and are not stored in page code or local storage.</li>
           <li><strong>Email &amp; phone</strong> are used for receipts, shipping updates, and support responses.</li>
           <li><strong>SMS is optional</strong> and requires explicit opt‑in. Reply STOP to opt out.</li>
           <li><strong>Data minimization:</strong> We collect only what we need to fulfill orders and support you.</li>
@@ -1724,141 +1768,250 @@
       document.getElementById('privacyCloseBtn')?.addEventListener('click', () => closeModal('privacyPopup'));
     })();
 
-    /* ===========================
-       Create Profile modal wiring (Profile + "Create Profile" button)
-       =========================== */
-    (function createProfileModal() {
-      const profileBtn = document.getElementById('profileBtn');
-      const supportBtn = document.getElementById('supportBtn');
-      const form = document.getElementById('contactForm');
-      const cancelBtn = document.getElementById('contactCancelBtn');
-      const toast = document.getElementById('contactToast');
+/* ===========================
+   Create Profile modal wiring (Profile + "Create Profile" button)
+   + Password fields + validation (shop parity)
+   =========================== */
+(function createProfileModal() {
+  const profileBtn = document.getElementById('profileBtn');
+  const supportBtn = document.getElementById('supportBtn');
+  const form = document.getElementById('contactForm');
+  const cancelBtn = document.getElementById('contactCancelBtn');
+  const toast = document.getElementById('contactToast');
 
-      const billSame = document.getElementById('billSame');
-      const billingBlock = document.getElementById('billingBlock');
+  const billSame = document.getElementById('billSame');
+  const billingBlock = document.getElementById('billingBlock');
 
-      function showToast(msg) {
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2200);
+  // new password refs
+  const cpPass = document.getElementById('cpPass');
+  const cpPass2 = document.getElementById('cpPass2');
+  const cpStrengthBar = document.getElementById('cpStrengthBar');
+  const cpStrengthText = document.getElementById('cpStrengthText');
+  const cpMatchMsg = document.getElementById('cpMatchMsg');
+  const submitBtn = document.getElementById('contactSubmitBtn');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function openCreateProfile() {
+    openModal('contactPopup', '#cFullName');
+  }
+
+  profileBtn?.addEventListener('click', (e) => { e.preventDefault(); openCreateProfile(); });
+  supportBtn?.addEventListener('click', () => openCreateProfile());
+  cancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
+
+  function syncBillingVisibility() {
+    const same = billSame.checked;
+    billingBlock.style.display = same ? 'none' : 'block';
+  }
+  billSame?.addEventListener('change', syncBillingVisibility);
+  syncBillingVisibility();
+
+  // ---------- helpers (shop parity) ----------
+  const digitsOnly = (s) => (s||'').replace(/\D/g,'');
+  function isValidEmailDomain(email){
+    const v = (email || '').trim();
+    const at = v.lastIndexOf('@');
+    if (at < 1) return false;
+    const domain = v.slice(at + 1);
+    return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain);
+  }
+
+  function strengthScore(pw){
+    let score = 0;
+    if (!pw) return 0;
+    if (pw.length >= 6) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    if (pw.length >= 10) score++;
+    return score; // 0..5
+  }
+
+  function applyStrength(score, barEl, textEl){
+    const widths = ['0%','20%','40%','60%','80%','100%'];
+    const colors = ['red','orangered','orange','gold','yellowgreen','green'];
+    const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
+    barEl.style.width = widths[score];
+    barEl.style.background = colors[score];
+    textEl.textContent = `Strength: ${labels[score]}`;
+  }
+
+  // reveal toggles for the modal (scoped)
+  document.querySelectorAll('#contactPopup .reveal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      if (!input) return;
+      const hidden = input.type === 'password';
+      input.type = hidden ? 'text' : 'password';
+      btn.textContent = hidden ? '◎' : '◉';
+    });
+  });
+
+  function getShipping(){
+    return {
+      line1: document.getElementById('sLine1').value.trim(),
+      line2: document.getElementById('sLine2').value.trim() || null,
+      city: document.getElementById('sCity').value.trim(),
+      state: document.getElementById('sState').value.trim(),
+      zip: document.getElementById('sZip').value.trim(),
+      country: document.getElementById('sCountry').value.trim() || 'US'
+    };
+  }
+
+  function getBilling(){
+    if (document.getElementById('billSame').checked) return { ...getShipping() };
+    return {
+      line1: document.getElementById('bLine1').value.trim(),
+      line2: document.getElementById('bLine2').value.trim() || null,
+      city: document.getElementById('bCity').value.trim(),
+      state: document.getElementById('bState').value.trim(),
+      zip: document.getElementById('bZip').value.trim(),
+      country: document.getElementById('bCountry').value.trim() || 'US'
+    };
+  }
+
+  function validateSmsPhoneRule(){
+    const sms = document.getElementById('smsConsent');
+    const phone = document.getElementById('cPhone');
+    if (!sms?.checked) return true;
+    return digitsOnly(phone.value).length >= 10; // shop rule: require usable phone if opted-in
+  }
+
+  function checkCreateProfileValidity(){
+    const name = document.getElementById('cFullName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const phoneDigits = digitsOnly(document.getElementById('cPhone').value);
+    const sms = document.getElementById('smsConsent').checked;
+
+    const emailOk = isValidEmailDomain(email);
+    const phoneOk = !sms ? true : (phoneDigits.length >= 10);
+
+    const ship = getShipping();
+    const shipOk = ship.line1 && ship.city && ship.state && ship.zip && ship.country;
+
+    const same = document.getElementById('billSame').checked;
+    const bill = getBilling();
+    const billOk = same ? shipOk : (bill.line1 && bill.city && bill.state && bill.zip && bill.country);
+
+    const pw1 = (cpPass?.value || '');
+    const pw2 = (cpPass2?.value || '');
+    const matchOk = pw1 && (pw1 === pw2);
+
+    cpMatchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
+
+    const score = strengthScore(pw1);
+    applyStrength(score, cpStrengthBar, cpStrengthText);
+    const strongEnough = (score >= 4);
+
+    // final gate
+    const ok = (name.length >= 2 && emailOk && phoneOk && shipOk && billOk && matchOk && strongEnough);
+    submitBtn.disabled = !ok;
+  }
+
+  // attach live validation
+  ['input','change'].forEach(evt=>{
+    form?.addEventListener(evt, checkCreateProfileValidity, true);
+  });
+
+  // initialize disabled state
+  checkCreateProfileValidity();
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // re-check before submit
+    checkCreateProfileValidity();
+    if (submitBtn.disabled) {
+      showToast("Please complete all required fields.");
+      return;
+    }
+
+    if (!validateSmsPhoneRule()) {
+      showToast("Please add a 10-digit phone number for SMS updates (or uncheck SMS).");
+      document.getElementById('cPhone')?.focus();
+      return;
+    }
+
+    const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
+    sessionStorage.setItem('sid', sid);
+
+    const shipping = getShipping();
+    const billing = getBilling();
+
+    const payload = {
+      id: `p-${Date.now()}`,
+      sid,
+      ts: new Date().toISOString(),
+      act: 'createProfile',
+      source: 'loe-life-landing',
+      profile: {
+        fullName: document.getElementById('cFullName').value.trim(),
+        email: document.getElementById('cEmail').value.trim(),
+        phone: digitsOnly(document.getElementById('cPhone').value) || null,
+        shipping,
+        billing,
+        smsConsent: document.getElementById('smsConsent').checked ? {
+          consent: true,
+          consentedAt: new Date().toISOString(),
+          consentText: "Optional SMS updates: transactional order/account messages. Msg&data rates may apply. Reply STOP to cancel, HELP for help. Consent is not required to purchase."
+        } : { consent: false }
+      },
+      // ✅ password added (sent only at submit; do not store)
+      password: cpPass.value
+    };
+
+    try {
+      const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('createProfile');
+
+      if (!endpoint || endpoint.includes('INSERT_')) {
+        // DO NOT console.log password
+        const safe = { ...payload, password: "[REDACTED]" };
+        console.log("CreateProfile payload ready for OmniTok:", safe);
+
+        showToast("Profile queued (endpoint not set).");
+        closeModal('contactPopup');
+        form.reset();
+
+        // reset defaults
+        document.getElementById('billSame').checked = true;
+        syncBillingVisibility();
+        submitBtn.disabled = true;
+        checkCreateProfileValidity();
+        return;
       }
 
-      function openCreateProfile() {
-        openModal('contactPopup', '#cFullName');
-      }
-
-      profileBtn?.addEventListener('click', (e) => { e.preventDefault(); openCreateProfile(); });
-      supportBtn?.addEventListener('click', () => openCreateProfile());
-      cancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
-
-      function syncBillingVisibility() {
-        const same = billSame.checked;
-        billingBlock.style.display = same ? 'none' : 'block';
-      }
-      billSame?.addEventListener('change', syncBillingVisibility);
-      syncBillingVisibility();
-
-      function validateSms() {
-        const sms = document.getElementById('smsConsent');
-        const phone = document.getElementById('cPhone');
-        if (!sms?.checked) return true;
-        return (phone.value.trim().length >= 7);
-      }
-
-      form?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (!validateSms()) {
-          showToast("Please add a phone number for SMS updates (or uncheck SMS).");
-          document.getElementById('cPhone')?.focus();
-          return;
-        }
-
-        const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
-        sessionStorage.setItem('sid', sid);
-
-        const shipping = {
-          line1: document.getElementById('sLine1').value.trim(),
-          line2: document.getElementById('sLine2').value.trim() || null,
-          city: document.getElementById('sCity').value.trim(),
-          state: document.getElementById('sState').value.trim(),
-          zip: document.getElementById('sZip').value.trim(),
-          country: document.getElementById('sCountry').value.trim()
-        };
-
-        const sameAsShipping = document.getElementById('billSame').checked;
-
-        const billing = sameAsShipping ? { ...shipping } : {
-          line1: document.getElementById('bLine1').value.trim(),
-          line2: document.getElementById('bLine2').value.trim() || null,
-          city: document.getElementById('bCity').value.trim(),
-          state: document.getElementById('bState').value.trim(),
-          zip: document.getElementById('bZip').value.trim(),
-          country: document.getElementById('bCountry').value.trim()
-        };
-
-        const payload = {
-          id: `p-${Date.now()}`,
-          sid,
-          ts: new Date().toISOString(),
-          act: 'createProfile',
-          source: 'loe-life-landing',
-          profile: {
-            fullName: document.getElementById('cFullName').value.trim(),
-            email: document.getElementById('cEmail').value.trim(),
-            phone: document.getElementById('cPhone').value.trim() || null,
-            shipping,
-            billing,
-            smsConsent: document.getElementById('smsConsent').checked ? {
-              consent: true,
-              consentedAt: new Date().toISOString(),
-              consentText: "Optional SMS updates: transactional order/account messages. Msg&data rates may apply. Reply STOP to cancel, HELP for help. Consent is not required to purchase."
-            } : { consent: false }
-          }
-        };
-
-        try {
-          // 1) get OmniTok config (stubbed if placeholder)
-          const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('createProfile');
-
-          // 2) if endpoint is placeholder, just log
-          if (!endpoint || endpoint.includes('INSERT_')) {
-            console.log("CreateProfile payload ready for OmniTok:", payload);
-            showToast("Profile queued (endpoint not set).");
-            closeModal('contactPopup');
-            form.reset();
-            // keep billing hidden by default
-            document.getElementById('billSame').checked = true;
-            syncBillingVisibility();
-            return;
-          }
-
-          // 3) call actor endpoint
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': authToken,
-              'X-OmniTok': omniTok,
-              'X-SID': sid2
-            },
-            body: JSON.stringify(payload)
-          });
-
-          if (!res.ok) throw new Error('createProfile actor endpoint failed');
-
-          showToast("Profile submitted — thank you!");
-          closeModal('contactPopup');
-          form.reset();
-          document.getElementById('billSame').checked = true;
-          syncBillingVisibility();
-
-        } catch (err) {
-          console.error(err);
-          showToast("Submission failed — try again.");
-        }
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': authToken,
+          'X-OmniTok': omniTok,
+          'X-SID': sid2
+        },
+        body: JSON.stringify(payload)
       });
-    })();
+
+      if (!res.ok) throw new Error('createProfile actor endpoint failed');
+
+      showToast("Profile created — thank you!");
+      closeModal('contactPopup');
+      form.reset();
+      document.getElementById('billSame').checked = true;
+      syncBillingVisibility();
+      submitBtn.disabled = true;
+      checkCreateProfileValidity();
+
+    } catch (err) {
+      console.error(err);
+      showToast("Submission failed — try again.");
+    }
+  });
+})();
 
     /* ===========================
        Reviews: load + render (safe)
