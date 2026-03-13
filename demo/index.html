@@ -246,24 +246,34 @@ header nav{
   justify-self: end;
 }
 
-/* Mobile: stack brand then nav */
-@media (max-width: 640px){
+/* Mobile: stack brand above nav (prevents overlap/behind) */
+@media (max-width: 760px){
+
   .nav{
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;     /* ✅ single column */
+    grid-template-rows: auto auto;  /* ✅ two rows */
+    row-gap: 10px;
     justify-items: center;
     text-align: center;
   }
 
   .brand{
+    grid-column: 1;
+    grid-row: 1;                   /* ✅ brand first row */
     justify-self: center;
+    min-width: 0;
   }
 
   header nav{
+    grid-column: 1;
+    grid-row: 2;                   /* ✅ nav second row */
     justify-self: center;
     width: 100%;
+    min-width: 0;
   }
 
   nav ul{
+    width: 100%;
     justify-content: center;
     flex-wrap: wrap;
     gap: 6px;
@@ -274,18 +284,20 @@ header nav{
     margin-top: 10px;
   }
 
-  /* Optional: keep tagline smaller on mobile */
   .brand strong{
     max-width: 90vw;
     font-size: .95rem;
+    white-space: normal;           /* ✅ allow wrap on small screens */
+    line-height: 1.15;
+    text-align: center;
   }
 
-  /* Optional: make logo slightly taller on mobile */
   .brandmark{
     height: 56px;
     max-width: 180px;
   }
 }
+
 
 
     nav ul {
@@ -980,7 +992,7 @@ header nav{
 /* =========================================================
    MOBILE BEHAVIOR
    ========================================================= */
-@media (max-width: 640px){
+@media (max-width: 760px){
 
   /* Modal positioning: top-aligned, never centered */
   .contact-popup[aria-hidden="false"]{
@@ -1061,7 +1073,7 @@ header nav{
   .contact-card{ max-height: calc(100svh - 24px); }
 }
 
-@media (max-width: 640px){
+@media (max-width: 760px){
 
   /* Give the modal container safe-area breathing room */
   .contact-popup[aria-hidden="false"]{
@@ -1097,28 +1109,7 @@ header nav{
   }
 }
 
-@media (max-width: 640px){
-  .nav {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-
-  .brand {
-    justify-content: center;
-    margin-bottom: 4px;
-  }
-
-  nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  nav ul li:last-child {
-    width: 80%;
-    margin-top: 10px;
-  }
+@media (max-width: 760px){
 
   .hero-card { padding: 20px 16px; }
   .gallery-wrap { height: 280px; }
