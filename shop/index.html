@@ -730,7 +730,36 @@
         overflow: hidden !important;
         border-radius: 16px;
       }
-      #builderModal .mhead{ flex: 0 0 auto; padding: 12px 12px 10px; }
+     /* Builder modal header */
+      #builderModal .mhead{
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-right: 44px; /* reserve space for ✕ */
+      }
+      #builderModal .mhead .x{
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        flex: 0 0 auto;
+        line-height: 1;
+      }
+      #builderModal .mhead h2{
+        margin: 0;
+        min-width: 0;
+        white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+      }
+      #builderModal .x{
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+      }
       #builderModal .mbody{
         flex: 1 1 auto;
         overflow: auto;
