@@ -670,6 +670,42 @@
       background: rgba(0,0,0,0.68);
     }
     .modal .sheet{ position: relative; z-index: 1; }
+    /* ✅ Builder modal header — ALL breakpoints (fixes ✕ dropping to next row) */
+#builderModal .mhead{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 44px 12px 14px; /* reserve space for ✕ */
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  min-width: 0;
+}
+
+#builderModal .mhead h2{
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;              /* IMPORTANT: let title shrink */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#builderModal .mhead .x{
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+#builderModal .x{
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
 
     /* Responsive breakpoints */
     @media (max-width: 1040px){
@@ -730,36 +766,7 @@
         overflow: hidden !important;
         border-radius: 16px;
       }
-     /* Builder modal header */
-      #builderModal .mhead{
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding-right: 44px; /* reserve space for ✕ */
-      }
-      #builderModal .mhead .x{
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-        flex: 0 0 auto;
-        line-height: 1;
-      }
-      #builderModal .mhead h2{
-        margin: 0;
-        min-width: 0;
-        white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-      }
-      #builderModal .x{
-        width: 32px;
-        height: 32px;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-      }
+      
       #builderModal .mbody{
         flex: 1 1 auto;
         overflow: auto;
