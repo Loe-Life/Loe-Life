@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block sensitive or non-public directories if any
+Disallow: /demo/
+
+# Point crawlers to your sitemap
+Sitemap: https://loe-life.com/sitemap.xml
