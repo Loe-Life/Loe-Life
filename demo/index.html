@@ -1245,7 +1245,7 @@ header nav{
 
           <label class="review-label">
             Phone (optional)
-            <input id="cPhone" class="review-input" type="tel" maxlength="24" placeholder="+1 (555) 555-5555" inputmode="tel" autocomplete="tel">
+            <input id="cPhone" class="review-input" type="tel" maxlength="10" inputmode="numeric" pattern="[0-9]{10}" placeholder="10 Digit Phone Number" autocomplete="tel">
           </label>
 
           <hr style="border:0; border-top:1px solid rgba(255,255,255,0.12); margin:10px 0;">
@@ -1270,14 +1270,14 @@ header nav{
 
             <label class="review-label">
               State
-              <input id="sState" class="review-input" type="text" maxlength="30" required autocomplete="shipping address-level1">
+              <input id="sState" class="review-input" type="text" maxlength="2" required autocomplete="shipping address-level1">
             </label>
           </div>
 
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <label class="review-label">
               ZIP / Postal
-              <input id="sZip" class="review-input" type="text" maxlength="16" required autocomplete="shipping postal-code">
+              <input id="sZip" class="review-input" type="text" inputmode="numeric" maxlength="5" required autocomplete="shipping postal-code">
             </label>
 
             <label class="review-label">
@@ -1316,14 +1316,14 @@ header nav{
 
               <label class="review-label">
                 State
-                <input id="bState" class="review-input" type="text" maxlength="30" autocomplete="billing address-level1">
+                <input id="bState" class="review-input" type="text" maxlength="2" autocomplete="billing address-level1">
               </label>
             </div>
 
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
               <label class="review-label">
                 ZIP / Postal
-                <input id="bZip" class="review-input" type="text" maxlength="16" autocomplete="billing postal-code">
+                <input id="bZip" class="review-input" type="text" inputmode="numeric" maxlength="5" autocomplete="billing postal-code">
               </label>
 
               <label class="review-label">
@@ -1371,6 +1371,16 @@ header nav{
 
           <div id="contactToast" class="contact-toast" role="status" aria-live="polite">
             Submitted — thank you!
+          </div>
+          <div id="profileToast" class="review-toast review-toast-hidden" role="status" aria-live="polite">
+            <div class="review-toast-card">
+              <div class="toast-title">Create Profile</div>
+              <div class="toast-icon">
+                <div class="toast-spinner"></div>
+                <div class="toast-checkmark"></div>
+              </div>
+              <div class="toast-text">Creating profile…</div>
+            </div>
           </div>
         </form>
       </div>
@@ -1740,7 +1750,7 @@ header nav{
     const LOE_AUTH_KEY = 'loe_auth_v1';
 
     function getAuth() {
-      try { return JSON.parse(localStorage.getItem(LOE_AUTH_KEY) || 'null'); }
+     try { return JSON.parse(sessionStorage.getItem(LOE_AUTH_KEY) || 'null'); }
       catch { return null; }
     }
 
@@ -1751,13 +1761,18 @@ header nav{
       return !!a.signedIn;
     }
 
-    // When you wire login later, call this.
-    function setSignedIn(authObj) {
-      localStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
-        signedIn: true,
-        ...authObj,
-        exp: authObj?.exp || (Date.now() + 14 * 24 * 60 * 60 * 1000)
-      }));
+    // Called after createProfile OR login success
+    function setSignedIn({ email, ...rest } = {}) {
+      // RowKey is email in your design
+      const rowKey = (email || '').trim().toLowerCase() || null;
+
+      sessionStorage.setItem(LOE_AUTH_KEY, JSON.stringify({
+       signedIn: true,
+       rowKey,         // <-- key you’ll pass to review/shop
+       email: rowKey,   // keep normalized
+       ...rest,
+        exp: rest?.exp || (Date.now() + 14 * 24 * 60 * 60 * 1000)
+     }));
     }
 
     /* ===========================
@@ -1766,39 +1781,92 @@ header nav{
        - We include sid always
        =========================== */
     const API = {
-      issueOmniTok: 'INSERT_OMNITOK_ISSUER_ENDPOINT'
+      issueOmniTok: 'https://default6eda43f3fbf04e2b9978b543d9dd31.e3.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34182d7357154735b9f48aead8ef1c0d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8oQcM1-FGe4P8N9b3S8_blGwXPGt6QezzEaEeeLPjdI'
     };
 
-    async function getOmniTok(act) {
-      let sid = sessionStorage.getItem('sid');
-      if (!sid) {
-        sid = crypto.randomUUID();
-        sessionStorage.setItem('sid', sid);
-      }
+async function getOmniTok(actOrObj) {
+  // 🔑 Always mint a fresh sid for each OmniTok call (per your design)
+  const sid = crypto.randomUUID();
+  sessionStorage.setItem('sid', sid);
 
-      const body = (typeof act === 'string') ? { act, sid } : { sid, ...(act || {}) };
+  // Allow:
+  //  - getOmniTok("createReview")
+  //  - getOmniTok({ act:"signup_code", email:"...", phone:"...", smsConsent:true })
+  const body = (typeof actOrObj === 'string')
+    ? { act: actOrObj, sid }
+    : { sid, ...(actOrObj || {}) };
 
-      // If placeholder, return a safe stub config
-      if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
-        return {
-          sid,
-          endpoint: 'INSERT_ACTOR_ENDPOINT',
-          authToken: 'INSERT_AUTH_TOKEN',
-          OmniTok: 'INSERT_OMNITOK'
-        };
-      }
+  if (!body.act) throw new Error("getOmniTok requires act");
 
-      const res = await fetch(API.issueOmniTok, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
+  // If placeholder, return a safe stub config
+  if (!API.issueOmniTok || API.issueOmniTok.includes('INSERT_')) {
+    return {
+      sid,
+      endpoint: 'INSERT_ACTOR_ENDPOINT',
+      authToken: 'INSERT_AUTH_TOKEN',
+      OmniTok: 'INSERT_OMNITOK'
+    };
+  }
 
-      if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
-      const data = await res.json();
-      return { ...data, sid };
-    }
+  const res = await fetch(API.issueOmniTok, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
 
+  if (!res.ok) throw new Error(`Failed to get OmniTok config for ${body.act}`);
+  const data = await res.json();
+  return { ...data, sid };
+}
+
+async function callOmniEndpoint({ act, payload, extraForIssuer }) {
+  // 1) mint token bundle (fresh sid happens inside getOmniTok)
+  const bundle = await getOmniTok(
+    extraForIssuer ? { act, ...extraForIssuer } : act
+  );
+
+  const { endpoint, authToken, OmniTok: omniTok, sid } = bundle;
+
+  // 🔑 Ensure the actor payload uses the SAME sid that minted the token
+  const finalPayload = payload ? { ...payload, sid } : { sid };
+
+  // Local stub path
+  if (!endpoint || endpoint.includes('INSERT_')) {
+    const safe = { ...finalPayload };
+    if (safe.password) safe.password = "[REDACTED]";
+    console.log(`[STUB:${act}]`, { sid, endpoint, payload: safe });
+    return { ok: true, stub: true, sid };
+  }
+
+  // 2) call the returned endpoint
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': authToken,
+      'X-OmniTok': omniTok,
+      'X-SID': sid
+    },
+    body: JSON.stringify(finalPayload)
+  });
+
+  let data = null;
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('application/json')) {
+    try { data = await res.json(); } catch {}
+  } else {
+    try { data = await res.text(); } catch {}
+  }
+
+  if (!res.ok) {
+    const err = new Error(`${act} endpoint failed (${res.status})`);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
+
+  return { ok: true, sid, data };
+}
     /* ===========================
        Modal helpers (focus trap + Escape)
        =========================== */
@@ -1909,6 +1977,49 @@ header nav{
   const cpMatchMsg = document.getElementById('cpMatchMsg');
   const submitBtn = document.getElementById('contactSubmitBtn');
 
+  // --- Profile spinner/toast (reuses review-toast styles) ---
+const pToast = document.getElementById('profileToast');
+const pToastCard = pToast?.querySelector('.review-toast-card');
+const pToastText = pToast?.querySelector('.toast-text');
+
+function pShowToast(text, variant) {
+  if (!pToast) return;
+  if (pToastText) pToastText.textContent = text || 'Working…';
+  pToastCard?.classList.remove('success','error');
+  if (variant === 'success') pToastCard?.classList.add('success');
+  if (variant === 'error') pToastCard?.classList.add('error');
+  pToast.classList.remove('review-toast-hidden');
+  requestAnimationFrame(() => pToast.classList.add('show'));
+}
+
+function pHideToast() {
+  if (!pToast) return;
+  pToast.classList.remove('show');
+  setTimeout(() => {
+    pToast.classList.add('review-toast-hidden');
+    pToastCard?.classList.remove('success','error');
+  }, 260);
+}
+
+function pShowSpinner() {
+  const spinner = pToastCard?.querySelector('.toast-spinner');
+  const check = pToastCard?.querySelector('.toast-checkmark');
+  if (spinner) spinner.style.opacity = '1';
+  if (check) check.style.opacity = '0';
+}
+
+function pShowCheckmark() {
+  const spinner = pToastCard?.querySelector('.toast-spinner');
+  const check = pToastCard?.querySelector('.toast-checkmark');
+  if (spinner) spinner.style.opacity = '0';
+  if (check) {
+    check.classList.remove('animate');
+    void check.offsetWidth;
+    check.classList.add('animate');
+    check.style.opacity = '1';
+  }
+}
+
   function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');
@@ -2004,7 +2115,7 @@ header nav{
   function checkCreateProfileValidity(){
     const name = document.getElementById('cFullName').value.trim();
     const email = document.getElementById('cEmail').value.trim();
-    const phoneDigits = digitsOnly(document.getElementById('cPhone').value);
+    const phoneDigits = digitsOnly(document.getElementById('cPhone').value).slice(0, 10);
     const sms = document.getElementById('smsConsent').checked;
 
     const emailOk = isValidEmailDomain(email);
@@ -2056,22 +2167,20 @@ header nav{
       return;
     }
 
-    const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
-    sessionStorage.setItem('sid', sid);
-
     const shipping = getShipping();
     const billing = getBilling();
 
+    const phoneDigits = digitsOnly(document.getElementById('cPhone').value).slice(0, 10);
+
     const payload = {
       id: `p-${Date.now()}`,
-      sid,
       ts: new Date().toISOString(),
       act: 'createProfile',
       source: 'loe-life-landing',
       profile: {
         fullName: document.getElementById('cFullName').value.trim(),
         email: document.getElementById('cEmail').value.trim(),
-        phone: digitsOnly(document.getElementById('cPhone').value) || null,
+        phone: phoneDigits.length ? phoneDigits : null,
         shipping,
         billing,
         smsConsent: document.getElementById('smsConsent').checked ? {
@@ -2084,51 +2193,35 @@ header nav{
       password: cpPass.value
     };
 
-    try {
-      const { endpoint, authToken, OmniTok: omniTok, sid: sid2 } = await getOmniTok('createProfile');
+try {
+  // start spinner BEFORE OmniTok call
+  pShowSpinner();
+  pShowToast('Creating profile…');
 
-      if (!endpoint || endpoint.includes('INSERT_')) {
-        // DO NOT console.log password
-        const safe = { ...payload, password: "[REDACTED]" };
-        console.log("CreateProfile payload ready for OmniTok:", safe);
+  const result = await callOmniEndpoint({ act: 'createProfile', payload });
 
-        showToast("Profile queued (endpoint not set).");
-        closeModal('contactPopup');
-        form.reset();
+  // success: email is rowKey
+  setSignedIn({ sid: result.sid, email: payload.profile.email });
 
-        // reset defaults
-        document.getElementById('billSame').checked = true;
-        syncBillingVisibility();
-        submitBtn.disabled = true;
-        checkCreateProfileValidity();
-        return;
-      }
+  pShowToast('Profile created — you are signed in.', 'success');
+  pShowCheckmark();
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': authToken,
-          'X-OmniTok': omniTok,
-          'X-SID': sid2
-        },
-        body: JSON.stringify(payload)
-      });
+  setTimeout(() => {
+    pHideToast();
+    closeModal('contactPopup');
+    form.reset();
 
-      if (!res.ok) throw new Error('createProfile actor endpoint failed');
+    document.getElementById('billSame').checked = true;
+    syncBillingVisibility();
+    submitBtn.disabled = true;
+    checkCreateProfileValidity();
+  }, 1200);
 
-      showToast("Profile created — thank you!");
-      closeModal('contactPopup');
-      form.reset();
-      document.getElementById('billSame').checked = true;
-      syncBillingVisibility();
-      submitBtn.disabled = true;
-      checkCreateProfileValidity();
-
-    } catch (err) {
-      console.error(err);
-      showToast("Submission failed — try again.");
-    }
+} catch (err) {
+  console.error(err);
+  pShowToast('Submission failed — try again.', 'error');
+  setTimeout(() => pHideToast(), 1600);
+}
   });
 })();
 
@@ -2429,8 +2522,18 @@ header nav{
         showSpinner();
         showToast({ text: 'Submitting review…', variant: 'default' });
 
+        const auth = getAuth();
+
+        if (!auth?.rowKey) {
+         showToast({ text: 'Create a profile first.', variant: 'error' });
+         resetSliderVisual();
+          setTimeout(() => { hideToast(); unlockInputs(); }, 1600);
+          return;
+        }
+
         const reviewPayload = {
           id: `r-${Date.now()}`,
+          rowKey: auth?.rowKey || null,
           name: nameInput.value.trim(),
           rating: Number(ratingInput.value),
           comment: commentInput.value.trim(),
@@ -2438,28 +2541,10 @@ header nav{
         };
 
         try {
-          const { endpoint, authToken, OmniTok: omniTok, sid } = await getOmniTok('createReview');
-
-          if (!endpoint || endpoint.includes('INSERT_')) {
-            console.log("Review payload ready for OmniTok:", reviewPayload);
-            showToast({ text: 'Review queued (endpoint not set).', variant: 'success' });
-            showCheckmark();
-            setTimeout(() => { hideToast(); resetSliderVisual(); unlockInputs(); }, 1600);
-            return;
-          }
-
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': authToken,
-              'X-OmniTok': omniTok,
-              'X-SID': sid
-            },
-            body: JSON.stringify(reviewPayload)
+          await callOmniEndpoint({
+            act: 'createReview',
+            payload: reviewPayload
           });
-
-          if (!res.ok) throw new Error('createReview actor endpoint failed');
 
           showToast({ text: 'Review submitted — thank you!', variant: 'success' });
           showCheckmark();
