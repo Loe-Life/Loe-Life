@@ -1188,7 +1188,11 @@ header nav{
 }
 .inline-mark path{ fill: currentColor !important; }
 .inline-mark.is-red{ color: var(--card-red) !important; }
-
+@media (max-width: 480px){
+  .inline-mark{
+  margin: -1.75em -2.0em;       /* prevents line-height expansion */
+}
+}
 
   </style>
 </head>
