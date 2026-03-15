@@ -1830,13 +1830,15 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   // 🔑 Ensure the actor payload uses the SAME sid that minted the token
   const finalPayload = payload ? { ...payload, sid } : { sid };
 
-  // Local stub path
-  if (!endpoint || endpoint.includes('INSERT_')) {
-    const safe = { ...finalPayload };
-    if (safe.password) safe.password = "[REDACTED]";
-    console.log(`[STUB:${act}]`, { sid, endpoint, payload: safe });
-    return { ok: true, stub: true, sid };
-  }
+    // Local stub / not-ready path (do NOT treat as success)
+    if (!endpoint || endpoint.includes('INSERT_')) {
+      const safe = { ...finalPayload };
+      if (safe.password) safe.password = "[REDACTED]";
+      console.log(`[STUB:${act}]`, { sid, endpoint, payload: safe });
+
+      // critical change: not ok + pending
+     return { ok: false, pending: true, stub: true, sid };
+   }
 
   // 2) call the returned endpoint
   const res = await fetch(endpoint, {
@@ -2200,7 +2202,10 @@ try {
 
   const result = await callOmniEndpoint({ act: 'createProfile', payload });
 
-  // success: email is rowKey
+  if (!result?.ok || result?.pending) {
+    throw new Error('Profile creation not completed');
+  }
+
   setSignedIn({ sid: result.sid, email: payload.profile.email });
 
   pShowToast('Profile created — you are signed in.', 'success');
