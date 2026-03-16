@@ -2119,17 +2119,7 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   });
 })();
 
-const cancelSignInBtn = document.getElementById('signInCancelBtn');
 
-cancelSignInBtn?.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  // 1) Close sign-in modal
-  closeModal('signInPopup');
-
-  // 2) Re-open profile menu modal (focus Sign In button)
-  openModal('profileMenuPopup', '#pmSignInBtn');
-});
 
     /* ===========================
        Policy buttons (header + footer)
@@ -2456,8 +2446,144 @@ try {
   setTimeout(() => pHideToast(), 1600);
 }
   });
-})();
+})(); 
 
+    /* ===========================
+                Sign In
+       =========================== */
+
+(function bindSignInModal() {
+  const signInForm = document.getElementById('signInForm');
+  const signInCancelBtn = document.getElementById('signInCancelBtn');
+  const signInSubmitBtn = document.getElementById('signInSubmitBtn');
+
+  const toast = document.getElementById('signInToast');
+  const toastCard = toast?.querySelector('.review-toast-card');
+  const toastText = toast?.querySelector('.toast-text');
+
+  function siShowToast(text, variant) {
+    if (!toast) return;
+    if (toastText) toastText.textContent = text || 'Signing in…';
+    toastCard?.classList.remove('success', 'error');
+    if (variant === 'success') toastCard?.classList.add('success');
+    if (variant === 'error') toastCard?.classList.add('error');
+    toast.classList.remove('review-toast-hidden');
+    requestAnimationFrame(() => toast.classList.add('show'));
+  }
+
+  function siHideToast() {
+    if (!toast) return;
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.classList.add('review-toast-hidden');
+      toastCard?.classList.remove('success', 'error');
+    }, 260);
+  }
+
+  function siShowSpinner() {
+    const spinner = toastCard?.querySelector('.toast-spinner');
+    const check = toastCard?.querySelector('.toast-checkmark');
+    if (spinner) spinner.style.opacity = '1';
+    if (check) check.style.opacity = '0';
+  }
+
+  function siShowCheckmark() {
+    const spinner = toastCard?.querySelector('.toast-spinner');
+    const check = toastCard?.querySelector('.toast-checkmark');
+    if (spinner) spinner.style.opacity = '0';
+    if (check) {
+      check.classList.remove('animate');
+      void check.offsetWidth;
+      check.classList.add('animate');
+      check.style.opacity = '1';
+    }
+  }
+
+  // Cancel: close sign-in and return to profile menu (your requested behavior)
+  signInCancelBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeModal('signInPopup');
+    openModal('profileMenuPopup', '#pmSignInBtn');
+  });
+
+  // Submit: OmniTok -> actor endpoint -> resolve spinner
+  signInForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('siEmail')?.value?.trim();
+    const password = document.getElementById('siPassword')?.value || '';
+
+    if (!email || !password) return;
+
+    // lock the button so it can't be spammed
+    signInSubmitBtn.disabled = true;
+
+    // spinner starts BEFORE OmniTok call
+    siShowSpinner();
+    siShowToast('Signing in…');
+
+    try {
+      // IMPORTANT: This uses the same OmniTok pipeline as createProfile.
+      // The only difference is payload content.
+      const payload = {
+        id: `si-${Date.now()}`,
+        ts: new Date().toISOString(),
+        act: 'SignIn',
+        source: 'loe-life-landing',
+        email,            // keep it flat for sign-in
+        password
+      };
+
+      const result = await callOmniEndpoint({ act: 'SignIn', payload });
+
+      if (!result?.ok || result?.pending) {
+        throw new Error('Sign in not completed');
+      }
+
+      const okFromServer = result?.data?.ok === true;
+      const emailFromServer = result?.data?.email;
+
+      if (!okFromServer) {
+        throw new Error('Sign in not confirmed');
+      }
+
+      if (emailFromServer) {
+        // ✅ ONLY sign in if server returns email (your constraint)
+        setSignedIn({ sid: result.sid, email: emailFromServer });
+
+        siShowToast('Signed in.', 'success');
+        siShowCheckmark();
+
+        // update UI state (profile button, hero CTA, etc.)
+        syncAuthUI?.();
+
+        setTimeout(() => {
+          siHideToast();
+          closeModal('signInPopup');
+          signInForm.reset();
+        }, 900);
+
+      } else {
+        // ✅ Opaque success: resolve true but do not log in, do not reveal why
+        siShowToast('If an account exists, you’re good to go. Visit the shop.', 'success');
+        siShowCheckmark();
+
+        setTimeout(() => {
+          siHideToast();
+          closeModal('signInPopup');
+          signInForm.reset();
+        }, 1200);
+      }
+
+    } catch (err) {
+      console.error(err);
+      siShowToast('Sign in failed — try again.', 'error');
+      setTimeout(() => siHideToast(), 1600);
+    } finally {
+      signInSubmitBtn.disabled = false;
+    }
+  });
+})();
     /* ===========================
        Reviews: load + render (safe)
        =========================== */
