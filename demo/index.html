@@ -1776,33 +1776,25 @@ header nav{
     }
 
     function syncAuthUI() {
-  const signedIn = isSignedIn();
+      const signedIn = isSignedIn();
 
-  // Buttons / CTAs
-  const profileBtn = document.getElementById('profileBtn');
-  const heroCreateBtn = document.getElementById('heroCreateProfileBtn');
-  const leaveReviewBtn = document.getElementById('leaveReviewBtn');
+      const profileBtn = document.getElementById('profileBtn');
+      const heroCreateBtn = document.getElementById('heroCreateProfileBtn');
+      // NOTE: leaveReviewBtn intentionally NOT controlled here
 
-  // --- Profile button ---
-  if (profileBtn) {
-    profileBtn.disabled = signedIn;
-    profileBtn.setAttribute('aria-disabled', signedIn ? 'true' : 'false');
-    profileBtn.style.opacity = signedIn ? '0.5' : '';
-    profileBtn.style.pointerEvents = signedIn ? 'none' : '';
-  }
+      // --- Profile button ---
+      if (profileBtn) {
+        profileBtn.disabled = signedIn;
+        profileBtn.setAttribute('aria-disabled', signedIn ? 'true' : 'false');
+        profileBtn.style.opacity = signedIn ? '0.5' : '';
+        profileBtn.style.pointerEvents = signedIn ? 'none' : '';
+      }
 
-  // --- Hero "Create Profile" button ---
-  if (heroCreateBtn) {
-    heroCreateBtn.style.display = signedIn ? 'none' : '';
-  }
-
-  // --- Leave Review button ---
-  if (leaveReviewBtn) {
-    leaveReviewBtn.disabled = !signedIn;
-    leaveReviewBtn.setAttribute('aria-disabled', signedIn ? 'false' : 'true');
-    leaveReviewBtn.style.opacity = signedIn ? '' : '0.5';
-  }
-}
+     // --- Hero "Create Profile" button ---
+      if (heroCreateBtn) {
+        heroCreateBtn.style.display = signedIn ? 'none' : '';
+      }
+    }
 
     /* ===========================
        OmniTok Helper (canonical stub)
