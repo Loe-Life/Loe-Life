@@ -1194,6 +1194,43 @@ header nav{
 }
 }
 
+/* Top-right modal X button */
+.modal-x-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-x-btn:hover {
+  background: var(--card-red);
+}
+/* Profile menu button order — scoped and mobile-only */
+@media (max-width: 960px) {
+  #profileMenuPopup .contact-actions {
+    flex-direction: column;
+  }
+
+  #profileMenuPopup #pmSignInBtn {
+    order: 1;
+  }
+
+  #profileMenuPopup #pmCreateProfileBtn {
+    order: 2;
+  }
+}
+
   </style>
 </head>
 
@@ -1221,6 +1258,102 @@ header nav{
   </header>
 
   <main>
+
+    <!-- PROFILE MENU MODAL -->
+<div id="profileMenuPopup"
+     class="contact-popup contact-hidden"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="profileMenuTitle">
+
+  <div class="contact-overlay" data-close="true"></div>
+
+  <div class="contact-card" role="document">
+    <button id="pmCloseBtn" type="button" class="modal-x-btn" aria-label="Close account menu">✕</button>
+    <h2 id="profileMenuTitle">Account</h2>
+    <p class="small" style="margin-top:-6px;">
+      Manage your Loe‑Life account.
+    </p>
+
+    <div class="contact-actions" style="gap:10px;">
+      <button id="pmSignInBtn" class="btn primary" type="button">
+        Sign In
+      </button>
+
+      <button id="pmCreateProfileBtn" class="btn secondary" type="button">
+        Create Profile
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SIGN IN MODAL -->
+<div id="signInPopup"
+     class="contact-popup contact-hidden"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="signInTitle">
+
+  <div class="contact-overlay" data-close="true"></div>
+
+  <div class="contact-card" role="document">
+    <h2 id="signInTitle">Sign In</h2>
+    <p class="small" style="margin-top:-6px;">
+      Sign in to manage your account and leave verified reviews.
+    </p>
+
+    <form id="signInForm" autocomplete="on">
+      <label class="review-label">
+        Email
+        <input id="siEmail"
+               class="review-input"
+               type="email"
+               required
+               autocomplete="email">
+      </label>
+
+      <label class="review-label">
+        Password
+        <div class="password-wrapper">
+          <input id="siPassword"
+                 class="review-input"
+                 type="password"
+                 required
+                 autocomplete="current-password">
+          <button type="button"
+                  class="reveal-btn"
+                  data-target="siPassword"
+                  aria-label="Reveal password">◉</button>
+        </div>
+      </label>
+
+      <div class="contact-actions">
+        <button id="signInCancelBtn" class="btn" type="button">Cancel</button>
+        <button id="signInSubmitBtn" class="btn primary" type="submit">
+          Sign In
+        </button>
+      </div>
+
+      <!-- Spinner / toast (reuse your pattern) -->
+      <div id="signInToast"
+           class="review-toast review-toast-hidden"
+           role="status"
+           aria-live="polite">
+        <div class="review-toast-card">
+          <div class="toast-title">Sign In</div>
+          <div class="toast-icon">
+            <div class="toast-spinner"></div>
+            <div class="toast-checkmark"></div>
+          </div>
+          <div class="toast-text">Signing in…</div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 
     <!-- CREATE PROFILE MODAL (OmniTok stubbed) -->
     <div id="contactPopup" class="contact-popup contact-hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
@@ -1961,6 +2094,43 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
       }
     }
 
+    (function bindProfileMenu() {
+  const profileBtn = document.getElementById('profileBtn');
+  const pmSignInBtn = document.getElementById('pmSignInBtn');
+  const pmCreateProfileBtn = document.getElementById('pmCreateProfileBtn');
+  const pmCloseBtn = document.getElementById('pmCloseBtn');
+
+  profileBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isSignedIn()) return; // unchanged for now
+    openModal('profileMenuPopup', '#pmSignInBtn');
+  });
+
+  pmCloseBtn?.addEventListener('click', () => closeModal('profileMenuPopup'));
+
+  pmSignInBtn?.addEventListener('click', () => {
+    closeModal('profileMenuPopup');
+    openModal('signInPopup', '#siEmail');
+  });
+
+  pmCreateProfileBtn?.addEventListener('click', () => {
+    closeModal('profileMenuPopup');
+    openModal('contactPopup', '#cFullName'); // EXISTING MODAL
+  });
+})();
+
+const cancelSignInBtn = document.getElementById('signInCancelBtn');
+
+cancelSignInBtn?.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  // 1) Close sign-in modal
+  closeModal('signInPopup');
+
+  // 2) Re-open profile menu modal (focus Sign In button)
+  openModal('profileMenuPopup', '#pmSignInBtn');
+});
+
     /* ===========================
        Policy buttons (header + footer)
        =========================== */
@@ -2069,7 +2239,6 @@ function pShowCheckmark() {
     openModal('contactPopup', '#cFullName');
   }
 
-  profileBtn?.addEventListener('click', (e) => { e.preventDefault(); openCreateProfile(); });
   heroCreateProfileBtn?.addEventListener('click', () => openCreateProfile());
   cancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
 
@@ -2111,15 +2280,17 @@ function pShowCheckmark() {
   }
 
   // reveal toggles for the modal (scoped)
-  document.querySelectorAll('#contactPopup .reveal-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const input = document.getElementById(btn.dataset.target);
-      if (!input) return;
-      const hidden = input.type === 'password';
-      input.type = hidden ? 'text' : 'password';
-      btn.textContent = hidden ? '◎' : '◉';
-    });
+  document.querySelectorAll(
+  '#contactPopup .reveal-btn, #signInPopup .reveal-btn'
+).forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = document.getElementById(btn.dataset.target);
+    if (!input) return;
+    const hidden = input.type === 'password';
+    input.type = hidden ? 'text' : 'password';
+    btn.textContent = hidden ? '◉' : '◎';
   });
+});
 
   function getShipping(){
     return {
@@ -2370,7 +2541,7 @@ try {
       authClose?.addEventListener('click', () => closeModal('authPopup'));
       authCreate?.addEventListener('click', () => {
         closeModal('authPopup');
-        document.getElementById('profileBtn')?.click();
+        document.getElementById('pmCreateProfileBtn')?.click();
       });
     })();
 
