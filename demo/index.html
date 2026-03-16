@@ -1557,7 +1557,7 @@ header nav{
 
         <div class="hero-actions">
           <a class="btn primary" href="https://loe-life.com/shop/">Shop</a>
-          <button class="btn" id="supportBtn" type="button">Create Profile</button>
+          <button class="btn" id="heroCreateProfileBtn" type="button">Create Profile</button>
         </div>
       </div>
 
@@ -1775,6 +1775,35 @@ header nav{
      }));
     }
 
+    function syncAuthUI() {
+  const signedIn = isSignedIn();
+
+  // Buttons / CTAs
+  const profileBtn = document.getElementById('profileBtn');
+  const heroCreateBtn = document.getElementById('heroCreateProfileBtn');
+  const leaveReviewBtn = document.getElementById('leaveReviewBtn');
+
+  // --- Profile button ---
+  if (profileBtn) {
+    profileBtn.disabled = signedIn;
+    profileBtn.setAttribute('aria-disabled', signedIn ? 'true' : 'false');
+    profileBtn.style.opacity = signedIn ? '0.5' : '';
+    profileBtn.style.pointerEvents = signedIn ? 'none' : '';
+  }
+
+  // --- Hero "Create Profile" button ---
+  if (heroCreateBtn) {
+    heroCreateBtn.style.display = signedIn ? 'none' : '';
+  }
+
+  // --- Leave Review button ---
+  if (leaveReviewBtn) {
+    leaveReviewBtn.disabled = !signedIn;
+    leaveReviewBtn.setAttribute('aria-disabled', signedIn ? 'false' : 'true');
+    leaveReviewBtn.style.opacity = signedIn ? '' : '0.5';
+  }
+}
+
     /* ===========================
        OmniTok Helper (canonical stub)
        - issueOmniTok returns: { endpoint, authToken, OmniTok }
@@ -1963,7 +1992,7 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
    =========================== */
 (function createProfileModal() {
   const profileBtn = document.getElementById('profileBtn');
-  const supportBtn = document.getElementById('supportBtn');
+  const heroCreateProfileBtn = document.getElementById('heroCreateProfileBtn');
   const form = document.getElementById('contactForm');
   const cancelBtn = document.getElementById('contactCancelBtn');
   const toast = document.getElementById('contactToast');
@@ -1983,6 +2012,22 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
 const pToast = document.getElementById('profileToast');
 const pToastCard = pToast?.querySelector('.review-toast-card');
 const pToastText = pToast?.querySelector('.toast-text');
+
+function scrollProfileModalToTop() {
+  const modal = document.getElementById('contactPopup');
+  if (!modal) return;
+
+  // find the scrollable body inside the modal
+  const scrollArea =
+    modal.querySelector('.contact-card') ||
+    modal.querySelector('.modal-body') ||
+    modal;
+
+  scrollArea.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 
 function pShowToast(text, variant) {
   if (!pToast) return;
@@ -2033,7 +2078,7 @@ function pShowCheckmark() {
   }
 
   profileBtn?.addEventListener('click', (e) => { e.preventDefault(); openCreateProfile(); });
-  supportBtn?.addEventListener('click', () => openCreateProfile());
+  heroCreateProfileBtn?.addEventListener('click', () => openCreateProfile());
   cancelBtn?.addEventListener('click', () => closeModal('contactPopup'));
 
   function syncBillingVisibility() {
@@ -2197,29 +2242,39 @@ function pShowCheckmark() {
 
 try {
   // start spinner BEFORE OmniTok call
+  scrollProfileModalToTop();
   pShowSpinner();
   pShowToast('Creating profile…');
 
-const result = await callOmniEndpoint({ act: 'createProfile', payload });
+  const result = await callOmniEndpoint({ act: 'createProfile', payload });
 
-// issuer-only / stub / no-endpoint case
-if (!result?.ok || result?.pending) {
-  throw new Error('Profile creation not completed');
-}
+  // issuer-only / stub / no-endpoint case
+  if (!result?.ok || result?.pending) {
+    throw new Error('Profile creation not completed');
+  }
 
-// actor success contract
-const emailFromServer = result?.data?.email;
-const okFromServer = result?.data?.ok === true;
+  // ---- OPAQUE SUCCESS SUPPORT ----
+  // Actor must return JSON with ok:true. Email is OPTIONAL depending on your security choice.
+  const okFromServer = result?.data?.ok === true;
+  const emailFromServer = result?.data?.email; // present only when you WANT sign-in
 
-if (!okFromServer || !emailFromServer) {
-  throw new Error('createProfile not confirmed');
-}
+  if (!okFromServer) {
+    throw new Error('createProfile not confirmed');
+  }
 
-// ✅ sign-in uses ONLY server response
-setSignedIn({ sid: result.sid, email: emailFromServer });
+  if (emailFromServer) {
+    // ✅ sign-in uses ONLY server response
+    setSignedIn({ sid: result.sid, email: emailFromServer });
+    syncAuthUI();
 
-  pShowToast('Profile created — you are signed in.', 'success');
-  pShowCheckmark();
+    pShowToast('Profile created — you are signed in.', 'success');
+    pShowCheckmark();
+  } else {
+    // ✅ opaque success: do NOT sign in, do NOT reveal why
+    pShowToast('If an account exists for this email, you’ll receive instructions shortly.', 'success');
+    pShowCheckmark();
+    syncAuthUI();
+  }
 
   setTimeout(() => {
     pHideToast();
@@ -2612,6 +2667,8 @@ setSignedIn({ sid: result.sid, email: emailFromServer });
 
       recalcSliderBounds();
     })();
+
+    syncAuthUI();
   </script>
 </body>
 </html>
