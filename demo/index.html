@@ -2200,13 +2200,23 @@ try {
   pShowSpinner();
   pShowToast('Creating profile…');
 
-  const result = await callOmniEndpoint({ act: 'createProfile', payload });
+const result = await callOmniEndpoint({ act: 'createProfile', payload });
 
-  if (!result?.ok || result?.pending) {
-    throw new Error('Profile creation not completed');
-  }
+// issuer-only / stub / no-endpoint case
+if (!result?.ok || result?.pending) {
+  throw new Error('Profile creation not completed');
+}
 
-  setSignedIn({ sid: result.sid, email: payload.profile.email });
+// actor success contract
+const emailFromServer = result?.data?.email;
+const okFromServer = result?.data?.ok === true;
+
+if (!okFromServer || !emailFromServer) {
+  throw new Error('createProfile not confirmed');
+}
+
+// ✅ sign-in uses ONLY server response
+setSignedIn({ sid: result.sid, email: emailFromServer });
 
   pShowToast('Profile created — you are signed in.', 'success');
   pShowCheckmark();
