@@ -2541,45 +2541,54 @@ try {
       }
 
       const okFromServer = result?.data?.ok === true;
-      const emailFromServer = result?.data?.email;
+const emailFromServer = result?.data?.email;
+const msgFromServer = result?.data?.message; // ✅ optional message field from backend
 
-      if (!okFromServer) {
-        throw new Error('Sign in not confirmed');
-      }
+if (!okFromServer) {
+  // If backend gave a message (incorrect password / locked / etc.), show it
+  siShowToast(msgFromServer || 'Sign in failed — try again.', 'error');
+  setTimeout(() => siHideToast(), 1600);
+  return;
+}
 
-      if (emailFromServer) {
-        // ✅ ONLY sign in if server returns email (your constraint)
-        setSignedIn({ sid: result.sid, email: emailFromServer });
+if (emailFromServer) {
+  // ✅ ONLY sign in if server returns email
+  setSignedIn({ sid: result.sid, email: emailFromServer });
 
-        siShowToast('Signed in.', 'success');
-        siShowCheckmark();
+  siShowToast(msgFromServer || 'Signed in.', 'success');
+  siShowCheckmark();
 
-        // update UI state (profile button, hero CTA, etc.)
-        syncAuthUI?.();
+  syncAuthUI?.();
 
-        setTimeout(() => {
-          siHideToast();
-          closeModal('signInPopup');
-          signInForm.reset();
-        }, 900);
+  setTimeout(() => {
+    siHideToast();
+    closeModal('signInPopup');
+    signInForm.reset();
+  }, 900);
 
-      } else {
-        // ✅ Opaque success: resolve true but do not log in, do not reveal why
-        siShowToast('If an account exists, you’re good to go. Visit the shop.', 'success');
-        siShowCheckmark();
+} else {
+  // ✅ Opaque success: ok:true but no email -> do not log in, do not reveal why
+  siShowToast(msgFromServer || 'If an account exists, you’re good to go. Visit the shop.', 'success');
+  siShowCheckmark();
 
-        setTimeout(() => {
-          siHideToast();
-          closeModal('signInPopup');
-          signInForm.reset();
-        }, 1200);
-      }
+  setTimeout(() => {
+    siHideToast();
+    closeModal('signInPopup');
+    signInForm.reset();
+  }, 1200);
+}
 
     } catch (err) {
-      console.error(err);
-      siShowToast('Sign in failed — try again.', 'error');
-      setTimeout(() => siHideToast(), 1600);
-    } finally {
+  console.error(err);
+
+  const msg =
+    err?.data?.message ||
+    (typeof err?.data === 'string' ? err.data : '') ||
+    'Sign in failed — try again.';
+
+  siShowToast(msg, 'error');
+  setTimeout(() => siHideToast(), 1600);
+} finally {
       signInSubmitBtn.disabled = false;
     }
   });
