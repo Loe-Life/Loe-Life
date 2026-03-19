@@ -1229,6 +1229,10 @@ header nav{
   #profileMenuPopup #pmCreateProfileBtn {
     order: 2;
   }
+
+   #profileMenuPopup #pmResetBtn {
+    order: 3;
+  }
 }
 
   </style>
@@ -1279,10 +1283,14 @@ header nav{
     <div class="contact-actions" style="gap:10px;">
       <button id="pmSignInBtn" class="btn primary" type="button">
         Sign In
-      </button>
+      </button>      
 
       <button id="pmCreateProfileBtn" class="btn secondary" type="button">
         Create Profile
+      </button>
+
+      <button id="pmResetBtn" class="btn secondary" type="button">
+        Reset Password
       </button>
     </div>
   </div>
@@ -1351,6 +1359,108 @@ header nav{
         </div>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- RESET PASSWORD MODAL -->
+<div id="resetPopup"
+     class="contact-popup contact-hidden"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="resetTitle">
+
+  <div class="contact-overlay" data-close="true"></div>
+
+  <div class="contact-card" role="document">
+    <button id="rpCloseBtn" type="button" class="modal-x-btn" aria-label="Close reset">✕</button>
+    <h2 id="resetTitle">Reset Password</h2>
+    <p class="small" style="margin-top:-6px;">We’ll send a verification code to confirm ownership.</p>
+
+    <!-- Step 1 -->
+    <div id="rpStep1">
+      <label class="review-label">
+        Email
+        <input id="rpEmail" class="review-input" type="email" autocomplete="email" required>
+      </label>
+
+      <label class="review-label">
+        Phone (optional)
+        <input id="rpPhone" class="review-input" type="tel" maxlength="10" inputmode="numeric" pattern="[0-9]{10}" autocomplete="tel">
+      </label>
+
+      <label class="review-label" style="gap:10px;">
+        <span style="display:flex; gap:10px; align-items:flex-start;">
+          <input id="rpSmsConsent" type="checkbox" style="margin-top:4px;">
+          <span class="small" style="color:var(--ink); line-height:1.35;">
+            Optional SMS verification. Msg &amp; data rates may apply.
+          </span>
+        </span>
+      </label>
+
+      <div class="contact-actions">
+        <button id="rpCancel1" class="btn" type="button">Cancel</button>
+        <button id="rpSendCodeBtn" class="btn primary" type="button">Send Code</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="rpStep2" style="display:none;">
+      <label class="review-label">
+        Verification Code
+        <input id="rpCode" class="review-input" type="text" minlength="6" maxlength="6" inputmode="numeric" placeholder="6-digit code" required>
+      </label>
+
+      <div class="contact-actions">
+        <button id="rpBackBtn" class="btn secondary" type="button">Back</button>
+        <button id="rpVerifyBtn" class="btn primary" type="button">Verify</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="rpStep3" style="display:none;">
+      <label class="review-label">
+        Email (locked)
+        <input id="rpEmailLocked" class="review-input" type="email" disabled>
+      </label>
+
+      <label class="review-label">
+        New Password
+        <div class="password-wrapper">
+          <input id="rpPass" class="review-input" type="password" autocomplete="new-password" required>
+          <button type="button" class="reveal-btn" data-target="rpPass" aria-label="Reveal new password">◉</button>
+        </div>
+        <div id="rpStrengthBar" class="strength-bar"></div>
+        <div id="rpStrengthText" class="strength-text">Strength: —</div>
+      </label>
+
+      <label class="review-label">
+        Confirm New Password
+        <div class="password-wrapper">
+          <input id="rpPass2" class="review-input" type="password" autocomplete="new-password" required>
+          <button type="button" class="reveal-btn" data-target="rpPass2" aria-label="Reveal confirm password">◉</button>
+        </div>
+        <div id="rpMatchMsg" class="match-msg">Passwords do not match.</div>
+      </label>
+
+      <div class="contact-actions">
+        <button id="rpCancel3" class="btn secondary" type="button">Cancel</button>
+        <button id="rpResetBtn" class="btn primary" type="button" disabled>Reset Password</button>
+      </div>
+    </div>
+
+    <!-- Shared toast -->
+    <div id="rpToast" class="review-toast review-toast-hidden" role="status" aria-live="polite">
+      <div class="review-toast-card">
+        <div class="toast-title">Reset Password</div>
+        <div class="toast-icon">
+          <div class="toast-spinner"></div>
+          <div class="toast-checkmark"></div>
+        </div>
+        <div class="toast-text">Working…</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1939,8 +2049,9 @@ header nav{
     };
 
 async function getOmniTok(actOrObj) {
-  // 🔑 Always mint a fresh sid for each OmniTok call (per your design)
-  const sid = crypto.randomUUID();
+  
+  const requestedSid = (typeof actOrObj === 'object' && actOrObj?.sid) ? actOrObj.sid : null;
+  const sid = requestedSid || crypto.randomUUID();
   sessionStorage.setItem('sid', sid);
 
   // Allow:
@@ -2099,6 +2210,12 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   const pmSignInBtn = document.getElementById('pmSignInBtn');
   const pmCreateProfileBtn = document.getElementById('pmCreateProfileBtn');
   const pmCloseBtn = document.getElementById('pmCloseBtn');
+  const pmResetBtn = document.getElementById('pmResetBtn');
+
+  pmResetBtn?.addEventListener('click', () => {
+    closeModal('profileMenuPopup');
+    openModal('resetPopup', '#rpEmail');
+  });
 
   profileBtn?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -2271,7 +2388,7 @@ function pShowCheckmark() {
 
   // reveal toggles for the modal (scoped)
   document.querySelectorAll(
-  '#contactPopup .reveal-btn, #signInPopup .reveal-btn'
+  '#contactPopup .reveal-btn, #signInPopup .reveal-btn, #resetPopup .reveal-btn' 
 ).forEach(btn => {
   btn.addEventListener('click', () => {
     const input = document.getElementById(btn.dataset.target);
@@ -2590,6 +2707,273 @@ if (emailFromServer) {
   setTimeout(() => siHideToast(), 1600);
 } finally {
       signInSubmitBtn.disabled = false;
+    }
+  });
+})();
+
+    /* ===========================
+                Reset
+       =========================== */
+
+(function bindResetPasswordWizard() {
+  const RESET_CTX_KEY = 'loe_reset_ctx';
+
+  const step1 = document.getElementById('rpStep1');
+  const step2 = document.getElementById('rpStep2');
+  const step3 = document.getElementById('rpStep3');
+
+  const emailIn = document.getElementById('rpEmail');
+  const phoneIn = document.getElementById('rpPhone');
+  const smsIn = document.getElementById('rpSmsConsent');
+
+  const sendBtn = document.getElementById('rpSendCodeBtn');
+  const verifyBtn = document.getElementById('rpVerifyBtn');
+  const backBtn = document.getElementById('rpBackBtn');
+
+  const codeIn = document.getElementById('rpCode');
+
+  const emailLocked = document.getElementById('rpEmailLocked');
+  const pass1 = document.getElementById('rpPass');
+  const pass2 = document.getElementById('rpPass2');
+  const resetBtn = document.getElementById('rpResetBtn');
+
+  const matchMsg = document.getElementById('rpMatchMsg');
+  const strengthBar = document.getElementById('rpStrengthBar');
+  const strengthText = document.getElementById('rpStrengthText');
+
+  const closeX = document.getElementById('rpCloseBtn');
+  const cancel1 = document.getElementById('rpCancel1');
+  const cancel3 = document.getElementById('rpCancel3');
+
+  const toast = document.getElementById('rpToast');
+  const toastCard = toast?.querySelector('.review-toast-card');
+  const toastText = toast?.querySelector('.toast-text');
+
+  const digitsOnly = (s) => (s||'').replace(/\D/g,'').slice(0,10);
+
+  function saveCtx(ctx){ sessionStorage.setItem(RESET_CTX_KEY, JSON.stringify(ctx)); }
+  function loadCtx(){ try { return JSON.parse(sessionStorage.getItem(RESET_CTX_KEY) || 'null'); } catch { return null; } }
+  function clearCtx(){ sessionStorage.removeItem(RESET_CTX_KEY); }
+
+  function showStep(n){
+    if (step1) step1.style.display = (n===1) ? '' : 'none';
+    if (step2) step2.style.display = (n===2) ? '' : 'none';
+    if (step3) step3.style.display = (n===3) ? '' : 'none';
+  }
+
+  function tShow(msg, variant){
+    if (!toast) return;
+    if (toastText) toastText.textContent = msg || 'Working…';
+    toastCard?.classList.remove('success','error');
+    if (variant === 'success') toastCard?.classList.add('success');
+    if (variant === 'error') toastCard?.classList.add('error');
+    toast.classList.remove('review-toast-hidden');
+    requestAnimationFrame(() => toast.classList.add('show'));
+  }
+  function tHide(){
+    if (!toast) return;
+    toast.classList.remove('show');
+    setTimeout(() => {
+      toast.classList.add('review-toast-hidden');
+      toastCard?.classList.remove('success','error');
+    }, 260);
+  }
+  function tSpinner(on){
+    const sp = toastCard?.querySelector('.toast-spinner');
+    const ck = toastCard?.querySelector('.toast-checkmark');
+    if (sp) sp.style.opacity = on ? '1' : '0';
+    if (ck) ck.style.opacity = on ? '0' : '1';
+  }
+  function tCheck(){
+    const sp = toastCard?.querySelector('.toast-spinner');
+    const ck = toastCard?.querySelector('.toast-checkmark');
+    if (sp) sp.style.opacity = '0';
+    if (ck) { ck.classList.remove('animate'); void ck.offsetWidth; ck.classList.add('animate'); ck.style.opacity='1'; }
+  }
+
+  function strengthScore(pw){
+    let score=0;
+    if (!pw) return 0;
+    if (pw.length >= 6) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    if (pw.length >= 10) score++;
+    return score;
+  }
+  function applyStrength(score){
+    const widths = ['0%','20%','40%','60%','80%','100%'];
+    const colors = ['red','orangered','orange','gold','yellowgreen','green'];
+    const labels = ['Too short','Weak','Fair','Good','Strong','Excellent'];
+    if (strengthBar) strengthBar.style.width = widths[score];
+    if (strengthBar) strengthBar.style.background = colors[score];
+    if (strengthText) strengthText.textContent = `Strength: ${labels[score]}`;
+  }
+  function updateResetValidity(){
+    const pw1 = pass1?.value || '';
+    const pw2 = pass2?.value || '';
+    const matchOk = pw1 && pw1 === pw2;
+    if (matchMsg) matchMsg.style.display = (pw1 && pw2 && !matchOk) ? 'block' : 'none';
+    const score = strengthScore(pw1);
+    applyStrength(score);
+    if (resetBtn) resetBtn.disabled = !(matchOk && score >= 4);
+  }
+
+  pass1?.addEventListener('input', updateResetValidity);
+  pass2?.addEventListener('input', updateResetValidity);
+
+  function closeReset(){
+    closeModal('resetPopup');
+    tHide();
+    clearCtx();
+    showStep(1);
+  }
+
+  closeX?.addEventListener('click', closeReset);
+  cancel1?.addEventListener('click', closeReset);
+  cancel3?.addEventListener('click', closeReset);
+
+  backBtn?.addEventListener('click', () => showStep(1));
+
+  // Step 1: reset_code
+  sendBtn?.addEventListener('click', async () => {
+    const email = emailIn?.value?.trim();
+    const phone = digitsOnly(phoneIn?.value);
+    const smsConsent = !!smsIn?.checked;
+    if (!email) return;
+
+    const ctx = { sid: crypto.randomUUID(), email, phone: phone || null, smsConsent, bundle: null };
+    saveCtx(ctx);
+
+    tSpinner(true);
+    tShow('Sending verification code…');
+
+    try {
+      const r = await getOmniTok({
+        act: 'reset_code',
+        sid: ctx.sid,
+        email: ctx.email,
+        phone: ctx.phone,
+        smsConsent: ctx.smsConsent
+      });
+
+      tShow(r?.message || 'Verification code sent.', 'success');
+      tCheck();
+
+      setTimeout(() => {
+        tHide();
+        showStep(2);
+        codeIn?.focus();
+      }, 900);
+
+    } catch (err) {
+      console.error(err);
+      tShow('Failed to send code — try again.', 'error');
+      setTimeout(() => tHide(), 1600);
+    }
+  });
+
+  // Step 2: reset_code_verify (returns endpoint bundle)
+  verifyBtn?.addEventListener('click', async () => {
+    const ctx = loadCtx();
+    const code = (codeIn?.value || '').trim();
+    if (!ctx?.sid || !ctx?.email || code.length !== 6) return;
+
+    tSpinner(true);
+    tShow('Verifying code…');
+
+    try {
+      const r = await getOmniTok({
+        act: 'reset_code_verify',
+        sid: ctx.sid,
+        email: ctx.email,
+        phone: ctx.phone,
+        code
+      });
+
+      if (!r?.endpoint) throw new Error('Verification failed');
+
+      ctx.bundle = { endpoint: r.endpoint, authToken: r.authToken, OmniTok: r.OmniTok, sid: r.sid || ctx.sid, code };
+      saveCtx(ctx);
+
+      if (emailLocked) emailLocked.value = ctx.email;
+
+      tShow(r?.message || 'Code verified.', 'success');
+      tCheck();
+
+      setTimeout(() => {
+        tHide();
+        showStep(3);
+        updateResetValidity();
+        pass1?.focus();
+      }, 900);
+
+    } catch (err) {
+      console.error(err);
+      tShow('Invalid code — try again.', 'error');
+      setTimeout(() => tHide(), 1600);
+    }
+  });
+
+  // Step 3: call returned actor endpoint to reset password
+  resetBtn?.addEventListener('click', async () => {
+    const ctx = loadCtx();
+    if (!ctx?.bundle?.endpoint) return;
+
+    const newPassword = pass1?.value || '';
+    const newPassword2 = pass2?.value || '';
+    if (!newPassword || newPassword !== newPassword2) return;
+
+    tSpinner(true);
+    tShow('Resetting password…');
+
+    try {
+      const res = await fetch(ctx.bundle.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': ctx.bundle.authToken,
+          'X-OmniTok': ctx.bundle.OmniTok,
+          'X-SID': ctx.bundle.sid
+        },
+        body: JSON.stringify({
+          id: `rp-${Date.now()}`,
+          ts: new Date().toISOString(),
+          act: 'resetPassword',
+          source: 'loe-life-landing',
+          profile: { email: ctx.email, phone: ctx.phone, smsConsent: ctx.smsConsent },
+          code: ctx.bundle.code,
+          password: newPassword,
+          sid: ctx.bundle.sid
+        })
+      });
+
+      let data = null;
+      const ct = res.headers.get('content-type') || '';
+      if (ct.includes('application/json')) { try { data = await res.json(); } catch {} }
+      else { try { data = await res.text(); } catch {} }
+
+      if (!res.ok) {
+        const msg = data?.message || (typeof data === 'string' ? data : '') || 'Reset failed — try again.';
+        tShow(msg, 'error');
+        setTimeout(() => tHide(), 1600);
+        return;
+      }
+
+      tShow(data?.message || 'Password reset. You can sign in now.', 'success');
+      tCheck();
+
+      setTimeout(() => {
+        tHide();
+        clearCtx();
+        closeModal('resetPopup');
+        openModal('signInPopup', '#siEmail');
+      }, 1100);
+
+    } catch (err) {
+      console.error(err);
+      tShow('Reset failed — try again.', 'error');
+      setTimeout(() => tHide(), 1600);
     }
   });
 })();
