@@ -2035,6 +2035,7 @@ header nav{
         profileBtn.removeAttribute('aria-disabled');
         profileBtn.style.opacity = '';
         profileBtn.style.pointerEvents = '';
+        profileBtn.textContent = signedIn ? 'Sign Out' : 'Profile';
       }
 
       const pmSignInBtn = document.getElementById('pmSignInBtn');
