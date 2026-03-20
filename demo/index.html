@@ -1292,6 +1292,10 @@ header nav{
       <button id="pmResetBtn" class="btn secondary" type="button">
         Reset Password
       </button>
+
+      <button id="pmSignOutBtn" class="btn secondary" type="button">
+        Reset Password
+      </button>      
     </div>
   </div>
 </div>
@@ -2027,10 +2031,27 @@ header nav{
 
       // --- Profile button ---
       if (profileBtn) {
-        profileBtn.disabled = signedIn;
-        profileBtn.setAttribute('aria-disabled', signedIn ? 'true' : 'false');
-        profileBtn.style.opacity = signedIn ? '0.5' : '';
-        profileBtn.style.pointerEvents = signedIn ? 'none' : '';
+        profileBtn.disabled = false;
+        profileBtn.removeAttribute('aria-disabled');
+        profileBtn.style.opacity = '';
+        profileBtn.style.pointerEvents = '';
+      }
+
+      const pmSignInBtn = document.getElementById('pmSignInBtn');
+      const pmCreateProfileBtn = document.getElementById('pmCreateProfileBtn');
+      const pmResetBtn = document.getElementById('pmResetBtn');
+      const pmSignOutBtn = document.getElementById('pmSignOutBtn');
+
+      if (signedIn) {
+        if (pmSignInBtn) pmSignInBtn.style.display = 'none';
+        if (pmCreateProfileBtn) pmCreateProfileBtn.style.display = 'none';
+        if (pmResetBtn) pmResetBtn.style.display = 'none';
+        if (pmSignOutBtn) pmSignOutBtn.style.display = '';
+      } else {
+        if (pmSignInBtn) pmSignInBtn.style.display = '';
+        if (pmCreateProfileBtn) pmCreateProfileBtn.style.display = '';
+        if (pmResetBtn) pmResetBtn.style.display = '';
+        if (pmSignOutBtn) pmSignOutBtn.style.display = 'none';
       }
 
      // --- Hero "Create Profile" button ---
@@ -2211,11 +2232,7 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   const pmCreateProfileBtn = document.getElementById('pmCreateProfileBtn');
   const pmCloseBtn = document.getElementById('pmCloseBtn');
   const pmResetBtn = document.getElementById('pmResetBtn');
-
-  pmResetBtn?.addEventListener('click', () => {
-    closeModal('profileMenuPopup');
-    openModal('resetPopup', '#rpEmail');
-  });
+  const pmSignOutBtn = document.getElementById('pmSignOutBtn');
 
   profileBtn?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -2223,7 +2240,7 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
     openModal('profileMenuPopup', '#pmSignInBtn');
   });
 
-  pmCloseBtn?.addEventListener('click', () => closeModal('profileMenuPopup'));
+  pmCloseBtn?.addEventListener('click', () => closeModal('profileMenuPopup'));  
 
   pmSignInBtn?.addEventListener('click', () => {
     closeModal('profileMenuPopup');
@@ -2233,7 +2250,19 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   pmCreateProfileBtn?.addEventListener('click', () => {
     closeModal('profileMenuPopup');
     openModal('contactPopup', '#cFullName'); // EXISTING MODAL
+  });  
+
+  pmResetBtn?.addEventListener('click', () => {
+    closeModal('profileMenuPopup');
+    openModal('resetPopup', '#rpEmail');
   });
+
+  pmSignOutBtn?.addEventListener('click', () => {
+    sessionStorage.clear();
+    closeModal('profileMenuPopup');
+    syncAuthUI();
+  });  
+
 })();
 
 
@@ -2879,6 +2908,9 @@ if (emailFromServer) {
     const code = (codeIn?.value || '').trim();
     if (!ctx?.sid || !ctx?.email || code.length !== 6) return;
 
+    const ck = toastCard?.querySelector('.toast-checkmark');
+    if (ck) ck.style.opacity = '0';
+
     tSpinner(true);
     tShow('Verifying code…');
 
@@ -2923,6 +2955,9 @@ if (emailFromServer) {
     const newPassword = pass1?.value || '';
     const newPassword2 = pass2?.value || '';
     if (!newPassword || newPassword !== newPassword2) return;
+
+    const ck = toastCard?.querySelector('.toast-checkmark');
+    if (ck) ck.style.opacity = '0';    
 
     tSpinner(true);
     tShow('Resetting password…');
