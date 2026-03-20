@@ -3094,6 +3094,10 @@ if (emailFromServer) {
           popup.setAttribute('aria-hidden', 'false');
           document.body.classList.add('body-lock');
 
+          requestAnimationFrame(() => {
+           document.getElementById('reviewSlider')?.dispatchEvent(new Event('recalc'));
+          });
+
           const auth = getAuth();
 
           const nameInput = document.getElementById('reviewName');
@@ -3261,6 +3265,7 @@ if (emailFromServer) {
         maxX = slider.offsetWidth - handle.offsetWidth;
         fill.style.width = `${handle.offsetWidth}px`;
       }
+      slider.addEventListener('recalc', recalcSliderBounds);
 
       window.addEventListener('resize', recalcSliderBounds);
 
@@ -3396,7 +3401,7 @@ if (emailFromServer) {
         currentX = Math.max(0, Math.min(dx, maxX));
         handle.style.transform = `translateX(${currentX}px)`;
         fill.style.width = `${currentX + handle.offsetWidth}px`;
-        if (currentX >= maxX && !slider.classList.contains('filled')) completeSlide();
+        if (maxX > 0 && currentX >= maxX && !slider.classList.contains('filled')) completeSlide();
       });
 
       document.addEventListener('pointerup', (e) => {
