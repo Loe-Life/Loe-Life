@@ -2236,7 +2236,6 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
 
   profileBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    if (isSignedIn()) return; // unchanged for now
     openModal('profileMenuPopup', '#pmSignInBtn');
   });
 
@@ -2811,7 +2810,7 @@ if (emailFromServer) {
     const sp = toastCard?.querySelector('.toast-spinner');
     const ck = toastCard?.querySelector('.toast-checkmark');
     if (sp) sp.style.opacity = on ? '1' : '0';
-    if (ck) ck.style.opacity = on ? '0' : '1';
+    if (ck) ck.style.opacity = '0';
   }
   function tCheck(){
     const sp = toastCard?.querySelector('.toast-spinner');
