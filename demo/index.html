@@ -751,6 +751,21 @@ header nav{
 
     .contact-actions { margin-top: 12px; display: flex; justify-content: flex-end; gap: 10px; }
 
+    /* =========================================================
+   CONTACT ACTIONS — DEFAULT STACKED CTA STYLE
+   ========================================================= */
+
+.contact-actions{
+  display: flex;
+  flex-direction: column-reverse; /* primary last = visually bottom */
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.contact-actions .btn{
+  width: 100%;
+}
+
     .contact-toast {
       margin-top: 10px;
       background: #333;
@@ -1281,17 +1296,18 @@ header nav{
     </p>
 
     <div class="contact-actions" style="gap:10px;">
-      <button id="pmSignInBtn" class="btn primary" type="button">
-        Sign In
-      </button>      
+  
+      <button id="pmResetBtn" class="btn secondary" type="button">
+        Reset Password
+      </button>
 
       <button id="pmCreateProfileBtn" class="btn secondary" type="button">
         Create Profile
       </button>
-
-      <button id="pmResetBtn" class="btn secondary" type="button">
-        Reset Password
-      </button>
+      
+      <button id="pmSignInBtn" class="btn primary" type="button">
+        Sign In
+      </button>    
 
       <button id="pmSignOutBtn" class="btn primary" type="button">
         Sign Out
@@ -1639,12 +1655,12 @@ header nav{
       <div class="contact-card" role="document">
         <h2 id="authTitle">Profile <span style="color:var(--accent-red-dark)">Required</span></h2>
         <p class="sub" style="margin-top:6px;">
-          To keep reviews authentic and tied to real customers, you’ll need a profile to leave a review.
+          To keep reviews authentic and tied to real customers, you’ll need a profile to leave a review. Create a Profile or Sign In to proceed.
         </p>
 
         <div class="contact-actions">
           <button class="btn" id="authCloseBtn" type="button">Close</button>
-          <button class="btn primary" id="authCreateProfileBtn" type="button">Create Profile</button>
+          <button class="btn primary" id="authCreateProfileBtn" type="button">Profile</button>
         </div>
 
         <p class="small" style="margin-top:10px;">
@@ -3123,7 +3139,7 @@ if (emailFromServer) {
       authClose?.addEventListener('click', () => closeModal('authPopup'));
       authCreate?.addEventListener('click', () => {
         closeModal('authPopup');
-        document.getElementById('pmCreateProfileBtn')?.click();
+        document.getElementById('profileBtn')?.click();
       });
     })();
 
