@@ -1726,6 +1726,14 @@ header nav{
           Your Name (First + Last Initial)
           <input id="reviewName" class="review-input" type="text" maxlength="40" placeholder="John D." autocomplete="off">
         </label>
+        <label class="review-label">
+          Email
+          <input id="reviewEmail"
+                 class="review-input"
+                 type="email"
+                 autocomplete="email"
+                 disabled>
+        </label>
 
         <label class="review-label">
           Rating
@@ -3081,12 +3089,28 @@ if (emailFromServer) {
       leaveBtn?.addEventListener('click', (e) => {
         e.preventDefault();
         if (isSignedIn()) {
-          // open review modal
           const popup = document.getElementById('reviewPopup');
           popup.classList.remove('review-hidden');
           popup.setAttribute('aria-hidden', 'false');
           document.body.classList.add('body-lock');
-          document.getElementById('reviewName')?.focus();
+
+          const auth = getAuth();
+
+          const nameInput = document.getElementById('reviewName');
+          const emailInput = document.getElementById('reviewEmail');
+
+         // ✅ user can edit display name
+          if (nameInput) {
+           nameInput.value = '';
+           nameInput.disabled = false;
+           nameInput.focus();
+          }
+
+         // ✅ email is locked + sourced from session
+          if (emailInput) {
+           emailInput.value = auth?.email || '';
+           emailInput.disabled = true;
+         }
         } else {
           openModal('authPopup', '#authCreateProfileBtn');
         }
@@ -3183,9 +3207,9 @@ if (emailFromServer) {
     (function() {
       const slider = document.getElementById('reviewSlider');
       const nameInput = document.getElementById('reviewName');
+      const emailInput = document.getElementById('reviewEmail');
       const ratingInput = document.getElementById('reviewRating');
       const commentInput = document.getElementById('reviewComment');
-
       if (!slider) return;
 
       function isValid() {
@@ -3220,6 +3244,7 @@ if (emailFromServer) {
       const label = slider.querySelector('.slider-label');
 
       const nameInput = document.getElementById('reviewName');
+      const emailInput = document.getElementById('reviewEmail');
       const ratingInput = document.getElementById('reviewRating');
       const commentInput = document.getElementById('reviewComment');
 
@@ -3322,6 +3347,7 @@ if (emailFromServer) {
           id: `r-${Date.now()}`,
           rowKey: auth?.rowKey || null,
           name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
           rating: Number(ratingInput.value),
           comment: commentInput.value.trim(),
           created_at: new Date().toISOString()
