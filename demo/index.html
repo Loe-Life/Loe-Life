@@ -260,58 +260,109 @@ header nav{
   justify-self: end;
 }
 
-/* Mobile: stack brand above nav (prevents overlap/behind) */
-@media (max-width: 760px){
+  @media (max-width: 860px){
 
-  .nav{
-    grid-template-columns: 1fr;     /* ✅ single column */
-    grid-template-rows: auto auto;  /* ✅ two rows */
-    row-gap: 10px;
-    justify-items: center;
-    text-align: center;
+    .nav{
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      row-gap: 10px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .brand{
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: center;
+      min-width: 0;
+    }
+
+    header nav{
+      grid-column: 1;
+      grid-row: 2;
+      justify-self: center;
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* HERE is the key: nav ul becomes a 2-row GRID
+       - first row is 4 equal cells for the 4 buttons
+       - second row is "shop shop shop cart"
+       This guarantees the 3-row header behavior. */
+    header nav ul{
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-areas:
+        "shipping terms privacy profile"
+        "shop     shop  shop   cart";
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* assign each LI to a grid area */
+    header nav ul li:has(#shippingBtn){ grid-area: shipping; }
+    header nav ul li:has(#termsBtn){    grid-area: terms; }
+    header nav ul li:has(#privacyBtn){  grid-area: privacy; }
+    header nav ul li:has(#profileBtn){  grid-area: profile; }
+    header nav ul li:has(.header-cta){  grid-area: shop; }
+    header nav ul li:has(#cart-icon){   grid-area: cart; }
+
+    /* Make the 4 buttons behave nicely in grid cells */
+    header nav ul li{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+    }
+
+    /* Row 2 buttons: fill cell but remain button-shaped */
+    header nav ul li:has(#shippingBtn) .link,
+    header nav ul li:has(#termsBtn) .link,
+    header nav ul li:has(#privacyBtn) .link,
+    header nav ul li:has(#profileBtn) .link{
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+    }
+
+    /* Row 3: Shop fills remaining space, Cart fixed */
+    header nav ul li:has(.header-cta){
+      display: flex;
+      gap: 4px;
+      justify-content: stretch;
+    }
+
+    header nav ul li:has(.header-cta) .header-cta{
+      width: 100%;             /* fill the shop cell */
+      max-width: 560px;        /* "keeping the max width" */
+      justify-content: center;
+    }
+
+    header nav ul li:has(#cart-icon){
+      justify-content: center;
+    }
+
+    header nav ul li:has(#cart-icon) #cart-icon{
+      width: 100%;
+      max-width: 200px;     /* keeps it reasonable */
+      justify-content: center;
+    }
+
+    .brand strong{
+      max-width: 90vw;
+      font-size: .95rem;
+      white-space: normal;
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    .brandmark{
+      height: 56px;
+      max-width: 180px;
+    }
   }
-
-  .brand{
-    grid-column: 1;
-    grid-row: 1;                   /* ✅ brand first row */
-    justify-self: center;
-    min-width: 0;
-  }
-
-  header nav{
-    grid-column: 1;
-    grid-row: 2;                   /* ✅ nav second row */
-    justify-self: center;
-    width: 100%;
-    min-width: 0;
-  }
-
-  nav ul{
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  nav ul li:last-child{
-    width: 80%;
-    margin-top: 10px;
-  }
-
-  .brand strong{
-    max-width: 90vw;
-    font-size: .95rem;
-    white-space: normal;           /* ✅ allow wrap on small screens */
-    line-height: 1.15;
-    text-align: center;
-  }
-
-  .brandmark{
-    height: 56px;
-    max-width: 180px;
-  }
-}
-
 
 
     nav ul {
@@ -1146,15 +1197,6 @@ header nav{
 
   .hero-card { padding: 20px 16px; }
   .gallery-wrap { height: 280px; }
-
-  .header-cta{
-    width: 100%;
-    padding: 14px 18px;
-    min-width: unset;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 }
 
 /* =========================================================
@@ -1250,6 +1292,137 @@ header nav{
   }
 }
 
+/* Quick Shop swatches */
+.qs-swatch{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+  position: relative;
+}
+.qs-swatch.on{
+  outline: 2px solid rgba(229,57,53,0.65);
+}
+.qs-swatch::after{
+  content:"";
+  position:absolute;
+  inset: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* ===============================
+   Quick Shop + Product Popup Selects
+   =============================== */
+
+#qsProductPopup select,
+#qsCartPopup select,
+.review-input,
+.review-label select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: rgba(5, 5, 15, 0.92);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+
+  padding: 8px 10px;
+  font-size: 0.95rem;
+}
+
+/* Focus state */
+#qsProductPopup select:focus,
+#qsCartPopup select:focus,
+.review-label select:focus {
+  outline: none;
+  border-color: var(--card-red);
+  box-shadow: 0 0 0 1px rgba(245, 0, 0, 0.6);
+  background: rgba(10,10,20,0.95);
+}
+
+/* Dropdown options */
+#qsProductPopup option,
+#qsCartPopup option,
+.review-label option {
+  background-color: #0b0b12;
+  color: #fff;
+}
+
+
+#cart-icon {
+  position: relative;
+}
+
+/* Cart button — base body */
+#cart-icon {
+  position: relative;
+
+  padding: 10px 14px;           /* increases hit area */
+  border-radius: 14px;          /* matches shop button softness */
+  min-width: 44px;
+  min-height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtle frame for cart button */
+#cart-icon {
+  background: rgba(20, 20, 30, 0.55);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+}
+
+#cart-icon .cart-icon-svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--ink);
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+#cart-icon:hover .cart-icon-svg {
+  transform: scale(1.08);
+}
+
+#cart-icon:hover {
+  background: rgba(25, 25, 40, 0.7);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.6);
+}
+
+#cart-count-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--card-red);
+  color: #000000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#cart-icon.has-items .cart-icon-svg {
+  color: var(--accent-red);
+  filter: drop-shadow(0 0 6px rgba(229,57,53,.6));
+}
+
   </style>
 </head>
 
@@ -1271,6 +1444,16 @@ header nav{
           <li><a class="link" href="#" id="privacyBtn" role="button">Privacy</a></li>
           <li><a class="link" href="#" id="profileBtn" role="button">Profile</a></li>
           <li><a class="header-cta" href="https://loe-life.com/shop/">Shop</a></li>
+          <li>
+            <button id="cart-icon" class="cta" aria-label="Toggle Cart">
+              <svg class="cart-icon-svg" viewBox="-0.5 0 25 25" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.5996 21.57C19.7042 21.57 20.5996 20.6746 20.5996 19.57C20.5996 18.4654 19.7042 17.57 18.5996 17.57C17.495 17.57 16.5996 18.4654 16.5996 19.57C16.5996 20.6746 17.495 21.57 18.5996 21.57Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.59961 21.57C9.70418 21.57 10.5996 20.6746 10.5996 19.57C10.5996 18.4654 9.70418 17.57 8.59961 17.57C7.49504 17.57 6.59961 18.4654 6.59961 19.57C6.59961 20.6746 7.49504 21.57 8.59961 21.57Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 3.55997C2 3.55997 6.64 3.49997 6 7.55997L5.31006 11.62C5.20774 12.1068 5.21778 12.6105 5.33954 13.0929C5.46129 13.5752 5.69152 14.0234 6.01263 14.4034C6.33375 14.7833 6.73733 15.0849 7.19263 15.2854C7.64793 15.4858 8.14294 15.5797 8.64001 15.56H16.64C17.7479 15.5271 18.8119 15.1196 19.6583 14.404C20.5046 13.6884 21.0834 12.7069 21.3 11.62L21.9901 7.50998C22.0993 7.0177 22.0939 6.50689 21.9744 6.017C21.8548 5.52712 21.6242 5.07126 21.3005 4.68467C20.9767 4.29807 20.5684 3.99107 20.1071 3.78739C19.6458 3.58371 19.1438 3.48881 18.64 3.50998H9.94" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span id="cart-count-badge"></span>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
@@ -1853,66 +2036,140 @@ header nav{
     </section>
 
     <!-- PRODUCT HIGHLIGHTS -->
-    <section class="section" id="product-highlights">
-      <div class="card">
-        <h2>Product <span style="color:var(--accent-red-dark)">Highlights</span></h2>
-        <p class="menu-sub">Preview styles — full selection and customization live in the Shop.</p>
+<section class="section" id="product-highlights">
+  <div class="card">
+    <h2>
+      The <span style="color:var(--accent-red-dark)">Lineup</span>
+    </h2>
 
-        <div class="menu-grid">
-          <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg1.png" alt="Aggressive style preview">
-            <div class="menu-item-header">
-              <span class="menu-item-name">Aggressive</span>
-              <span class="menu-item-tag">Bold</span>
-            </div>
-            <p class="menu-item-desc">A high-impact look with sharp presence — built for people who move with purpose.</p>
-            <div class="menu-item-meta">
-              <span class="menu-item-price">FREE</span>
-              <span class="menu-item-note">free gift with order</span>
-            </div>
-          </div>
+    <p class="menu-sub">
+      A curated selection — configure quickly and add to cart.
+    </p>
 
-          <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg2.png" alt="Sharp style preview">
-            <div class="menu-item-header">
-              <span class="menu-item-name">Aggressive Lowercase</span>
-              <span class="menu-item-tag">Sharp</span>
-            </div>
-            <p class="menu-item-desc">Expressive, modern, and confident — designed to stand out without screaming.</p>
-            <div class="menu-item-meta">
-              <span class="menu-item-price">FREE</span>
-              <span class="menu-item-note">free gift with order</span>
-            </div>
-          </div>
+    <!--
+      Quick Shop Grid
+      - Hydrated by JS
+      - Backed by a limited / curated catalog
+      - Intentionally empty at load
+    -->
+    <div class="menu-grid" id="quickShopGrid" aria-live="polite">
+      <!-- menu-item cards injected here -->
+    </div>
 
-          <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg3.png" alt="Modern style preview">
-            <div class="menu-item-header">
-              <span class="menu-item-name">Classic</span>
-              <span class="menu-item-tag">Modern</span>
-            </div>
-            <p class="menu-item-desc">Clean and versatile — fits any rotation, any season, any day.</p>
-            <div class="menu-item-meta">
-              <span class="menu-item-price">FREE</span>
-              <span class="menu-item-note">free gift with order</span>
-            </div>
-          </div>
+    <!-- Optional future affordance -->
+    <div style="margin-top:14px; text-align:center;">
+      <a href="/shop/" class="btn secondary">
+        View Full Shop
+      </a>
+    </div>
+  </div>
+</section>
 
-          <div class="menu-item">
-            <img class="menu-img" src="https://loe-life.com/images/bg4.png" alt="Stout style preview">
-            <div class="menu-item-header">
-              <span class="menu-item-name">Chunky Classic</span>
-              <span class="menu-item-tag">Stout</span>
-            </div>
-            <p class="menu-item-desc">Thicker lines, stronger readability — built for impact and durability.</p>
-            <div class="menu-item-meta">
-              <span class="menu-item-price">FREE</span>
-              <span class="menu-item-note">free gift with order</span>
-            </div>
-          </div>
-        </div>
+    <!-- QUICK SHOP PRODUCT POPUP -->
+<div id="qsProductPopup"
+     class="contact-popup contact-hidden"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="qsTitle">
+  <div class="contact-overlay" data-close="true"></div>
+
+  <div class="contact-card" role="document">
+    <button id="qsCloseBtn" type="button" class="modal-x-btn" aria-label="Close product">✕</button>
+
+    <h2 id="qsTitle">Quick Shop</h2>
+    <p class="small" id="qsSubtitle" style="margin-top:-6px;">Choose size and color.</p>
+
+    <div style="display:grid; grid-template-columns: 120px 1fr; gap: 12px; align-items:start; margin-top:10px;">
+      <img id="qsImg" src="https://loe-life.com/images/bg1.png" alt="Product image"
+           style="width:120px; height:120px; object-fit:cover; border-radius:14px; border:1px solid rgba(255,255,255,0.14);" />
+      <div>
+        <div class="small" style="color:var(--muted);">Price (est.)</div>
+        <div style="font-weight:800; color:#ffd180; font-size:1.1rem;" id="qsPrice">—</div>
+        <div class="small" style="margin-top:4px; color:var(--muted);" id="qsNote"></div>
       </div>
-    </section>
+    </div>
+
+    <div class="review-label">
+      Size
+      <select id="qsSize" class="review-input"></select>
+    </div>
+
+    <div class="review-label">
+      Garment Color
+      <div id="qsColors" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+    </div>
+
+    <div class="review-label">
+      Quantity
+      <select id="qsQty" class="review-input">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+      </select>
+    </div>
+
+    <div class="contact-actions">
+      <button id="qsCancelBtn" class="btn" type="button">Cancel</button>
+      <button id="qsAddBtn" class="btn primary" type="button">Add to Cart</button>
+    </div>
+
+    <div id="qsInlineErr" class="small" style="margin-top:10px; color:rgba(255,90,90,0.95); display:none;"></div>
+  </div>
+</div>
+
+<!-- QUICK SHOP CART POPUP -->
+<div id="qsCartPopup"
+     class="contact-popup contact-hidden"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="qsCartTitle">
+  <div class="contact-overlay" data-close="true"></div>
+
+  <div class="contact-card" role="document">
+    <button id="qsCartCloseBtn" type="button" class="modal-x-btn" aria-label="Close cart">✕</button>
+
+    <h2 id="qsCartTitle">Cart</h2>
+    <p class="small" style="margin-top:-6px;">Totals are confirmed by the server at checkout.</p>
+
+    <ul id="qsCartList" class="list" style="padding-left:18px; margin:12px 0;"></ul>
+
+    <div style="display:grid; gap:6px; margin-top:10px;">
+      <div style="display:flex; justify-content:space-between;">
+        <span class="small">Subtotal</span>
+        <strong>$<span id="qsSub">0.00</span></strong>
+      </div>
+      <div style="display:flex; justify-content:space-between;">
+        <span class="small">Shipping</span>
+        <strong>$<span id="qsShip">0.00</span></strong>
+      </div>
+      <div style="display:flex; justify-content:space-between;">
+        <span class="small">Tax</span>
+        <strong>$<span id="qsTax">0.00</span></strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:4px;">
+        <span class="small" style="font-weight:800;">Total</span>
+        <strong style="color:#ffd180;">$<span id="qsTotal">0.00</span></strong>
+      </div>
+    </div>
+
+    <div class="contact-actions">
+      <button id="qsCartContinueBtn" class="btn" type="button">Continue Shopping</button>
+      <button id="qsCheckoutBtn" class="btn primary" type="button" data-loading-text="Checking out…">Checkout</button>
+    </div>
+
+    <!-- Reuse your toast style -->
+    <div id="qsCartToast" class="review-toast review-toast-hidden" role="status" aria-live="polite">
+      <div class="review-toast-card">
+        <div class="toast-title">Checkout</div>
+        <div class="toast-icon">
+          <div class="toast-spinner"></div>
+          <div class="toast-checkmark"></div>
+        </div>
+        <div class="toast-text">Working…</div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- REVIEWS -->
     <section class="section reviews">
@@ -2250,6 +2507,16 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
         document.body.classList.remove('body-lock');
       }
     }
+
+    (function bindHeaderCart() {
+  const cartBtn = document.getElementById('cart-icon');
+  if (!cartBtn) return;
+
+  cartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.openQuickShopCart?.();
+  });
+})();
 
     (function bindProfileMenu() {
   const profileBtn = document.getElementById('profileBtn');
@@ -3431,6 +3698,583 @@ if (emailFromServer) {
 
       recalcSliderBounds();
     })();
+
+    /* =========================================================
+   QUICK SHOP (Landing) — Product Highlights -> Dynamic Catalog
+   - Loads /catalog/productCatalog.v3.json (same schema as shop)
+   - Click card -> popup -> size + color + qty -> cart
+   - Checkout calls backend (authoritative totals)
+========================================================= */
+
+(function quickShopLanding(){
+  // ----- Config -----
+  const QS = {
+    catalogUrl: '/catalog/productCatalog.v3.json',
+    maxCards: 20,
+    // Optional: pin exact handles (leave [] to auto-pick first maxCards by merch.Sort)
+    handles: []
+  };
+
+  // ----- DOM refs -----
+  const grid = document.getElementById('quickShopGrid');
+  if (!grid) return; // nothing to mount into
+
+  const productPopupId = 'qsProductPopup';
+  const cartPopupId = 'qsCartPopup';
+
+  const qsTitle = document.getElementById('qsTitle');
+  const qsSubtitle = document.getElementById('qsSubtitle');
+  const qsImg = document.getElementById('qsImg');
+  const qsPrice = document.getElementById('qsPrice');
+  const qsNote = document.getElementById('qsNote');
+
+  const qsSize = document.getElementById('qsSize');
+  const qsColors = document.getElementById('qsColors');
+  const qsQty = document.getElementById('qsQty');
+  const qsAddBtn = document.getElementById('qsAddBtn');
+  const qsCancelBtn = document.getElementById('qsCancelBtn');
+  const qsCloseBtn = document.getElementById('qsCloseBtn');
+  const qsInlineErr = document.getElementById('qsInlineErr');
+
+  const qsCartList = document.getElementById('qsCartList');
+  const qsSub = document.getElementById('qsSub');
+  const qsShip = document.getElementById('qsShip');
+  const qsTax = document.getElementById('qsTax');
+  const qsTotal = document.getElementById('qsTotal');
+  const qsCheckoutBtn = document.getElementById('qsCheckoutBtn');
+  const qsCartContinueBtn = document.getElementById('qsCartContinueBtn');
+  const qsCartCloseBtn = document.getElementById('qsCartCloseBtn');
+
+  // toast
+  const cartToast = document.getElementById('qsCartToast');
+  const cartToastCard = cartToast?.querySelector('.review-toast-card');
+  const cartToastText = cartToast?.querySelector('.toast-text');
+  function tShow(msg, variant){
+    if (!cartToast) return;
+    if (cartToastText) cartToastText.textContent = msg || 'Working…';
+    cartToastCard?.classList.remove('success','error');
+    if (variant === 'success') cartToastCard?.classList.add('success');
+    if (variant === 'error') cartToastCard?.classList.add('error');
+    cartToast.classList.remove('review-toast-hidden');
+    requestAnimationFrame(()=>cartToast.classList.add('show'));
+  }
+  function tHide(){
+    if (!cartToast) return;
+    cartToast.classList.remove('show');
+    setTimeout(()=>{
+      cartToast.classList.add('review-toast-hidden');
+      cartToastCard?.classList.remove('success','error');
+    }, 260);
+  }
+  function tSpinner(on){
+    const sp = cartToastCard?.querySelector('.toast-spinner');
+    const ck = cartToastCard?.querySelector('.toast-checkmark');
+    if (sp) sp.style.opacity = on ? '1' : '0';
+    if (ck) ck.style.opacity = '0';
+  }
+  function tCheck(){
+    const sp = cartToastCard?.querySelector('.toast-spinner');
+    const ck = cartToastCard?.querySelector('.toast-checkmark');
+    if (sp) sp.style.opacity = '0';
+    if (ck){
+      ck.classList.remove('animate');
+      void ck.offsetWidth;
+      ck.classList.add('animate');
+      ck.style.opacity = '1';
+    }
+  }
+
+  // ----- Catalog + state -----
+  let CATALOG = null;
+  let PRODUCTS = [];
+  let activeProduct = null;
+  let activeChoice = { size:null, garmentColor:null, qty:1, finish:'SOLID', fit:null };
+
+  const CART_KEY = 'loe_quick_cart_v1';
+  let cart = loadCart();
+  updateCartBadge(cart);
+  function loadCart(){
+    try { return JSON.parse(sessionStorage.getItem(CART_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveCart(){
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  // ----- Helpers -----
+  const money = (n)=> (Number(n || 0)).toFixed(2);
+
+  function colorToCss(name){
+    const map = { BLACK:"#111111", WHITE:"#f5f5f5", GRAY:"#9aa0a6",
+      RED:"#e53935", BLUE:"#1e88e5", GOLD:"#d4af37", SILVER:"#c0c0c0"
+    };
+    return map[String(name||'').toUpperCase()] || '#444';
+  }
+
+  function priceRange(p){
+    const base = Number(p?.pricing?.basePrice);
+    if (!Number.isFinite(base)) return { min:null, max:null };
+    const delta = p?.pricing?.finishDelta || CATALOG?.pricing?.finishDelta || { SOLID:0, GLITTER:0 };
+    const finishes = (p?.options?.finishes || ['SOLID']).map(x=>String(x).toUpperCase());
+    const ds = finishes.map(f=>Number(delta[f] ?? 0));
+    return { min: base + Math.min(...ds), max: base + Math.max(...ds) };
+  }
+
+  // pick a “default” variant-like SKU for the selection
+  // v3: variants[] contains skuByFinish keyed by finish; fit+size identify variant.
+  function findVariant(p, fit, size){
+    const wantFit = String(fit || p?.options?.fits?.[0] || 'NONE').toUpperCase();
+    const wantSize = String(size || p?.options?.sizes?.[0] || 'ONE_SIZE');
+    return (p?.variants || []).find(v =>
+      String(v.fit).toUpperCase() === wantFit && String(v.size) === wantSize
+    ) || (p?.variants ? p.variants[0] : null);
+  }
+
+  function buildCartItem(p, choice){
+    const fit = String(choice.fit || p?.options?.fits?.[0] || 'NONE').toUpperCase();
+    const size = String(choice.size || p?.options?.sizes?.[0] || 'ONE_SIZE');
+    const finish = String(choice.finish || 'SOLID').toUpperCase();
+    const garmentColor = String(choice.garmentColor || p?.options?.garmentColors?.[0] || 'BLACK').toUpperCase();
+
+    const v = findVariant(p, fit, size);
+    const sku = v?.skuByFinish?.[finish] || v?.skuByFinish?.SOLID || null;
+    if (!sku) throw new Error('No SKU available for this selection.');
+
+    const base = Number(p?.pricing?.basePrice);
+    const delta = p?.pricing?.finishDelta || CATALOG?.pricing?.finishDelta || { SOLID:0, GLITTER:0 };
+    const unit = Number.isFinite(base) ? (base + Number(delta[finish] ?? 0)) : null;
+
+    return {
+      key: `${sku}::${garmentColor}::${size}`,
+      sku,
+      productId: p.id,
+      handle: p.handle,
+      name: p.name,
+      qty: Number(choice.qty || 1),
+      estUnitPrice: unit, // estimate only
+      currency: p?.pricing?.currency || CATALOG?.currency || 'USD',
+      opts: { fit, size, finish, garmentColor },
+      thumb: p?.images?.primary || 'https://loe-life.com/images/bg1.png'
+    };
+  }
+
+  function computeEstTotals(){
+    const subtotal = cart.reduce((s,i)=> s + ((Number(i.estUnitPrice)||0) * (Number(i.qty)||0)), 0);
+    // purely display estimate; backend will override
+    const ship = subtotal > 0 ? Math.min(12, Math.max(0, subtotal * 0.06)) : 0;
+    const tax = subtotal > 0 ? Math.max(0, subtotal * 0.0825) : 0;
+    return { subtotal, ship, tax, total: subtotal + ship + tax };
+  }
+
+  function setInlineErr(msg){
+    if (!qsInlineErr) return;
+    if (!msg){
+      qsInlineErr.style.display = 'none';
+      qsInlineErr.textContent = '';
+      return;
+    }
+    qsInlineErr.textContent = msg;
+    qsInlineErr.style.display = 'block';
+  }
+
+  // ----- UI: render cards -----
+  function renderCards(){
+    grid.innerHTML = '';
+
+    const list = pickHighlightProducts(PRODUCTS);
+    list.forEach(p=>{
+      const pr = priceRange(p);
+      const hasPrice = (pr.min != null && pr.max != null);
+
+      const card = document.createElement('div');
+      card.className = 'menu-item';
+      card.style.cursor = 'pointer';
+
+      const img = p?.images?.primary || 'https://loe-life.com/images/bg1.png';
+      const priceText = !hasPrice ? 'TBD' : (pr.min === pr.max ? `$${money(pr.min)}` : `$${money(pr.min)}–$${money(pr.max)}`);
+
+      card.innerHTML = `
+        <img class="menu-img" src="${img}" alt="${p.name}">
+        <div class="menu-item-header">
+          <span class="menu-item-name">${p.name}</span>
+          <span class="menu-item-tag">${String(p.category||'').toUpperCase()}</span>
+        </div>
+        <p class="menu-item-desc">${(p.displayName || p.name)}</p>
+        <div class="menu-item-meta">
+          <span class="menu-item-price">${priceText}</span>
+          <span class="menu-item-note">tap to customize</span>
+        </div>
+      `;
+
+      card.addEventListener('click', ()=> openQuickProduct(p));
+      grid.appendChild(card);
+    });
+  }
+
+  function pickHighlightProducts(products){
+    // If QS.handles is set, use those in that order
+    if (Array.isArray(QS.handles) && QS.handles.length){
+      const map = new Map(products.map(p=>[p.handle, p]));
+      return QS.handles.map(h=>map.get(h)).filter(Boolean).slice(0, QS.maxCards);
+    }
+    // else: sort by merch.Sort then take top N
+    const sorted = [...products].sort((a,b)=>{
+      const as = Number(a?.merch?.Sort ?? 9999);
+      const bs = Number(b?.merch?.Sort ?? 9999);
+      if (as !== bs) return as - bs;
+      return String(a?.name||'').localeCompare(String(b?.name||''));
+    });
+    return sorted.slice(0, QS.maxCards);
+  }
+
+  // ----- UI: open product popup -----
+  function openQuickProduct(p){
+    activeProduct = p;
+
+    const pr = priceRange(p);
+    const hasPrice = (pr.min != null && pr.max != null);
+
+    if (qsTitle) qsTitle.textContent = p.name || 'Quick Shop';
+    if (qsSubtitle) qsSubtitle.textContent = `${String(p.category||'').toUpperCase()} • Choose size and color`;
+    if (qsImg) qsImg.src = p?.images?.primary || 'https://loe-life.com/images/bg1.png';
+
+    if (!hasPrice){
+      if (qsPrice) qsPrice.textContent = 'TBD';
+      if (qsNote) qsNote.textContent = 'Pricing not available yet for this item.';
+    } else {
+      if (qsPrice) qsPrice.textContent = (pr.min === pr.max ? `$${money(pr.min)}` : `$${money(pr.min)}–$${money(pr.max)}`) + ' (est.)';
+      if (qsNote) qsNote.textContent = 'Final totals confirmed at checkout.';
+    }
+
+    // default choice
+    activeChoice.fit = (p?.options?.fits?.[0] || 'NONE');
+    activeChoice.size = (p?.options?.sizes?.[0] || 'ONE_SIZE');
+    activeChoice.finish = 'SOLID';
+    activeChoice.garmentColor = (p?.options?.garmentColors?.[0] || 'BLACK');
+    activeChoice.qty = 1;
+
+    // sizes
+    const sizes = (p?.options?.sizes || []).map(String);
+    qsSize.innerHTML = sizes.map(s=>`<option value="${s}">${s}</option>`).join('');
+    qsSize.value = activeChoice.size;
+
+    // colors swatches
+    renderColorSwatches(p?.options?.garmentColors || [], activeChoice.garmentColor);
+
+    // qty
+    qsQty.value = '1';
+
+    // listeners
+    qsSize.onchange = ()=> { activeChoice.size = qsSize.value; setInlineErr(null); };
+    qsQty.onchange = ()=> { activeChoice.qty = Number(qsQty.value || 1); setInlineErr(null); };
+
+    setInlineErr(null);
+    openModal(productPopupId, '#qsSize');
+  }
+
+  function renderColorSwatches(colors, current){
+    qsColors.innerHTML = '';
+    (colors || []).forEach(c=>{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'qs-swatch' + (String(c).toUpperCase() === String(current).toUpperCase() ? ' on' : '');
+      b.title = String(c);
+      b.style.background = colorToCss(c);
+      b.onclick = ()=>{
+        activeChoice.garmentColor = c;
+        // refresh selection UI
+        renderColorSwatches(colors, c);
+        setInlineErr(null);
+      };
+      qsColors.appendChild(b);
+    });
+  }
+
+  // close buttons
+  qsCancelBtn?.addEventListener('click', ()=> closeModal(productPopupId));
+  qsCloseBtn?.addEventListener('click', ()=> closeModal(productPopupId));
+
+  // add to cart
+  qsAddBtn?.addEventListener('click', ()=>{
+    try{
+      if (!activeProduct) return;
+
+      // If pricing missing, block add (prevents “TBD” items)
+      const base = Number(activeProduct?.pricing?.basePrice);
+      if (!Number.isFinite(base)){
+        setInlineErr('This item is not priced yet (basePrice missing).');
+        return;
+      }
+
+      const item = buildCartItem(activeProduct, activeChoice);
+
+      const idx = cart.findIndex(x=>x.key === item.key);
+      if (idx >= 0) cart[idx].qty += item.qty;
+      else cart.push(item);
+
+      saveCart();
+      updateCartBadge(cart);
+      closeModal(productPopupId);
+      openCart();
+    } catch (e){
+      console.error(e);
+      setInlineErr(e?.message || 'Unable to add item.');
+    }
+  });
+
+  // ----- Cart UI -----
+  function openCart(){
+    renderCart();
+    openModal(cartPopupId, '#qsCheckoutBtn');
+  }
+  qsCartCloseBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
+  qsCartContinueBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
+
+  function renderCart(){
+    if (!qsCartList) return;
+    qsCartList.innerHTML = '';
+
+    if (!cart.length){
+      const li = document.createElement('li');
+      li.textContent = 'Cart is empty.';
+      qsCartList.appendChild(li);
+    } else {
+      cart.forEach((i)=>{
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.justifyContent = 'space-between';
+        li.style.gap = '10px';
+        li.style.alignItems = 'center';
+
+        const left = document.createElement('div');
+        left.style.minWidth = '0';
+        left.innerHTML = `
+          <strong style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${i.name}</strong>
+          <span class="small" style="display:block; color:var(--muted);">
+            ${i.opts.size} • ${i.opts.garmentColor}
+          </span>
+        `;
+
+        const right = document.createElement('div');
+        right.style.display = 'flex';
+        right.style.alignItems = 'center';
+        right.style.gap = '6px';
+
+        const minus = document.createElement('button');
+        minus.type = 'button';
+        minus.className = 'btn';
+        minus.style.padding = '6px 10px';
+        minus.textContent = '−';
+
+        const qty = document.createElement('input');
+        qty.type = 'number';
+        qty.min = '0';
+        qty.max = '99';
+        qty.value = String(i.qty);
+        qty.className = 'review-input';
+        qty.style.width = '70px';
+        qty.style.padding = '6px 8px';
+
+        const plus = document.createElement('button');
+        plus.type = 'button';
+        plus.className = 'btn';
+        plus.style.padding = '6px 10px';
+        plus.textContent = '+';
+
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'btn secondary';
+        del.style.padding = '6px 10px';
+        del.textContent = '✕';
+
+        minus.onclick = ()=>{
+          i.qty = Math.max(0, Number(i.qty||0) - 1);
+          if (i.qty === 0) cart = cart.filter(x=>x.key !== i.key);
+          saveCart(); renderCart();
+        };
+        plus.onclick = ()=>{
+          i.qty = Math.min(99, Number(i.qty||0) + 1);
+          saveCart(); renderCart();
+        };
+        qty.oninput = ()=>{
+          const v = Math.max(0, Math.min(99, Number(qty.value||0)));
+          i.qty = v;
+          if (v === 0) cart = cart.filter(x=>x.key !== i.key);
+          saveCart(); renderCart();
+        };
+        del.onclick = ()=>{
+          cart = cart.filter(x=>x.key !== i.key);
+          saveCart(); renderCart();
+        };
+
+        right.append(minus, qty, plus, del);
+        li.append(left, right);
+        qsCartList.appendChild(li);
+      });
+    }
+
+    // estimates until backend confirms
+    const t = computeEstTotals();
+    qsSub.textContent = money(t.subtotal);
+    qsShip.textContent = money(t.ship);
+    qsTax.textContent = money(t.tax);
+    qsTotal.textContent = money(t.total);
+
+    qsCheckoutBtn.disabled = cart.length === 0;
+      updateCartBadge(cart);
+  } 
+
+  // ✅ Make header cart open use the same render pipeline
+window.openQuickShopCart = function () {
+  // Always rehydrate from storage on open (handles refresh + multi-step)
+  cart = loadCart();
+  updateCartBadge(cart);
+  renderCart();
+  openModal(cartPopupId, '#qsCheckoutBtn');
+};
+ 
+
+  // ----- Checkout (backend authoritative) -----
+  // Uses existing callOmniEndpoint/getOmniTok pipeline on landing page.
+  // Issuer act: "checkout" (configure your issuer for this act)
+  // Payload act: "createCheckout" (what your actor uses)
+  async function doCheckout(){
+    if (!cart.length) return;
+
+    // Prep payload (UX only — backend is authority)
+    const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
+    sessionStorage.setItem('sid', sid);
+
+    const est = computeEstTotals();
+    const payload = {
+      id: `qsco-${Date.now()}`,
+      ts: new Date().toISOString(),
+      act: 'createCheckout',
+      source: 'loe-life-landing-quickshop',
+      sid,
+      auth: isSignedIn() ? { signedIn:true, rowKey: (getAuth()?.rowKey || getAuth()?.email || null) } : { signedIn:false },
+      cart: cart.map(i=>({
+        key: i.key,
+        sku: i.sku,
+        productId: i.productId,
+        handle: i.handle,
+        name: i.name,
+        qty: i.qty,
+        // estimates for UX only
+        estUnitPrice: i.estUnitPrice,
+        currency: i.currency,
+        opts: i.opts
+      })),
+      estTotals: {
+        subtotal: est.subtotal,
+        estShip: est.ship,
+        estTax: est.tax,
+        total: est.total
+      },
+      audit: {
+        jobId: crypto.randomUUID(),
+        sourceDevice: navigator.userAgent
+      }
+    };
+
+    // Gate: require sign-in (matches your landing auth posture)
+    if (!isSignedIn()){
+      tSpinner(false);
+      tShow('Please sign in before checkout.', 'error');
+      setTimeout(()=>tHide(), 1400);
+      // open your profile menu
+      document.getElementById('profileBtn')?.click?.();
+      return;
+    }
+
+    tSpinner(true);
+    tShow('Requesting totals…');
+
+    try{
+      // NOTE: issuer act is 'checkout'
+      const result = await callOmniEndpoint({ act: 'checkout', payload });
+
+      if (!result?.ok || result?.pending){
+        throw new Error('Checkout not completed.');
+      }
+
+      // Expect backend response to include authoritative totals (if provided)
+      const data = result?.data || {};
+      const totals = data?.totals || data;
+
+      // If your backend returns these fields, reflect them:
+      if (typeof totals?.subtotal === 'number') qsSub.textContent = money(totals.subtotal / 100);
+      if (typeof totals?.shippingCost === 'number') qsShip.textContent = money(totals.shippingCost / 100);
+      if (typeof totals?.taxAmount === 'number') qsTax.textContent = money(totals.taxAmount / 100);
+      if (typeof totals?.totalAmount === 'number') qsTotal.textContent = money(totals.totalAmount / 100);
+
+      tShow(data?.message || 'Checkout created.', 'success');
+      tCheck();
+
+      // Optional: if backend returns a checkout URL, redirect
+      if (data?.checkoutUrl){
+        setTimeout(()=>{ window.location.href = data.checkoutUrl; }, 700);
+        return;
+      }
+
+      // Optional: if backend returns a Stripe clientSecret, you can mount Stripe Elements here later.
+      // (Your Picante example shows Elements + confirmCardPayment using clientSecret) [3](https://fortiviewholdings-my.sharepoint.com/personal/cameron_bridges_fortiviewholdings_com/Documents/Microsoft%20Copilot%20Chat%20Files/index.html)
+
+      setTimeout(()=>tHide(), 900);
+    } catch (e){
+      console.error(e);
+      tShow('Checkout failed — try again.', 'error');
+      setTimeout(()=>tHide(), 1400);
+    } finally {
+      qsCheckoutBtn.disabled = false;
+    }
+  }
+
+  qsCheckoutBtn?.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if (qsCheckoutBtn.dataset.originalText == null) qsCheckoutBtn.dataset.originalText = qsCheckoutBtn.textContent;
+    qsCheckoutBtn.disabled = true;
+    doCheckout();
+  });
+
+  // ----- Load catalog + boot -----
+  async function loadCatalog(){
+    const res = await fetch(QS.catalogUrl, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Catalog load failed');
+    const cat = await res.json();
+    if (!cat || !Array.isArray(cat.products)) throw new Error('Catalog schema invalid (products[] missing).');
+    CATALOG = cat;
+    PRODUCTS = cat.products.filter(p => p && String(p.schema||'').includes('@v3'));
+  }
+
+  loadCatalog()
+    .then(()=> renderCards())
+    .catch(err=>{
+      console.error('Quick Shop catalog error:', err);
+      // fallback: keep section present but empty
+      grid.innerHTML = '<div class="small" style="color:var(--muted);">Quick Shop unavailable.</div>';
+    });
+
+})();
+
+function updateCartBadge(cart = []) {
+  const badge = document.getElementById('cart-count-badge');
+  if (!badge) return;
+
+  const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.opacity = '1';
+    badge.style.transform = 'scale(1)';
+    document.getElementById('cart-icon')?.classList.add('has-items');
+  } else {
+    badge.textContent = '';
+    badge.style.opacity = '0';
+    badge.style.transform = 'scale(0.6)';
+    document.getElementById('cart-icon')?.classList.remove('has-items');
+  }
+}
 
     syncAuthUI();
   </script>
