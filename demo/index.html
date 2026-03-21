@@ -1427,6 +1427,59 @@ header nav{
   filter: drop-shadow(0 0 6px rgba(229,57,53,.6));
 }
 
+/* Cart row fills container */
+.qs-cart-item{
+  width: 100%;
+  list-style: none;
+}
+
+/* Two-column layout: info | controls */
+.qs-cart-row{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 160px; /* ← right column is fixed */
+  align-items: center;
+  gap: 14px;
+}
+/* ===============================
+   QUICK SHOP CART — CONTROL FIX
+   =============================== */
+
+/* Force horizontal row */
+.qs-cart-controls{
+  display: flex;
+  flex-direction: row;      /* 🔴 critical */
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* Shrink buttons ONLY in cart */
+.qs-cart-controls .btn{
+  padding: 4px 6px;
+  min-width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+  line-height: 1;
+  border-radius: 8px;
+}
+
+/* Quantity input — compact pill */
+.qs-cart-controls .qs-cart-qty{
+  width: 42px;
+  height: 28px;
+  padding: 2px 4px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Delete button — same size, not a giant CTA */
+.qs-cart-controls .btn.secondary{
+  padding: 4px 6px;
+  min-width: 28px;
+  height: 28px;
+}
+
   </style>
 </head>
 
@@ -4035,98 +4088,105 @@ if (emailFromServer) {
   qsCartContinueBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
 
   function renderCart(){
-    if (!qsCartList) return;
-    qsCartList.innerHTML = '';
+  if (!qsCartList) return;
+  qsCartList.innerHTML = '';
 
-    if (!cart.length){
+  if (!cart.length){
+    const li = document.createElement('li');
+    li.textContent = 'Cart is empty.';
+    qsCartList.appendChild(li);
+  } else {
+    cart.forEach((i) => {
+
+      /* ===== cart item wrapper ===== */
       const li = document.createElement('li');
-      li.textContent = 'Cart is empty.';
+      li.className = 'qs-cart-item';
+
+      const row = document.createElement('div');
+      row.className = 'qs-cart-row';
+
+      /* ===== LEFT: product info ===== */
+      const info = document.createElement('div');
+      info.className = 'qs-cart-info';
+      info.innerHTML = `
+        <strong class="qs-cart-name">${i.name}</strong>
+        <span class="qs-cart-meta">
+          ${i.opts.size} • ${i.opts.garmentColor}
+        </span>
+      `;
+
+      /* ===== RIGHT: controls ===== */
+      const controls = document.createElement('div');
+      controls.className = 'qs-cart-controls';
+
+      const minus = document.createElement('button');
+      minus.type = 'button';
+      minus.className = 'btn';
+      minus.textContent = '−';
+
+      const qty = document.createElement('input');
+      qty.type = 'number';
+      qty.min = '0';
+      qty.max = '99';
+      qty.value = String(i.qty);
+      qty.className = 'review-input qs-cart-qty';
+
+      const plus = document.createElement('button');
+      plus.type = 'button';
+      plus.className = 'btn';
+      plus.textContent = '+';
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'btn secondary';
+      del.textContent = '✕';
+
+      /* ===== behavior (unchanged logic) ===== */
+      minus.onclick = () => {
+        i.qty = Math.max(0, Number(i.qty || 0) - 1);
+        if (i.qty === 0) cart = cart.filter(x => x.key !== i.key);
+        saveCart();
+        renderCart();
+      };
+
+      plus.onclick = () => {
+        i.qty = Math.min(99, Number(i.qty || 0) + 1);
+        saveCart();
+        renderCart();
+      };
+
+      qty.oninput = () => {
+        const v = Math.max(0, Math.min(99, Number(qty.value || 0)));
+        i.qty = v;
+        if (v === 0) cart = cart.filter(x => x.key !== i.key);
+        saveCart();
+        renderCart();
+      };
+
+      del.onclick = () => {
+        cart = cart.filter(x => x.key !== i.key);
+        saveCart();
+        renderCart();
+      };
+
+      /* ===== assemble ===== */
+      controls.append(minus, qty, plus, del);
+      row.append(info, controls);
+      li.appendChild(row);
       qsCartList.appendChild(li);
-    } else {
-      cart.forEach((i)=>{
-        const li = document.createElement('li');
-        li.style.display = 'flex';
-        li.style.justifyContent = 'space-between';
-        li.style.gap = '10px';
-        li.style.alignItems = 'center';
+    });
+  }
 
-        const left = document.createElement('div');
-        left.style.minWidth = '0';
-        left.innerHTML = `
-          <strong style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${i.name}</strong>
-          <span class="small" style="display:block; color:var(--muted);">
-            ${i.opts.size} • ${i.opts.garmentColor}
-          </span>
-        `;
+  /* ===== totals (unchanged) ===== */
+  const t = computeEstTotals();
+  qsSub.textContent = money(t.subtotal);
+  qsShip.textContent = money(t.ship);
+  qsTax.textContent = money(t.tax);
+  qsTotal.textContent = money(t.total);
 
-        const right = document.createElement('div');
-        right.style.display = 'flex';
-        right.style.alignItems = 'center';
-        right.style.gap = '6px';
-
-        const minus = document.createElement('button');
-        minus.type = 'button';
-        minus.className = 'btn';
-        minus.style.padding = '6px 10px';
-        minus.textContent = '−';
-
-        const qty = document.createElement('input');
-        qty.type = 'number';
-        qty.min = '0';
-        qty.max = '99';
-        qty.value = String(i.qty);
-        qty.className = 'review-input';
-        qty.style.width = '70px';
-        qty.style.padding = '6px 8px';
-
-        const plus = document.createElement('button');
-        plus.type = 'button';
-        plus.className = 'btn';
-        plus.style.padding = '6px 10px';
-        plus.textContent = '+';
-
-        const del = document.createElement('button');
-        del.type = 'button';
-        del.className = 'btn secondary';
-        del.style.padding = '6px 10px';
-        del.textContent = '✕';
-
-        minus.onclick = ()=>{
-          i.qty = Math.max(0, Number(i.qty||0) - 1);
-          if (i.qty === 0) cart = cart.filter(x=>x.key !== i.key);
-          saveCart(); renderCart();
-        };
-        plus.onclick = ()=>{
-          i.qty = Math.min(99, Number(i.qty||0) + 1);
-          saveCart(); renderCart();
-        };
-        qty.oninput = ()=>{
-          const v = Math.max(0, Math.min(99, Number(qty.value||0)));
-          i.qty = v;
-          if (v === 0) cart = cart.filter(x=>x.key !== i.key);
-          saveCart(); renderCart();
-        };
-        del.onclick = ()=>{
-          cart = cart.filter(x=>x.key !== i.key);
-          saveCart(); renderCart();
-        };
-
-        right.append(minus, qty, plus, del);
-        li.append(left, right);
-        qsCartList.appendChild(li);
-      });
-    }
-
-    // estimates until backend confirms
-    const t = computeEstTotals();
-    qsSub.textContent = money(t.subtotal);
-    qsShip.textContent = money(t.ship);
-    qsTax.textContent = money(t.tax);
-    qsTotal.textContent = money(t.total);
-
-    qsCheckoutBtn.disabled = cart.length === 0;
-      updateCartBadge(cart);
-  } 
+  qsCheckoutBtn.disabled = cart.length === 0;
+  updateCartBadge(cart);
+}
 
   // ✅ Make header cart open use the same render pipeline
 window.openQuickShopCart = function () {
