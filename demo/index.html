@@ -3858,6 +3858,34 @@ if (emailFromServer) {
     sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
 
+  // ----- Checkout session (orderNumber + lock state) -----
+
+  // Checkout phases:
+// - 'draft'     → cart editable, estimates only
+// - 'locked'    → totals authoritative, cart locked
+// - 'submitted' → payment initiated (next phase)
+
+const CHECKOUT_KEY = 'loe_checkout_session_v1';
+
+function getCheckoutSession(){
+  try {
+    return JSON.parse(sessionStorage.getItem(CHECKOUT_KEY));
+  } catch {
+    return null;
+  }
+}
+
+function setCheckoutSession(patch){
+  const cur = getCheckoutSession() || {};
+  const next = { ...cur, ...patch };
+  sessionStorage.setItem(CHECKOUT_KEY, JSON.stringify(next));
+  return next;
+}
+
+function clearCheckoutSession(){
+  sessionStorage.removeItem(CHECKOUT_KEY);
+}
+
   // ----- Helpers -----
   const money = (n)=> (Number(n || 0)).toFixed(2);
 
@@ -3916,12 +3944,25 @@ if (emailFromServer) {
   }
 
   function computeEstTotals(){
-    const subtotal = cart.reduce((s,i)=> s + ((Number(i.estUnitPrice)||0) * (Number(i.qty)||0)), 0);
-    // purely display estimate; backend will override
-    const ship = subtotal > 0 ? Math.min(12, Math.max(0, subtotal * 0.06)) : 0;
-    const tax = subtotal > 0 ? Math.max(0, subtotal * 0.0825) : 0;
-    return { subtotal, ship, tax, total: subtotal + ship + tax };
-  }
+  const subtotal = cart.reduce((s, i) =>
+    s + ((Number(i.estUnitPrice) || 0) * (Number(i.qty) || 0)), 0
+  );
+
+  // --- ESTIMATES ONLY (backend is authority) ---
+
+  // Flat $10 shipping if subtotal < $50
+  const ship = subtotal > 0 && subtotal < 50 ? 10 : 0;
+
+  // Texas tax estimate: 8.25%
+  const tax = subtotal > 0 ? subtotal * 0.0825 : 0;
+
+  return {
+    subtotal,
+    ship,
+    tax,
+    total: subtotal + ship + tax
+  };
+}
 
   function setInlineErr(msg){
     if (!qsInlineErr) return;
@@ -4085,7 +4126,20 @@ if (emailFromServer) {
     openModal(cartPopupId, '#qsCheckoutBtn');
   }
   qsCartCloseBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
-  qsCartContinueBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
+  qsCartContinueBtn?.addEventListener('click', () => {
+  // ✅ Unlock cart (but KEEP orderNumber)
+  setCheckoutSession({ phase: 'draft', totals: null });
+
+  // ✅ Re-enable cart controls
+  document
+    .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
+    .forEach(el => el.disabled = false);
+
+  closeModal(cartPopupId);
+
+  // ✅ Re-render cart using estimated totals again
+  renderCart();
+});
 
   function renderCart(){
   if (!qsCartList) return;
@@ -4202,20 +4256,29 @@ window.openQuickShopCart = function () {
   // Uses existing callOmniEndpoint/getOmniTok pipeline on landing page.
   // Issuer act: "checkout" (configure your issuer for this act)
   // Payload act: "createCheckout" (what your actor uses)
+
+  let checkoutInFlight = false;
+
   async function doCheckout(){
+    if (checkoutInFlight) return;
     if (!cart.length) return;
+
+    checkoutInFlight = true;
 
     // Prep payload (UX only — backend is authority)
     const sid = sessionStorage.getItem('sid') || crypto.randomUUID();
     sessionStorage.setItem('sid', sid);
 
     const est = computeEstTotals();
+    const checkoutSession = getCheckoutSession();
+
     const payload = {
       id: `qsco-${Date.now()}`,
       ts: new Date().toISOString(),
       act: 'createCheckout',
       source: 'loe-life-landing-quickshop',
       sid,
+      orderNumber: checkoutSession?.orderNumber || null,
       auth: isSignedIn() ? { signedIn:true, rowKey: (getAuth()?.rowKey || getAuth()?.email || null) } : { signedIn:false },
       cart: cart.map(i=>({
         key: i.key,
@@ -4265,12 +4328,24 @@ window.openQuickShopCart = function () {
       // Expect backend response to include authoritative totals (if provided)
       const data = result?.data || {};
       const totals = data?.totals || data;
+      // ✅ Persist orderNumber for this session (first checkout creates it)
+      if (data?.orderNumber) {
+        setCheckoutSession({
+          orderNumber: data.orderNumber,
+          phase: 'locked'
+        });
+      }
 
       // If your backend returns these fields, reflect them:
       if (typeof totals?.subtotal === 'number') qsSub.textContent = money(totals.subtotal / 100);
       if (typeof totals?.shippingCost === 'number') qsShip.textContent = money(totals.shippingCost / 100);
       if (typeof totals?.taxAmount === 'number') qsTax.textContent = money(totals.taxAmount / 100);
       if (typeof totals?.totalAmount === 'number') qsTotal.textContent = money(totals.totalAmount / 100);
+
+      // ✅ Lock cart controls after authoritative totals
+      document
+        .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
+        .forEach(el => el.disabled = true);
 
       tShow(data?.message || 'Checkout created.', 'success');
       tCheck();
@@ -4290,6 +4365,7 @@ window.openQuickShopCart = function () {
       tShow('Checkout failed — try again.', 'error');
       setTimeout(()=>tHide(), 1400);
     } finally {
+      checkoutInFlight = false;
       qsCheckoutBtn.disabled = false;
     }
   }
