@@ -4337,10 +4337,17 @@ window.openQuickShopCart = function () {
       }
 
       // If your backend returns these fields, reflect them:
-      if (typeof totals?.subtotal === 'number') qsSub.textContent = money(totals.subtotal / 100);
-      if (typeof totals?.shippingCost === 'number') qsShip.textContent = money(totals.shippingCost / 100);
-      if (typeof totals?.taxAmount === 'number') qsTax.textContent = money(totals.taxAmount / 100);
-      if (typeof totals?.totalAmount === 'number') qsTotal.textContent = money(totals.totalAmount / 100);
+      if (typeof totals?.subtotal === 'number')
+        qsSub.textContent = money(totals.subtotal);
+
+      if (typeof totals?.shipping === 'number')
+        qsShip.textContent = money(totals.shipping);
+
+      if (typeof totals?.tax === 'number')
+        qsTax.textContent = money(totals.tax);
+
+      if (typeof totals?.total === 'number')
+        qsTotal.textContent = money(totals.total);
 
       // ✅ Lock cart controls after authoritative totals
       document
