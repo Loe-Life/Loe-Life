@@ -4142,6 +4142,9 @@ function clearCheckoutSession(){
 });
 
   function renderCart(){
+  const checkout = getCheckoutSession();
+  const isLocked = checkout?.phase === 'locked';  
+  
   if (!qsCartList) return;
   qsCartList.innerHTML = '';
 
@@ -4238,7 +4241,14 @@ function clearCheckoutSession(){
   qsTax.textContent = money(t.tax);
   qsTotal.textContent = money(t.total);
 
-  qsCheckoutBtn.disabled = cart.length === 0;
+  qsCheckoutBtn.disabled = cart.length === 0 || isLocked;
+  
+  document
+    .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
+    .forEach(el => {
+      el.disabled = isLocked;
+  });
+
   updateCartBadge(cart);
 }
 
@@ -4327,6 +4337,7 @@ window.openQuickShopCart = function () {
 
       // Expect backend response to include authoritative totals (if provided)
       const data = result?.data || {};
+      const checkoutResult = data;
       const totals = data?.totals || data;
       // ✅ Persist orderNumber for this session (first checkout creates it)
       if (data?.orderNumber) {
@@ -4357,14 +4368,36 @@ window.openQuickShopCart = function () {
       tShow(data?.message || 'Checkout created.', 'success');
       tCheck();
 
-      // Optional: if backend returns a checkout URL, redirect
-      if (data?.checkoutUrl){
-        setTimeout(()=>{ window.location.href = data.checkoutUrl; }, 700);
-        return;
-      }
+      // ✅ Promote checkout button to NEXT PHASE: createPaymentIntent
+      qsCheckoutBtn.onclick = async () => {
+        try {
+          tSpinner(true);
+          tShow('Preparing payment…');
 
-      // Optional: if backend returns a Stripe clientSecret, you can mount Stripe Elements here later.
-      // (Your Picante example shows Elements + confirmCardPayment using clientSecret) [3](https://fortiviewholdings-my.sharepoint.com/personal/cameron_bridges_fortiviewholdings_com/Documents/Microsoft%20Copilot%20Chat%20Files/index.html)
+          const result = await callOmniEndpoint({
+            act: 'createPaymentIntent',
+            payload: {
+              ...checkoutResults,         
+              sid                               
+            }
+          });
+
+    if (!result?.ok || result?.pending) {
+      throw new Error('Payment intent not created');
+    }
+
+    const { clientSecret } = result.data;
+    if (!clientSecret) throw new Error('Missing clientSecret');
+
+    // ✅ Stripe Elements mounts HERE
+    mountStripeElements(clientSecret);
+
+    } catch (err) {
+      console.error(err);
+      tShow('Payment initialization failed.', 'error');
+      setTimeout(()=>tHide(), 1400);
+    }
+  };
 
       setTimeout(()=>tHide(), 900);
     } catch (e){
