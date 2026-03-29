@@ -3869,7 +3869,6 @@ if (emailFromServer) {
       ck.style.opacity = '1';
     }
   }
-0
   // ----- Catalog + state -----
   let CATALOG = null;
   let PRODUCTS = [];
@@ -4298,6 +4297,10 @@ window.openQuickShopCart = function () {
   // Payload act: "createCheckout" (what your actor uses)
 
   let checkoutInFlight = false;
+    // ✅ Phase-2 storage for payment intent
+  let lastCheckoutResult = null;
+  let paymentInFlight = false;
+
 
   async function doCheckout(){
     if (checkoutInFlight) return;
@@ -4402,7 +4405,7 @@ window.openQuickShopCart = function () {
         .forEach(el => el.disabled = true);
       
       // ✅ Save the authoritative checkout payload for phase 2
-      lastCheckoutResult = { ...checkoutResult };
+      lastCheckoutResult = { ...checkoutResult, sid };
 
       // ✅ Promote button UI only (no onclick rebinding)
       qsCheckoutBtn.textContent = 'Pay Now';
@@ -4419,6 +4422,59 @@ window.openQuickShopCart = function () {
       qsCheckoutBtn.disabled = false;
     }
   }
+  
+
+// ✅ Phase-2 action: createPaymentIntent using OmniTok pipeline
+async function doCreatePaymentIntent() {
+  if (paymentInFlight) return;
+
+  if (!lastCheckoutResult) {
+    tShow('No checkout payload found — click Checkout first.', 'error');
+    setTimeout(() => tHide(), 1400);
+    return;
+  }
+
+  paymentInFlight = true;
+  qsCheckoutBtn.disabled = true;
+
+  try {
+    tReset(cartToastCard);
+    tSpinner(true);
+    tShow('Preparing payment…');
+
+    const result = await callOmniEndpoint({
+      act: 'createPaymentIntent',
+      payload: { ...lastCheckoutResult }
+    });
+
+    if (!result?.ok || result?.pending) {
+      throw new Error('Payment intent not created');
+    }
+
+    const { clientSecret } = (result.data || {});
+    if (!clientSecret) throw new Error('Missing clientSecret');
+
+    // ✅ Stripe Elements mounts HERE
+    mountStripeElements(clientSecret);
+    qsCheckoutBtn.textContent = 'Payment Ready'
+    qsCheckoutBtn.dataset.phase = 'submitted';
+
+  } catch (err) {
+    console.error(err);
+    tShow('Payment initialization failed.', 'error');
+    setTimeout(() => tHide(), 1400);
+
+    // ✅ stay in payment phase so user can retry Pay Now
+    qsCheckoutBtn.textContent = 'Pay Now';
+    qsCheckoutBtn.dataset.phase = 'payment';
+
+  } finally {
+    paymentInFlight = false;
+    if (qsCheckoutBtn.dataset.phase !== 'submitted') {
+      qsCheckoutBtn.disabled = false;
+    } 
+  }
+}
 
   qsCheckoutBtn?.addEventListener('click', (e) => {
     e.preventDefault();
@@ -4428,6 +4484,8 @@ window.openQuickShopCart = function () {
     }
 
     const phase = qsCheckoutBtn.dataset.phase || 'checkout';
+
+    if (phase === 'submitted') return;
 
     // If we’re in payment phase, DO NOT call doCheckout again
     if (phase === 'payment') {
