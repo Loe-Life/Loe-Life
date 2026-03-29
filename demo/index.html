@@ -4645,6 +4645,13 @@ async function doCreatePaymentIntent() {
   tSpinner(true);
   tShow('Submitting payment…');
 
+  
+  // ✅ ensure toast is visible even in long cart
+  if (cartToastCard) {
+    cartToastCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+
   try {
     // confirmPayment requires a return_url in Stripe’s API shape.
     // This is NOT a “Checkout URL” — it’s only used if 3DS/redirect is required.
@@ -4670,11 +4677,32 @@ async function doCreatePaymentIntent() {
     tShow('Payment submitted.', 'success');
     tCheck();
 
-    qsCheckoutBtn.textContent = 'Paid';
-    qsCheckoutBtn.dataset.phase = 'paid';
-    qsCheckoutBtn.disabled = true;
+    // ✅ FRONTEND PAYMENT RESOLUTION
 
-    setTimeout(()=>tHide(), 900);
+// 1️⃣ Hide Stripe Elements immediately
+const stripeMount = document.getElementById('qsStripeMount');
+const stripeSection = document.getElementById('qsStripeSection');
+if (stripeMount) stripeMount.innerHTML = '';
+if (stripeSection) stripeSection.style.display = 'none';
+
+// 2️⃣ Success toast (final UX signal)
+tReset(cartToastCard);
+tShow('Payment Success — Thank you for your order!', 'success');
+tCheck();
+
+// 3️⃣ Lock button into terminal state
+qsCheckoutBtn.textContent = 'Paid';
+qsCheckoutBtn.dataset.phase = 'paid';
+qsCheckoutBtn.disabled = true;
+
+// 4️⃣ After toast is visible, close + reset cart scene
+setTimeout(() => {
+  tHide();
+
+  clearQuickshopSession();   // clears cart + order, preserves user
+  closeCartUI();             // existing cart close behavior
+
+}, 1600);
 
   } catch (err) {
     console.error(err);
@@ -4683,6 +4711,28 @@ async function doCreatePaymentIntent() {
     setTimeout(()=>tHide(), 1600);
     qsCheckoutBtn.disabled = false;
   }
+}
+
+function clearQuickshopSession() {
+  // ✅ preserve signed-in user identity
+  const preserveKeys = [
+    'authUser',
+    'loggedInUser',
+    'ciamUser'
+  ];
+
+  const preserved = {};
+  preserveKeys.forEach(k => {
+    if (sessionStorage.getItem(k)) {
+      preserved[k] = sessionStorage.getItem(k);
+    }
+  });
+
+  sessionStorage.clear();
+
+  Object.entries(preserved).forEach(([k, v]) => {
+    sessionStorage.setItem(k, v);
+  });
 }
 
   // ----- Load catalog + boot -----
