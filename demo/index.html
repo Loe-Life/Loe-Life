@@ -4321,6 +4321,8 @@ window.openQuickShopCart = function () {
       setTimeout(()=>tHide(), 1400);
       // open your profile menu
       document.getElementById('profileBtn')?.click?.();
+      checkoutInFlight = false;
+      qsCheckoutBtn.disabled = false;
       return;
     }
 
@@ -4360,13 +4362,19 @@ window.openQuickShopCart = function () {
       if (typeof totals?.total === 'number')
         qsTotal.textContent = money(totals.total);
 
+      tShow(data?.message || 'Checkout created.', 'success');
+      tCheck();
+
       // ✅ Lock cart controls after authoritative totals
       document
         .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
         .forEach(el => el.disabled = true);
+      
+      qsCheckoutBtn.textContent = 'Pay Now';
+      qsCheckoutBtn.dataset.phase = 'payment';
+      qsCheckoutBtn.disabled = false;
 
-      tShow(data?.message || 'Checkout created.', 'success');
-      tCheck();
+      qsCheckoutBtn.onclick = null;
 
       // ✅ Promote checkout button to NEXT PHASE: createPaymentIntent
       qsCheckoutBtn.onclick = async () => {
@@ -4377,7 +4385,7 @@ window.openQuickShopCart = function () {
           const result = await callOmniEndpoint({
             act: 'createPaymentIntent',
             payload: {
-              ...checkoutResults,         
+              ...checkoutResult,         
               sid                               
             }
           });
@@ -4393,10 +4401,14 @@ window.openQuickShopCart = function () {
     mountStripeElements(clientSecret);
 
     } catch (err) {
-      console.error(err);
-      tShow('Payment initialization failed.', 'error');
-      setTimeout(()=>tHide(), 1400);
-    }
+     console.error(err);
+     tShow('Payment initialization failed.', 'error');
+     setTimeout(() => tHide(), 1400);
+
+     // ✅ revert button to checkout state
+     qsCheckoutBtn.textContent = 'Checkout';
+     qsCheckoutBtn.dataset.phase = 'checkout';
+   }
   };
 
       setTimeout(()=>tHide(), 900);
