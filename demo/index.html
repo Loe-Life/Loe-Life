@@ -4459,7 +4459,7 @@ async function doCreatePaymentIntent() {
 
     const result = await callOmniEndpoint({
       act: 'createPaymentIntent',
-      payload: { ...lastCheckoutResult, act: 'createPatmentIntent' }
+      payload: { ...lastCheckoutResult, act: 'createPaymentIntent' }
     });
 
     if (!result?.ok || result?.pending) {
