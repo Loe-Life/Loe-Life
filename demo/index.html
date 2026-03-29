@@ -4159,6 +4159,13 @@ function clearCheckoutSession(){
   // ✅ Unlock cart (but KEEP orderNumber)
   setCheckoutSession({ phase: 'draft', totals: null });
 
+  
+  // ✅ reset button to human “checkout” step
+  qsCheckoutBtn.textContent = 'Checkout';
+  qsCheckoutBtn.dataset.phase = 'checkout';
+  qsCheckoutBtn.disabled = (cart.length === 0);
+
+
   // ✅ Re-enable cart controls
   document
     .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
@@ -4456,7 +4463,7 @@ async function doCreatePaymentIntent() {
 
     // ✅ Stripe Elements mounts HERE
     mountStripeElements(clientSecret);
-    qsCheckoutBtn.textContent = 'Payment Ready'
+    qsCheckoutBtn.textContent = 'Submit Payment'
     qsCheckoutBtn.dataset.phase = 'submitted';
 
   } catch (err) {
