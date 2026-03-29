@@ -4277,7 +4277,15 @@ function clearCheckoutSession(){
   qsTax.textContent = money(t.tax);
   qsTotal.textContent = money(t.total);
 
-  qsCheckoutBtn.disabled = cart.length === 0 || isLocked;
+  const btnPhase = qsCheckoutBtn.dataset.phase || 'checkout';
+
+  // In checkout phase: disabled if empty or locked
+  if (btnPhase === 'checkout') {
+    qsCheckoutBtn.disabled = cart.length === 0 || isLocked;
+  } else {
+    // In payment/submitted phases: allow button (inFlight handlers still gate)
+    qsCheckoutBtn.disabled = false;
+  }
   
   document
     .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
@@ -4463,7 +4471,7 @@ async function doCreatePaymentIntent() {
 
     // ✅ Stripe Elements mounts HERE
     mountStripeElements(clientSecret);
-    qsCheckoutBtn.textContent = 'Submit Payment'
+    qsCheckoutBtn.textContent = 'Submit Payment';
     qsCheckoutBtn.dataset.phase = 'submitted';
 
   } catch (err) {
@@ -4492,7 +4500,10 @@ async function doCreatePaymentIntent() {
 
     const phase = qsCheckoutBtn.dataset.phase || 'checkout';
 
-    if (phase === 'submitted') return;
+    if (phase === 'submitted') {
+      submitStripePayment();
+      return;
+    }
 
     // If we’re in payment phase, DO NOT call doCheckout again
     if (phase === 'payment') {
@@ -4504,6 +4515,11 @@ async function doCreatePaymentIntent() {
     qsCheckoutBtn.disabled = true;
     doCheckout();
   });
+
+  function submitStripePayment(){
+  tShow('Payment UI not wired yet.', 'error');
+  setTimeout(()=>tHide(), 1400);
+}
 
   // ----- Load catalog + boot -----
   async function loadCatalog(){
