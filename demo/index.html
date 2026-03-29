@@ -2495,8 +2495,28 @@ async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   return { ok: true, sid, data };
 }
     /* ===========================
+       Toast reset
+       =========================== */
+
+
+       // ✅ Global toast reset (works for ANY toast, as long as you pass the right card)
+function tReset(toastCard){
+  if (!toastCard) return;
+
+  const sp = toastCard.querySelector('.toast-spinner');
+  const ck = toastCard.querySelector('.toast-checkmark');
+
+  if (sp) sp.style.opacity = '1';
+  if (ck) {
+    ck.classList.remove('animate');
+    ck.style.opacity = '0';
+  }
+}
+    /* ===========================
        Modal helpers (focus trap + Escape)
        =========================== */
+
+
     function openModal(id, focusSelector) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -2889,7 +2909,9 @@ function pShowCheckmark() {
 
 try {
   // start spinner BEFORE OmniTok call
+  
   scrollProfileModalToTop();
+  tReset(pToastCard);
   pShowSpinner();
   pShowToast('Creating profile…');
 
@@ -3013,6 +3035,7 @@ try {
     signInSubmitBtn.disabled = true;
 
     // spinner starts BEFORE OmniTok call
+    tReset(toastCard);
     siShowSpinner();
     siShowToast('Signing in…');
 
@@ -3222,6 +3245,8 @@ if (emailFromServer) {
     const ctx = { sid: crypto.randomUUID(), email, phone: phone || null, smsConsent, bundle: null };
     saveCtx(ctx);
 
+
+    tReset(toastCard);
     tSpinner(true);
     tShow('Sending verification code…');
 
@@ -3259,6 +3284,8 @@ if (emailFromServer) {
     const ck = toastCard?.querySelector('.toast-checkmark');
     if (ck) ck.style.opacity = '0';
 
+
+    tReset(toastCard);
     tSpinner(true);
     tShow('Verifying code…');
 
@@ -3307,6 +3334,8 @@ if (emailFromServer) {
     const ck = toastCard?.querySelector('.toast-checkmark');
     if (ck) ck.style.opacity = '0';    
 
+
+    tReset(toastCard);
     tSpinner(true);
     tShow('Resetting password…');
 
@@ -3840,7 +3869,7 @@ if (emailFromServer) {
       ck.style.opacity = '1';
     }
   }
-
+0
   // ----- Catalog + state -----
   let CATALOG = null;
   let PRODUCTS = [];
@@ -3850,6 +3879,7 @@ if (emailFromServer) {
   const CART_KEY = 'loe_quick_cart_v1';
   let cart = loadCart();
   updateCartBadge(cart);
+
   function loadCart(){
     try { return JSON.parse(sessionStorage.getItem(CART_KEY) || '[]'); }
     catch { return []; }
@@ -4326,6 +4356,7 @@ window.openQuickShopCart = function () {
       return;
     }
 
+    tReset(cartToastCard);
     tSpinner(true);
     tShow('Requesting totals…');
 
@@ -4370,46 +4401,13 @@ window.openQuickShopCart = function () {
         .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
         .forEach(el => el.disabled = true);
       
+      // ✅ Save the authoritative checkout payload for phase 2
+      lastCheckoutResult = { ...checkoutResult };
+
+      // ✅ Promote button UI only (no onclick rebinding)
       qsCheckoutBtn.textContent = 'Pay Now';
       qsCheckoutBtn.dataset.phase = 'payment';
       qsCheckoutBtn.disabled = false;
-
-      qsCheckoutBtn.onclick = null;
-
-      // ✅ Promote checkout button to NEXT PHASE: createPaymentIntent
-      qsCheckoutBtn.onclick = async () => {
-        try {
-          tSpinner(true);
-          tShow('Preparing payment…');
-
-          const result = await callOmniEndpoint({
-            act: 'createPaymentIntent',
-            payload: {
-              ...checkoutResult,         
-              sid                               
-            }
-          });
-
-    if (!result?.ok || result?.pending) {
-      throw new Error('Payment intent not created');
-    }
-
-    const { clientSecret } = result.data;
-    if (!clientSecret) throw new Error('Missing clientSecret');
-
-    // ✅ Stripe Elements mounts HERE
-    mountStripeElements(clientSecret);
-
-    } catch (err) {
-     console.error(err);
-     tShow('Payment initialization failed.', 'error');
-     setTimeout(() => tHide(), 1400);
-
-     // ✅ revert button to checkout state
-     qsCheckoutBtn.textContent = 'Checkout';
-     qsCheckoutBtn.dataset.phase = 'checkout';
-   }
-  };
 
       setTimeout(()=>tHide(), 900);
     } catch (e){
@@ -4422,9 +4420,22 @@ window.openQuickShopCart = function () {
     }
   }
 
-  qsCheckoutBtn?.addEventListener('click', (e)=>{
+  qsCheckoutBtn?.addEventListener('click', (e) => {
     e.preventDefault();
-    if (qsCheckoutBtn.dataset.originalText == null) qsCheckoutBtn.dataset.originalText = qsCheckoutBtn.textContent;
+
+    if (qsCheckoutBtn.dataset.originalText == null) {
+      qsCheckoutBtn.dataset.originalText = qsCheckoutBtn.textContent;
+    }
+
+    const phase = qsCheckoutBtn.dataset.phase || 'checkout';
+
+    // If we’re in payment phase, DO NOT call doCheckout again
+    if (phase === 'payment') {
+      doCreatePaymentIntent();
+      return;
+    }
+
+    // default: checkout phase
     qsCheckoutBtn.disabled = true;
     doCheckout();
   });
