@@ -153,7 +153,26 @@
       --maxw: 1100px;
       --header-h: 56px;
       --banner: #00001b63;
-    }
+    
+
+      --colorBackground: #0b0f17;
+      --colorText: #c7cdd7;
+      --colorTextSecondary: #b7c0cf;
+      --colorPrimary: #8d2422;      
+      --colorDanger: #ff5a5f;
+
+
+
+        --color: #c93330d5;
+
+        --backgroundColor: #0f1623;
+        --borderColor: rgba(255,255,255,0.10);
+        --color: #e9eef7;
+
+        --borderColor: #c93330;
+
+  }
+
 
     * { box-sizing: border-box; }
 
@@ -2325,7 +2344,7 @@ function mountStripeElements(clientSecret) {
       colorBackground: '#0b0f17',
       colorText: '#e9eef7',
       colorTextSecondary: '#b7c0cf',
-      colorPrimary: '#c93330',      // no alpha here (safe)
+      colorPrimary: '#8d2422',      // no alpha here (safe)
       colorDanger: '#ff5a5f',
       borderRadius: '10px',
       fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Arial'
@@ -4550,6 +4569,7 @@ async function doCreatePaymentIntent() {
     mountStripeElements(clientSecret);
     qsCheckoutBtn.textContent = 'Submit Payment';
     qsCheckoutBtn.dataset.phase = 'submitted';
+    qsCheckoutBtn.disabled = false;
     tShow('Payment Ready', 'success');
     tCheck();
     setTimeout(()=>tHide(), 900);
@@ -4565,7 +4585,7 @@ async function doCreatePaymentIntent() {
 
   } finally {
     paymentInFlight = false;
-    if (qsCheckoutBtn.dataset.phase !== 'submitted') {
+    if (qsCheckoutBtn.dataset.phase !== 'paid') {
       qsCheckoutBtn.disabled = false;
     } 
   }
