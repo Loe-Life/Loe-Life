@@ -4420,7 +4420,7 @@ window.openQuickShopCart = function () {
         .forEach(el => el.disabled = true);
       
       // ✅ Save the authoritative checkout payload for phase 2
-      lastCheckoutResult = { ...checkoutResult, sid };
+      lastCheckoutResult = { ...payload, ...checkoutResult, sid };
 
       // ✅ Promote button UI only (no onclick rebinding)
       qsCheckoutBtn.textContent = 'Pay Now';
@@ -4459,7 +4459,7 @@ async function doCreatePaymentIntent() {
 
     const result = await callOmniEndpoint({
       act: 'createPaymentIntent',
-      payload: { ...lastCheckoutResult }
+      payload: { ...lastCheckoutResult, act: 'createPatmentIntent' }
     });
 
     if (!result?.ok || result?.pending) {
