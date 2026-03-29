@@ -2315,7 +2315,40 @@ function mountStripeElements(clientSecret) {
   if (!mount) throw new Error('#qsStripeMount missing');
   mount.innerHTML = '';
 
-  elements = stripe.elements({ clientSecret });
+  // Stripe Appearance API (dark)
+  // - theme:'night' for dark baseline [1](https://docs.stripe.com/elements/appearance-api)
+  // - label accent uses rules so we can keep your alpha color (#c93330d5)
+  // - avoid alpha in colorPrimary variables (Stripe warns these variables don't support rgba/alpha) [1](https://docs.stripe.com/elements/appearance-api)
+  const appearance = {
+    theme: 'night',
+    variables: {
+      colorBackground: '#0b0f17',
+      colorText: '#e9eef7',
+      colorTextSecondary: '#b7c0cf',
+      colorPrimary: '#c93330',      // no alpha here (safe)
+      colorDanger: '#ff5a5f',
+      borderRadius: '10px',
+      fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Arial'
+    },
+    rules: {
+      '.Label': {
+        color: '#c93330d5'
+      },
+      '.Input': {
+        backgroundColor: '#0f1623',
+        borderColor: 'rgba(255,255,255,0.10)',
+        color: '#e9eef7'
+      },
+      '.Input:focus': {
+        borderColor: '#c93330'
+      }
+    }
+  };
+
+  elements = stripe.elements({
+    clientSecret,
+    appearance
+  });
 
   const paymentElement = elements.create('payment');
   paymentElement.mount('#qsStripeMount');
@@ -4517,6 +4550,9 @@ async function doCreatePaymentIntent() {
     mountStripeElements(clientSecret);
     qsCheckoutBtn.textContent = 'Submit Payment';
     qsCheckoutBtn.dataset.phase = 'submitted';
+    tShow('Payment Ready', 'success');
+    tCheck();
+    setTimeout(()=>tHide(), 900);
 
   } catch (err) {
     console.error(err);
@@ -4535,7 +4571,7 @@ async function doCreatePaymentIntent() {
   }
 }
 
-  qsCheckoutBtn?.addEventListener('click', (e) => {
+  qsCheckoutBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
 
     if (qsCheckoutBtn.dataset.originalText == null) {
@@ -4543,11 +4579,12 @@ async function doCreatePaymentIntent() {
     }
 
     const phase = qsCheckoutBtn.dataset.phase || 'checkout';
+    console.log('[QS] click', { phase, text: qsCheckoutBtn.textContent, disabled: qsCheckoutBtn.disabled });
 
     if (phase === 'paid') return;
 
     if (phase === 'submitted') {
-      submitStripePayment();
+      await submitStripePayment();
       return;
     }
 
@@ -4563,6 +4600,13 @@ async function doCreatePaymentIntent() {
   });
 
   async function submitStripePayment(){
+      
+      console.log('[QS] submitStripePayment start', {
+        hasStripe: (typeof stripe !== 'undefined'),
+        hasElements: !!elements,
+        toastCard: !!cartToastCard
+      });
+
   // hard guards
   if (!window.stripe && typeof stripe === 'undefined') {
     tShow('Stripe not loaded.', 'error');
