@@ -2209,6 +2209,12 @@ header nav{
       </div>
     </div>
 
+    <!-- Stripe Elements mount -->
+    <div id="qsStripeSection"
+          style="margin-top:14px; display:none;">
+      <div id="qsStripeMount"></div>
+    </div>
+
     <div class="contact-actions">
       <button id="qsCartContinueBtn" class="btn" type="button">Continue Shopping</button>
       <button id="qsCheckoutBtn" class="btn primary" type="button" data-loading-text="Checking out…">Checkout</button>
@@ -2281,7 +2287,45 @@ header nav{
     </div>
   </footer>
 
+
+  <script src="https://js.stripe.com/v3/"></script>
+
   <script>
+
+//=============
+// STRIPE MOUNT
+//=============
+
+const stripe = Stripe('pk_test_51TANxIBScwxnsNSXUVPbpCYbUsmIJsGyRt5pOeIWUMxZY7zAToYNbyP5dwlZbQtMObyMc0eNSWgIbSbyA6qVXD1P00jJz1ziWE');
+
+let elements;
+let qsStripeClientSecret = null;
+
+function mountStripeElements(clientSecret) {
+  // idempotent: if same intent already mounted, just reveal
+  if (elements && qsStripeClientSecret === clientSecret) {
+    document.getElementById('qsStripeSection').style.display = 'block';
+    return;
+  }
+
+  qsStripeClientSecret = clientSecret;
+
+  // wipe old mount DOM if remounting
+  const mount = document.getElementById('qsStripeMount');
+  if (!mount) throw new Error('#qsStripeMount missing');
+  mount.innerHTML = '';
+
+  elements = stripe.elements({ clientSecret });
+
+  const paymentElement = elements.create('payment');
+  paymentElement.mount('#qsStripeMount');
+
+  // reveal the section inside your cart container
+  const sec = document.getElementById('qsStripeSection');
+  if (sec) sec.style.display = 'block';
+}
+
+
     /* ===========================
        Year
        =========================== */
@@ -4500,6 +4544,8 @@ async function doCreatePaymentIntent() {
 
     const phase = qsCheckoutBtn.dataset.phase || 'checkout';
 
+    if (phase === 'paid') return;
+
     if (phase === 'submitted') {
       submitStripePayment();
       return;
@@ -4516,9 +4562,63 @@ async function doCreatePaymentIntent() {
     doCheckout();
   });
 
-  function submitStripePayment(){
-  tShow('Payment UI not wired yet.', 'error');
-  setTimeout(()=>tHide(), 1400);
+  async function submitStripePayment(){
+  // hard guards
+  if (!window.stripe && typeof stripe === 'undefined') {
+    tShow('Stripe not loaded.', 'error');
+    setTimeout(()=>tHide(), 1400);
+    return;
+  }
+  if (!elements) {
+    tShow('Payment form not mounted yet.', 'error');
+    setTimeout(()=>tHide(), 1400);
+    return;
+  }
+
+  // UX: lock button + toast
+  qsCheckoutBtn.disabled = true;
+  tReset(cartToastCard);
+  tSpinner(true);
+  tShow('Submitting payment…');
+
+  try {
+    // confirmPayment requires a return_url in Stripe’s API shape.
+    // This is NOT a “Checkout URL” — it’s only used if 3DS/redirect is required.
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.href
+      },
+      redirect: 'if_required'
+    });
+
+    if (error) {
+      console.error(error);
+      tSpinner(false);
+      tShow(error.message || 'Payment failed — try again.', 'error');
+      setTimeout(()=>tHide(), 1600);
+      qsCheckoutBtn.disabled = false;
+      return;
+    }
+
+    // If no error, Stripe either succeeded immediately or handled required action.
+    // Keep UI deterministic.
+    tShow('Payment submitted.', 'success');
+    tCheck();
+
+    qsCheckoutBtn.textContent = 'Paid';
+    qsCheckoutBtn.dataset.phase = 'paid';
+    qsCheckoutBtn.disabled = true;
+
+    setTimeout(()=>tHide(), 900);
+
+  } catch (err) {
+    console.error(err);
+    tSpinner(false);
+    tShow('Payment submission failed — try again.', 'error');
+    setTimeout(()=>tHide(), 1600);
+    qsCheckoutBtn.disabled = false;
+  }
 }
 
   // ----- Load catalog + boot -----
