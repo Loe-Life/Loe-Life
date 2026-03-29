@@ -2447,7 +2447,7 @@ async function getOmniTok(actOrObj) {
 async function callOmniEndpoint({ act, payload, extraForIssuer }) {
   // 1) mint token bundle (fresh sid happens inside getOmniTok)
   const bundle = await getOmniTok(
-    extraForIssuer ? { act, ...extraForIssuer } : act
+    extraForIssuer ? { ...extraForIssuer, act } : act
   );
 
   const { endpoint, authToken, OmniTok: omniTok, sid } = bundle;
