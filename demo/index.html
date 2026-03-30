@@ -4709,6 +4709,14 @@ async function doCreatePaymentIntent() {
   qsCheckoutBtn?.addEventListener('click', async (e) => {
     e.preventDefault();
 
+    // ✅ UX: explain why checkout is disabled when cart is empty
+  if (cart.length === 0) {
+    tReset(cartToastCard);
+    tShow('Add items to your cart before checkout.', 'error');
+    setTimeout(() => tHide(), 1400);
+    return;
+  }
+
     if (qsCheckoutBtn.dataset.originalText == null) {
       qsCheckoutBtn.dataset.originalText = qsCheckoutBtn.textContent;
     }
