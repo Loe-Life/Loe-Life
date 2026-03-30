@@ -1361,6 +1361,11 @@ header nav{
   opacity: 0.75;
 }
 
+.qs-soft-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 /* ===============================
    Quick Shop + Product Popup Selects
    =============================== */
@@ -4455,33 +4460,59 @@ function clearCheckoutSession(){
 
   const btnPhase = qsCheckoutBtn.dataset.phase || 'checkout';
 
-  // In checkout phase: disabled if empty or locked
-  if (btnPhase === 'checkout') {
-    qsCheckoutBtn.disabled = cart.length === 0 || isLocked;
+/*
+  Button policy:
+  - checkout phase:
+      - LOCKED => hard-disabled (no click, cart is authoritative/locked)
+      - EMPTY  => soft-disabled (clickable; click handler shows toast)
+      - HAS ITEMS => enabled
+  - payment/submitted => enabled (your inFlight flags gate re-entry)
+  - paid => hard-disabled (terminal)
+*/
+
+// --- hard terminal: paid ---
+if (btnPhase === 'paid') {
+  qsCheckoutBtn.disabled = true;
+  qsCheckoutBtn.classList.remove('qs-soft-disabled');
+  qsCheckoutBtn.removeAttribute('aria-disabled');
+
+} else if (btnPhase === 'checkout') {
+  // hard-disable only when locked
+  if (isLocked) {
+    qsCheckoutBtn.disabled = true;
+    qsCheckoutBtn.classList.remove('qs-soft-disabled');
+    qsCheckoutBtn.removeAttribute('aria-disabled');
+
   } else {
-    // In payment/submitted phases: allow button (inFlight handlers still gate)
+    // not locked: allow clicks
     qsCheckoutBtn.disabled = false;
+
+    if (cart.length === 0) {
+      // soft-disabled for empty-cart toast path
+      qsCheckoutBtn.classList.add('qs-soft-disabled');
+      qsCheckoutBtn.setAttribute('aria-disabled', 'true');
+    } else {
+      qsCheckoutBtn.classList.remove('qs-soft-disabled');
+      qsCheckoutBtn.removeAttribute('aria-disabled');
+    }
   }
-  
-  document
-    .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
-    .forEach(el => {
-      el.disabled = isLocked;
+
+} else {
+  // payment/submitted (and any future non-checkout phases)
+  qsCheckoutBtn.disabled = false;
+  qsCheckoutBtn.classList.remove('qs-soft-disabled');
+  qsCheckoutBtn.removeAttribute('aria-disabled');
+}
+
+// Cart controls are locked only when checkout session is locked
+document
+  .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
+  .forEach(el => {
+    el.disabled = isLocked;
   });
 
-  updateCartBadge(cart);
-  renderOrderNumberInCart();
-
-  
-  // ✅ ENABLE CHECKOUT LOOP WHEN CART IS NON‑EMPTY
-  if (cart.length > 0 && qsCheckoutBtn.dataset.phase === 'checkout') {
-    qsCheckoutBtn.disabled = false;
-  }
-
-  // ✅ KEEP CHECKOUT DISABLED IF CART IS EMPTY
-  if (cart.length === 0 && qsCheckoutBtn.dataset.phase === 'checkout') {
-    qsCheckoutBtn.disabled = true;
-  }
+updateCartBadge(cart);
+renderOrderNumberInCart();
 
 }
 
