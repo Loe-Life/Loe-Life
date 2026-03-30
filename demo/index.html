@@ -2754,33 +2754,27 @@ function tReset(toastCard){
   });
 
   pmSignOutBtn?.addEventListener('click', () => {
-  // ✅ HARD RESET: nuke all client session state
+  // ✅ Nuke all session state
   sessionStorage.clear();
 
-  // ✅ Reset in-memory cart safely
-  if (Array.isArray(cart)) cart.length = 0;
-  updateCartBadge([]);
-
-  // ✅ Unmount Stripe Elements if present
-  const stripeMount = document.getElementById('qsStripeMount');
-  const stripeSection = document.getElementById('qsStripeSection');
-  if (stripeMount) stripeMount.innerHTML = '';
-  if (stripeSection) stripeSection.style.display = 'none';
-
-  // ✅ RESET CHECKOUT LOOP COMPLETELY
+  // ✅ Reset checkout loop ONLY (no cart references)
   qsCheckoutBtn.textContent = 'Checkout';
   qsCheckoutBtn.dataset.phase = 'checkout';
   qsCheckoutBtn.disabled = true;
 
-  // ✅ Ensure Continue Shopping is visible
+  // ✅ Restore Continue Shopping if it was hidden
   qsCartContinueBtn.style.display = '';
 
-  // ✅ Close any open modals
+  // ✅ Update cart badge (safe, already global)
+  updateCartBadge();
 
+  // ✅ Move focus out of modal BEFORE closing (silences aria warning)
+  document.body.focus();
+
+  // ✅ Close profile modal
   closeModal('profileMenuPopup');
-  closeModal(cartPopupId);
 
-  // ✅ Sync auth UI last (authoritative)
+  // ✅ Sync auth UI last
   syncAuthUI();
 });
 
