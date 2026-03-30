@@ -1332,6 +1332,14 @@ header nav{
   border: 1px solid rgba(255,255,255,0.10);
 }
 
+.qs-order-number {
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-redsoft);
+  letter-spacing: 0.3px;
+}
+
 /* ===============================
    Quick Shop + Product Popup Selects
    =============================== */
@@ -2205,10 +2213,8 @@ header nav{
     <button id="qsCartCloseBtn" type="button" class="modal-x-btn" aria-label="Close cart">✕</button>
 
     <h2 id="qsCartTitle">Cart</h2>
-    <div id="qsOrderNumberRow"
-     class="qs-order-number"
-     style="display:none; margin-top:6px; font-size:13px; opacity:0.85;">
-    </div>
+    <div id="qsOrderNumberRow" class="qs-order-number" style="display:none;"></div>
+
     <p class="small" style="margin-top:-6px;">Totals are confirmed by the server at checkout.</p>
 
     <ul id="qsCartList" class="list" style="padding-left:18px; margin:12px 0;"></ul>
@@ -4569,6 +4575,8 @@ window.openQuickShopCart = function () {
       qsCheckoutBtn.textContent = 'Pay Now';
       qsCheckoutBtn.dataset.phase = 'payment';
       qsCheckoutBtn.disabled = false;
+
+      renderCart();
 
       setTimeout(()=>tHide(), 900);
     } catch (e){
