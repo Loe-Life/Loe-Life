@@ -2757,10 +2757,9 @@ function tReset(toastCard){
   // ✅ HARD RESET: nuke all client session state
   sessionStorage.clear();
 
-  // ✅ Reset in-memory cart
-  cart = [];
-  updateCartBadge(cart);
-  renderCart();
+  // ✅ Reset in-memory cart safely
+  if (Array.isArray(cart)) cart.length = 0;
+  updateCartBadge([]);
 
   // ✅ Unmount Stripe Elements if present
   const stripeMount = document.getElementById('qsStripeMount');
@@ -2777,8 +2776,9 @@ function tReset(toastCard){
   qsCartContinueBtn.style.display = '';
 
   // ✅ Close any open modals
-  closeModal(cartPopupId);
+
   closeModal('profileMenuPopup');
+  closeModal(cartPopupId);
 
   // ✅ Sync auth UI last (authoritative)
   syncAuthUI();
