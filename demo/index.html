@@ -4861,24 +4861,30 @@ qsCheckoutBtn.disabled = true;
 setTimeout(() => {
   tHide();
 
-  // ✅ Inject post-payment confirmation panel inside cart
+ 
+// ✅ Inject post-payment confirmation panel WITHOUT destroying cart DOM
 const cartCard = document.querySelector('#qsCartPopup .contact-card');
 if (cartCard) {
-  cartCard.innerHTML = `
+  let panel = document.getElementById('qsPostPayPanel');
+  if (!panel) {
+    panel = document.createElement('div');
+    panel.id = 'qsPostPayPanel';
+
+    // put it just above the action buttons if possible, else append
+    const actions = cartCard.querySelector('.contact-actions');
+    if (actions) cartCard.insertBefore(panel, actions);
+    else cartCard.appendChild(panel);
+  }
+
+  panel.innerHTML = `
     <div class="qs-postpay">
       <h2>Thank you for your order!</h2>
-      <p class="qs-postpay-lead">
-        Your payment was successful.
-      </p>
-      <p>
-        A receipt and any available tracking information will be sent
-        to your email shortly.
-      </p>
-      <p class="qs-postpay-muted">
-        You may continue shopping at any time.
-      </p>
+      <p class="qs-postpay-lead">Your payment was successful.</p>
+      <p>A receipt and any available tracking information will be sent to your email shortly.</p>
+      <p class="qs-postpay-muted">You may continue shopping at any time.</p>
     </div>
   `;
+  panel.style.display = 'block';
 }
 
 setTimeout(() => {
@@ -4895,6 +4901,9 @@ setTimeout(() => {
   qsCheckoutBtn.dataset.phase = 'checkout';
   qsCheckoutBtn.disabled = true;
   qsCartContinueBtn.style.display = '';
+
+  const panel = document.getElementById('qsPostPayPanel');
+  if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; } 
 
   closeModal(cartPopupId);
 
