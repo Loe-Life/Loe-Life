@@ -2205,6 +2205,10 @@ header nav{
     <button id="qsCartCloseBtn" type="button" class="modal-x-btn" aria-label="Close cart">✕</button>
 
     <h2 id="qsCartTitle">Cart</h2>
+    <div id="qsOrderNumberRow"
+     class="qs-order-number"
+     style="display:none; margin-top:6px; font-size:13px; opacity:0.85;">
+    </div>
     <p class="small" style="margin-top:-6px;">Totals are confirmed by the server at checkout.</p>
 
     <ul id="qsCartList" class="list" style="padding-left:18px; margin:12px 0;"></ul>
@@ -3979,10 +3983,35 @@ if (emailFromServer) {
     try { return JSON.parse(sessionStorage.getItem(CART_KEY) || '[]'); }
     catch { return []; }
   }
+  
   function saveCart(){
     sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
 
+// ✅ Step 1 helper: clear cart + checkout order state (preserve auth)
+function resolveQuickshopAfterPayment(){
+  // clear cart array + storage
+  cart = [];
+  saveCart();
+  updateCartBadge(cart);
+
+  // clear checkout session (orderNumber/phase) for next order
+  clearCheckoutSession(); // you already have this function above
+
+  // reset checkout button for next order
+  qsCheckoutBtn.textContent = 'Checkout';
+  qsCheckoutBtn.dataset.phase = 'checkout';
+  qsCheckoutBtn.disabled = true; // empty cart
+
+  // hide Stripe mount region
+  const stripeMount = document.getElementById('qsStripeMount');
+  const stripeSection = document.getElementById('qsStripeSection');
+  if (stripeMount) stripeMount.innerHTML = '';
+  if (stripeSection) stripeSection.style.display = 'none';
+
+  // re-render cart UI (shows empty)
+  renderCart();
+}
   // ----- Checkout session (orderNumber + lock state) -----
 
   // Checkout phases:
@@ -4390,6 +4419,22 @@ function clearCheckoutSession(){
   });
 
   updateCartBadge(cart);
+  renderOrderNumberInCart();
+}
+
+function renderOrderNumberInCart() {
+  const el = document.getElementById('qsOrderNumberRow');
+  if (!el) return;
+
+  const orderNumber = sessionStorage.getItem('qs_orderNumber');
+
+  if (orderNumber) {
+    el.textContent = `Order # ${orderNumber}`;
+    el.style.display = 'block';
+  } else {
+    el.textContent = '';
+    el.style.display = 'none';
+  }
 }
 
   // ✅ Make header cart open use the same render pipeline
@@ -4493,6 +4538,8 @@ window.openQuickShopCart = function () {
           phase: 'locked'
         });
       }
+
+      sessionStorage.setItem('qs_orderNumber', data.orderNumber);
 
       // If your backend returns these fields, reflect them:
       if (typeof totals?.subtotal === 'number')
@@ -4651,10 +4698,23 @@ async function doCreatePaymentIntent() {
     cartToastCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  
+// ✅ Stripe Payment Element: validate & collect wallet data BEFORE confirmPayment [1](https://docs.stripe.com/js/elements/submit)[2](https://stackoverflow.com/questions/79365748/stripe-integrationerror-elements-submit-must-be-called-before-stripe-confirmp)
+if (typeof elements.submit === 'function') {
+  const { error: submitError } = await elements.submit();
+  if (submitError) {
+    tSpinner(false);
+    tShow(submitError.message || 'Payment details incomplete.', 'error');
+    setTimeout(() => tHide(), 1600);
+    qsCheckoutBtn.disabled = false;
+    return;
+  }
+}
+
+
 
   try {
-    // confirmPayment requires a return_url in Stripe’s API shape.
-    // This is NOT a “Checkout URL” — it’s only used if 3DS/redirect is required.
+    // For Stripe Elements
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -4672,11 +4732,6 @@ async function doCreatePaymentIntent() {
       return;
     }
 
-    // If no error, Stripe either succeeded immediately or handled required action.
-    // Keep UI deterministic.
-    tShow('Payment submitted.', 'success');
-    tCheck();
-
     // ✅ FRONTEND PAYMENT RESOLUTION
 
 // 1️⃣ Hide Stripe Elements immediately
@@ -4685,22 +4740,29 @@ const stripeSection = document.getElementById('qsStripeSection');
 if (stripeMount) stripeMount.innerHTML = '';
 if (stripeSection) stripeSection.style.display = 'none';
 
-// 2️⃣ Success toast (final UX signal)
+// 2️⃣ Success toast
 tReset(cartToastCard);
 tShow('Payment Success — Thank you for your order!', 'success');
 tCheck();
 
-// 3️⃣ Lock button into terminal state
+// 3️⃣ Lock button terminal
 qsCheckoutBtn.textContent = 'Paid';
 qsCheckoutBtn.dataset.phase = 'paid';
 qsCheckoutBtn.disabled = true;
 
-// 4️⃣ After toast is visible, close + reset cart scene
+// 4️⃣ After toast: clear cart + checkout session (NOT auth), then close cart
 setTimeout(() => {
   tHide();
 
-  clearQuickshopSession();   // clears cart + order, preserves user
-  closeCartUI();             // existing cart close behavior
+  sessionStorage.removeItem(CART_KEY);
+  sessionStorage.removeItem(CHECKOUT_KEY);
+  sessionStorage.removeItem('qs_orderNumber');
+
+  cart = [];
+  updateCartBadge(cart);
+  renderCart();
+
+  closeModal(cartPopupId);
 
 }, 1600);
 
