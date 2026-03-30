@@ -2734,6 +2734,7 @@ function tReset(toastCard){
 
   pmSignOutBtn?.addEventListener('click', () => {
     sessionStorage.clear();
+    updateCartBadge();
     closeModal('profileMenuPopup');
     syncAuthUI();
   });  
