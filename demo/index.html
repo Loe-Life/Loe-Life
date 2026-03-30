@@ -1335,7 +1335,7 @@ header nav{
 .qs-order-number {
   margin-top: 6px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 900;
   color: var(--accent-redsoft);
   letter-spacing: 0.3px;
 }
@@ -4286,8 +4286,13 @@ function clearCheckoutSession(){
     renderCart();
     openModal(cartPopupId, '#qsCheckoutBtn');
   }
+
+// Cart Close
   qsCartCloseBtn?.addEventListener('click', ()=> closeModal(cartPopupId));
+
+// Cart Continue
   qsCartContinueBtn?.addEventListener('click', () => {
+
   // ✅ Unlock cart (but KEEP orderNumber)
   setCheckoutSession({ phase: 'draft', totals: null });
 
@@ -4303,9 +4308,8 @@ function clearCheckoutSession(){
     .querySelectorAll('.qs-cart-controls button, .qs-cart-controls input')
     .forEach(el => el.disabled = false);
 
+  qsCartContinueBtn.style.display = '';
   closeModal(cartPopupId);
-
-  // ✅ Re-render cart using estimated totals again
   renderCart();
 });
 
@@ -4427,6 +4431,18 @@ function clearCheckoutSession(){
 
   updateCartBadge(cart);
   renderOrderNumberInCart();
+
+  
+  // ✅ ENABLE CHECKOUT LOOP WHEN CART IS NON‑EMPTY
+  if (cart.length > 0 && qsCheckoutBtn.dataset.phase === 'checkout') {
+    qsCheckoutBtn.disabled = false;
+  }
+
+  // ✅ KEEP CHECKOUT DISABLED IF CART IS EMPTY
+  if (cart.length === 0 && qsCheckoutBtn.dataset.phase === 'checkout') {
+    qsCheckoutBtn.disabled = true;
+  }
+
 }
 
 function renderOrderNumberInCart() {
@@ -4626,6 +4642,7 @@ async function doCreatePaymentIntent() {
     qsCheckoutBtn.textContent = 'Submit Payment';
     qsCheckoutBtn.dataset.phase = 'submitted';
     qsCheckoutBtn.disabled = false;
+    qsCartContinueBtn.style.display = 'none';
     tShow('Payment Ready', 'success');
     tCheck();
     setTimeout(()=>tHide(), 900);
@@ -4638,6 +4655,8 @@ async function doCreatePaymentIntent() {
     // ✅ stay in payment phase so user can retry Pay Now
     qsCheckoutBtn.textContent = 'Pay Now';
     qsCheckoutBtn.dataset.phase = 'payment';
+    qsCheckoutBtn.disabled = false;
+    qsCartContinueBtn.style.display = '';
 
   } finally {
     paymentInFlight = false;
@@ -4770,6 +4789,11 @@ setTimeout(() => {
   cart = [];
   updateCartBadge(cart);
   renderCart();
+
+  qsCheckoutBtn.textContent = 'Checkout';
+  qsCheckoutBtn.dataset.phase = 'checkout';
+  qsCheckoutBtn.disabled = true;
+  qsCartContinueBtn.style.display = '';
 
   closeModal(cartPopupId);
 
