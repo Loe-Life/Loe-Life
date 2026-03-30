@@ -4889,9 +4889,12 @@ if (cartCard) {
   
   
   panel.style.display = 'block';
-  document.getElementById('qsCartList')?.style.setProperty('display', 'none');
-  document.getElementById('qsOrderNumberRow')?.style.setProperty('display', 'none');
-  cartCard.querySelector('.contact-actions')?.style.setProperty('display', 'none');
+  
+
+// ✅ HIDE EVERYTHING ELSE VIA MODE CLASS (no IDs, no guessing)
+cartCard.classList.add('qs-postpay-mode');
+
+
 }
 
 setTimeout(() => {
@@ -4912,11 +4915,10 @@ setTimeout(() => {
   const panel = document.getElementById('qsPostPayPanel');
   if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; } 
 
-  document.getElementById('qsCartList')?.style.removeProperty('display');
-  document.getElementById('qsOrderNumberRow')?.style.removeProperty('display');
-  document
-    .querySelector('#qsCartPopup .contact-card .contact-actions')
-    ?.style.removeProperty('display');
+
+    // ADDED: restore cart UI visibility
+    if (cartCard) cartCard.classList.remove('qs-postpay-mode');
+
 
   closeModal(cartPopupId);
 
