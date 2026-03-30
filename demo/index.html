@@ -2690,6 +2690,7 @@ function tReset(toastCard){
       }
 
       function close() {
+        document.body.focus();
         // Both modal types share this API
         el.classList.add('contact-hidden');
         if (el.classList.contains('review-popup')) el.classList.add('review-hidden');
@@ -2710,6 +2711,7 @@ function tReset(toastCard){
 
     function closeModal(id) {
       const el = document.getElementById(id);
+      document.body.focus();
       if (el && typeof el._close === 'function') el._close();
       else if (el) {
         el.classList.add('contact-hidden');
@@ -4884,7 +4886,12 @@ if (cartCard) {
       <p class="qs-postpay-muted">You may continue shopping at any time.</p>
     </div>
   `;
+  
+  
   panel.style.display = 'block';
+  document.getElementById('qsCartList')?.style.setProperty('display', 'none');
+  document.getElementById('qsOrderNumberRow')?.style.setProperty('display', 'none');
+  cartCard.querySelector('.contact-actions')?.style.setProperty('display', 'none');
 }
 
 setTimeout(() => {
@@ -4904,6 +4911,12 @@ setTimeout(() => {
 
   const panel = document.getElementById('qsPostPayPanel');
   if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; } 
+
+  document.getElementById('qsCartList')?.style.removeProperty('display');
+  document.getElementById('qsOrderNumberRow')?.style.removeProperty('display');
+  document
+    .querySelector('#qsCartPopup .contact-card .contact-actions')
+    ?.style.removeProperty('display');
 
   closeModal(cartPopupId);
 
